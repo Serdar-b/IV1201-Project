@@ -20,6 +20,7 @@ const findUserByUsername = async (username, password) => {
   try {
     const res = await pool.query(query, values);
     if (res.rows.length > 0) {
+      console.log('User found:', res.rows);
       return res.rows[0]; // User found
     }
     return null; // User not found
