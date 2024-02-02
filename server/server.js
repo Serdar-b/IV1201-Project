@@ -3,7 +3,7 @@ const express = require('express');
 const authController = require('./controller/authController');
 const app = express();
 
-app.use(express.json()); // For parsing application/json
+app.use(express.json());
 
 app.post('/api/login', authController.login);
 

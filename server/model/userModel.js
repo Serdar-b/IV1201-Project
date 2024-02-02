@@ -30,25 +30,4 @@ const findUserByUsername = async (username, password) => {
   }
 };
 
- 
-
-
-// async function testLogin() {
-//   const username = 'ArmandTodd'; 
-//   const password = 'LbH38urF4Kn'; 
-
-//   try {
-//     const user = await findUserByUsername(username, password);
-//     if (user) {
-//       console.log('User found:', user);
-//     } else {
-//       console.log('User not found or incorrect password.');
-//     }
-//   } catch (error) {
-//     console.error('Error during login test:', error);
-//   }
-// }
-
-// testLogin();
-
 module.exports = { findUserByUsername };
