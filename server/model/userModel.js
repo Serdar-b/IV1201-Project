@@ -1,5 +1,5 @@
 const users = [
-    { username: 'admin', password: 'password123' }, // This should be hashed in a real application
+    { username: 'admin', password: 'password123' }, 
   ];
   
   const findUserByUsername = (username) => {
