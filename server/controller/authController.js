@@ -1,9 +1,9 @@
-const userModel = require("../integration/userRepository");
+const userDAO = require("../integration/userDAO");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
 
-  const user = await userModel.findUser(username, password);
+  const user = await userDAO.findUser(username, password);
 
   if (user) {
     const userInfo = {
