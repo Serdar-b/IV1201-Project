@@ -1,15 +1,26 @@
-require('dotenv').config(); 
+require("dotenv").config();
 
-const express = require('express');
-const authController = require('./controller/authController');
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const authController = require("./controller/authController");
 const app = express();
-//This line tells Express to use its built-in middleware to automatically parse JSON content from incoming requests.
 
-app.use(express.json()); 
+app.use(express.json());
+app.use(cookieParser());
 
-app.post('/api/login', authController.login);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, 
+    resave: false, // Don't save session if unmodified
+    saveUninitialized: false, // Don't create session until something is stored
+    cookie: { secure: true }, // Use secure cookies (only transmitted over HTTPS)
+  })
+);
 
-const port = process.env.PORT; 
+app.post("/api/login", authController.login);
+
+const port = process.env.PORT;
 const host = process.env.HOST;
 
 app.listen(port, host, () => {
