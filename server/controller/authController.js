@@ -7,9 +7,9 @@ const login = async (req, res) => {
 
   if (user) {
     const userInfo = {
-      person_id: user.person_id,
-      name: user.name,
-      username: user.username,
+      person_id: user.getPerson_id,
+      name: user.getName,
+      username: user.getUserName,
     };
 
     res.json({ success: true, message: "Login successful", user: userInfo });
