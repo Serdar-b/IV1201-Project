@@ -1,9 +1,8 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function Login(props) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();

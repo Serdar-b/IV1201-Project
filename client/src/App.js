@@ -1,24 +1,45 @@
-import './App.css';
-import React, { useState } from 'react';
-import Login from './view/login';
+import "./App.css";
+import React, { useState } from "react";
+import Login from "./view/login";
 
 function App() {
-  const [loginStatus, setLoginStatus] = useState({ isLoggedIn: false, message: '' });
+  const [loginStatus, setLoginStatus] = useState({
+    isLoggedIn: false,
+    message: "",
+    user: null,
+  });
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
+      const response = await fetch("/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
-      setLoginStatus({ isLoggedIn: data.success, message: data.message });
+
+      if (data.success) {
+        setLoginStatus({
+          isLoggedIn: true,
+          message: data.message,
+          user: data.user,
+        });
+      } else {
+        setLoginStatus({
+          isLoggedIn: false,
+          message: data.message,
+          user: null,
+        });
+      }
     } catch (error) {
-      setLoginStatus({ isLoggedIn: false, message: 'An error occurred while logging in.' });
+      setLoginStatus({
+        isLoggedIn: false,
+        message: "An error occurred while logging in.",
+        user: null,
+      });
     }
   };
 
@@ -26,6 +47,11 @@ function App() {
     <div className="App">
       <Login onLogin={handleLogin} />
       {loginStatus.message && <p>{loginStatus.message}</p>}
+      {loginStatus.isLoggedIn && loginStatus.user && (
+        <div>
+          <p className="welcome-message">Welcome, {loginStatus.user.name}!</p>
+        </div>
+      )}
     </div>
   );
 }
