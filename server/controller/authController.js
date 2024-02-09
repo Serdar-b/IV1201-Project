@@ -1,5 +1,5 @@
 const userDAO = require("../integration/userDAO");
-
+//here we authenticate if the user is logged in or not logged
 const login = async (req, res) => {
   const { username, password } = req.body;
 
@@ -12,7 +12,7 @@ const login = async (req, res) => {
       username: user.getUserName,
     };
 
-    console.log(`Session ID: ${req.sessionID}`);
+    console.log(`Session ID for ${username}: ${req.sessionID}`);
     res.json({ success: true, message: "Login successful", user: req.session.user });
   } else {
     res.status(401).json({ success: false, message: "Invalid credentials" });
