@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+// here we have our imports for all neccessary
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -23,6 +24,7 @@ app.post("/api/login", authController.login);
 
 const port = process.env.PORT;
 const host = process.env.HOST;
+
 //here we listen on which host on post request comes from frontend
 app.listen(port, host, () => {
   console.log(`Server running on ${host}:${port}`);

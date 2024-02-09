@@ -1,5 +1,7 @@
 require('dotenv').config(); 
 
+
+//we communicate with th database through this
 const { Pool } = require('pg');
 
 const pool = new Pool({
