@@ -1,5 +1,7 @@
 const userDAO = require("../integration/userDAO");
+
 //here we authenticate if the user is logged in or not logged
+//we return the current user to authcontroller by saving in Usermodel object
 const login = async (req, res) => {
   const { username, password } = req.body;
 
