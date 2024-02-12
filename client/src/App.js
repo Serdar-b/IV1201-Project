@@ -1,4 +1,4 @@
-import "./App.css";
+import './App.css';
 import React, { useState } from "react";
 import Login from "./view/login";
 
@@ -11,27 +11,26 @@ function App() {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch("http://localhost:5001/api/login", { // Replace with your Express app's URL and port
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ username, password }),
-  credentials: 'include', 
-});
+      const response = await fetch("http://localhost:5001/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
       const data = await response.json();
-
       if (data.success) {
+        localStorage.setItem("token", data.token);
         setLoginStatus({
           isLoggedIn: true,
-          message: data.message,
+          message: "Login successful",
           user: data.user,
         });
       } else {
         setLoginStatus({
           isLoggedIn: false,
-          message: data.message,
+          message: "Invalid credentials",
           user: null,
         });
       }
@@ -44,13 +43,24 @@ function App() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLoginStatus({
+      isLoggedIn: false,
+      message: "You have been logged out.",
+      user: null,
+    });
+  };
+  console.log(loginStatus.isLoggedIn === true);
   return (
     <div className="App">
-      <Login onLogin={handleLogin} />
-      {loginStatus.message && <p>{loginStatus.message}</p>}
-      {loginStatus.isLoggedIn && loginStatus.user && (
+      {!loginStatus.isLoggedIn ? (
+        <Login onLogin={handleLogin} />
+      ) : (
         <div>
           <p className="welcome-message">Welcome, {loginStatus.user.name}!</p>
+          <p>{loginStatus.message}</p>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       )}
     </div>
