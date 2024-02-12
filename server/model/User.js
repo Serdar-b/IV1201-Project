@@ -1,5 +1,3 @@
-
-//here we save the users data as object
 class User {
   constructor({
     person_id,

@@ -9,7 +9,6 @@ function App() {
     user: null,
   });
 
-  // it sends the username and password using http method
   const handleLogin = async (username, password) => {
     try {
       const response = await fetch("/api/login", {
