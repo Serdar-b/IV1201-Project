@@ -11,13 +11,14 @@ function App() {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch("http://localhost:5001/api/login", { // Replace with your Express app's URL and port
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ username, password }),
+  credentials: 'include', 
+});
 
       const data = await response.json();
 
