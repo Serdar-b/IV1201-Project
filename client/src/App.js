@@ -47,7 +47,7 @@ function App() {
     localStorage.removeItem("token");
     setLoginStatus({
       isLoggedIn: false,
-      message: "You have been logged out.",
+      message: "",
       user: null,
     });
   };
