@@ -55,7 +55,10 @@ function App() {
   return (
     <div className="App">
       {!loginStatus.isLoggedIn ? (
-        <Login onLogin={handleLogin} />
+       <div>
+       <Login onLogin={handleLogin} />
+        <p>{loginStatus.message}</p>
+        </div>
       ) : (
         <div>
           <p className="welcome-message">Welcome, {loginStatus.user.name}!</p>
