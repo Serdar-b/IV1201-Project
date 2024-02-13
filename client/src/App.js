@@ -1,73 +1,21 @@
 import './App.css';
-import React, { useState } from "react";
-import Login from "./view/login";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPresenter from './presenter/LoginPresenter';
+import Dashboard from './view/Dashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [loginStatus, setLoginStatus] = useState({
-    isLoggedIn: false,
-    message: "",
-    user: null,
-  });
-
-  const handleLogin = async (username, password) => {
-    try {
-      const response = await fetch("http://localhost:5001/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        localStorage.setItem("token", data.token);
-        setLoginStatus({
-          isLoggedIn: true,
-          message: "Login successful",
-          user: data.user,
-        });
-      } else {
-        setLoginStatus({
-          isLoggedIn: false,
-          message: "Invalid credentials",
-          user: null,
-        });
-      }
-    } catch (error) {
-      setLoginStatus({
-        isLoggedIn: false,
-        message: "An error occurred while logging in.",
-        user: null,
-      });
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setLoginStatus({
-      isLoggedIn: false,
-      message: "",
-      user: null,
-    });
-  };
-  console.log(loginStatus.isLoggedIn === true);
+  
   return (
-    <div className="App">
-      {!loginStatus.isLoggedIn ? (
-       <div>
-       <Login onLogin={handleLogin} />
-        <p>{loginStatus.message}</p>
-        </div>
-      ) : (
-        <div>
-          <p className="welcome-message">Welcome, {loginStatus.user.name}!</p>
-          <p>{loginStatus.message}</p>
-          <button className="logout-button" onClick={handleLogout}>Logout</button>
-        </div>
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/login" element={<LoginPresenter />} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
-
-export default App;
+ export default App;
