@@ -34,7 +34,7 @@ function Login({ onLogin }) {
             id="password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Update local state when the user types in the password field
+            onChange={(e) => setPassword(e.target.value)} 
             placeholder="Enter password"
             required
           />
