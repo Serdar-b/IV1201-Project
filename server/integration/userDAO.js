@@ -3,7 +3,7 @@ const User = require("../model/User");
 
 const findUser = async (username, password) => {
   const query =
-    "SELECT * FROM public.person WHERE username = $1 AND password = $2";
+    "SELECT * FROM public.person WHERE username = $1 AND password = $2"; 
   const values = [username, password];
 
   try {
