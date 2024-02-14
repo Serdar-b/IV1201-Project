@@ -19,6 +19,8 @@ app.post("/login", authController.login);
 const port = process.env.PORT;
 const host = process.env.HOST;
 
-app.listen(port, host, () => {
+const server = app.listen(port, host, () => {
   console.log(`Server running on ${host}:${port}`);
 });
+
+module.exports = { server };
