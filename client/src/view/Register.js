@@ -18,7 +18,7 @@ function Register({ onRegister }) {
           <label htmlFor="email">Email</label>
           <input
             id="email"
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter email"
@@ -29,7 +29,7 @@ function Register({ onRegister }) {
           <label htmlFor="username">Username</label>
           <input
             id="username"
-            type="username"
+            type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter username"
@@ -40,7 +40,7 @@ function Register({ onRegister }) {
           <label htmlFor="password">Password</label>
           <input
             id="password"
-            type="password"
+            type="text"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
