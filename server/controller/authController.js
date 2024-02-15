@@ -15,7 +15,7 @@ const login = async (req, res) => {
         name: user.name,
         username: user.username,
       };
-      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1 minute' });
+      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30 minutes' });
       res.json({ success: true, message: "Login successful", token: token, user: payload });
     } else {
       // Password does not match

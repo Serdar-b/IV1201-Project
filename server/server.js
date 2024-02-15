@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authController = require("./controller/authController");
+const applicationController = require('./controller/applicationController');
 const app = express();
 const cors = require("cors");
 
@@ -12,10 +13,13 @@ app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:3000', 
   credentials: true, 
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.post("/login", authController.login);
 app.post("/register", authController.register);
+app.post("/apply", applicationController.submitApplication);
+app.get("/apply", applicationController.handleCompetences);
 
 const port = process.env.PORT;
 const host = process.env.HOST;
