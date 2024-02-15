@@ -1,10 +1,10 @@
-const { findUser } = require("../../integration/userDAO");
+const { findUserByUsername } = require("../../integration/userDAO");
 const pool = require("../../db");
 const User = require("../../model/User");
 
-describe("findUser", () => {
+describe("findUserByUsername", () => {
   it("should return a User object when the user is found", async () => {
-    const user = await findUser("ArmandTodd", "LbH38urF4Kn");
+    const user = await findUserByUsername("ArmandTodd");
 
     expect(user).not.toBeNull();
     expect(user).toBeInstanceOf(User);
@@ -12,7 +12,7 @@ describe("findUser", () => {
   });
 
   it("should return a null object when the user is not found", async () => {
-    const user = await findUser("User1", "password");
+    const user = await findUserByUsername("User1");
 
     expect(user).toBeNull();
   });
