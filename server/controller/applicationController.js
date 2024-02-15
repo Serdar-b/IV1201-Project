@@ -1,38 +1,13 @@
-const jwt = require('jsonwebtoken');
 const applicationDAO = require('../integration/applicationDAO');
 
 const submitApplication = async (req, res) => {
-    const token = req.headers.authorization?.split(" ")[1];
-    let personId;
-
-    console.log(`Token received for verification: ${token}`);
-
-    
-   if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            personId = decoded.person_id; 
-        } catch (err) {
-            console.log("JWT Error:", err.message);
-            return res.status(401).json({ success: false, message: "Invalid or expired token" });
-        }
-    } else {
-        return res.status(401).json({ success: false, message: "Token not provided" });
-    } 
-
-
-
-
-    const { competences, availability } = req.body;
+    const { competences, availability, userData } = req.body;
 
     try {
-        const success = await applicationDAO.saveApplication(personId, competences, availability);
-
-        
-
+        const success = await applicationDAO.saveApplication(userData, competences, availability);
         if (success) {
             res.json({ success: true, message: "Application submitted successfull" });
-            console.log(personId);
+            console.log(userData.person_id);
         } 
         else {
             res.status(500).json({ success: false, message: "Failed to submit application" });
@@ -43,4 +18,15 @@ const submitApplication = async (req, res) => {
     }
 };
 
-module.exports = { submitApplication };
+const handleCompetences = async (req, res) => {
+    try {
+        const result = await applicationDAO.getCompetences();
+        res.json(result);
+        console.log(result);
+    } catch (err) {
+        console.error("Error fetching competences: ", err.stack);
+        res.status(500).json({ success: false, message: "An error occurred while fetching competences" });
+    }
+};
+
+module.exports = { submitApplication, handleCompetences };

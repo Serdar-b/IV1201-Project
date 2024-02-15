@@ -5,7 +5,7 @@ import LoginPresenter from './presenter/LoginPresenter';
 import ApplicationPresenter from './presenter/ApplicationPresenter';
 import Dashboard from './view/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import Layout from './components/Layout';
 
 function App() {
   
@@ -14,12 +14,25 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Navigate replace to="/login" />} />
-          <Route path="/login" element={<LoginPresenter />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/apply" element={<ProtectedRoute><ApplicationPresenter /></ProtectedRoute>} />
+          <Route path="/login" element={
+            <Layout showHeader={false}>
+              <LoginPresenter />
+            </Layout>
+          } />
+          <Route path="/dashboard" element={
+            <Layout showHeader={true}>
+              <ProtectedRoute><Dashboard /></ProtectedRoute>
+            </Layout>
+          } />
+          <Route path="/apply" element={
+            <Layout showHeader={true}>
+              <ProtectedRoute><ApplicationPresenter /></ProtectedRoute>
+            </Layout>
+          } />
         </Routes>
       </div>
     </Router>
   );
 }
+
  export default App;

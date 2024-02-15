@@ -1,37 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ApplicationForm from "../view/Application";
 import { useNavigate } from 'react-router-dom';
 
 const ApplicationPresenter = () => {
     const navigate = useNavigate();
+    const [competences, setCompetences] = useState([]);
 
-    const handleApplicationSubmit = async (competences, availability) => {
-        const token = localStorage.getItem('token');
+    useEffect(() => {
+        // Fetch competences when the component mounts
+        const fetchCompetences = async () => {
+            try {
+
+                const response = await fetch("http://localhost:5001/apply", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+              //  body: JSON.stringify({ competences: competencesSubmission, availability, userData }),
+                
+            });
+            const data = await response.json();
+               setCompetences(data);
+                console.log("data", competences);
+
+/*
+                const response = await fetch("http://localhost:5001/competences");
+                const data = await response.json();
+                console.log("data", data);
+                setCompetences(data);
+
+                */
+            } catch (error) {
+                console.error("Error fetching competences:", error);
+            } 
+        };
+
+        fetchCompetences();
+    }, []);
+    console.log("komp", competences);
+    const handleApplicationSubmit = async (selectedCompetence, experience, fromDate, toDate) => {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        // Adjust the structure of the request body as needed
+        const competencesSubmission = [{ competenceName: selectedCompetence, yearsOfExperience: experience }];
+        const availability = [{ fromDate, toDate }];
+
         try {
             const response = await fetch("http://localhost:5001/apply", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": 'Bearer ${token}'
                 },
-                body: JSON.stringify({ competences, availability }),
+                body: JSON.stringify({ competences: competencesSubmission, availability, userData }),
             });
-            
+
             const data = await response.json();
             if (data.success) {
                 alert('Application submitted successfully');
                 navigate('/dashboard');
-            }
-            else {
+            } else {
                 alert(data.message);
             }
-        } catch (err) {
-            console.error("An error occurred while submitting the application.", err);
+        } catch (error) {
+            console.error("An error occurred while submitting the application.", error);
             alert("An error occurred while submitting the application.");
         }
     };
-    
-    return <ApplicationForm onSubmitApplication={handleApplicationSubmit} />;
+
+    return <ApplicationForm competences={competences} onSubmitApplication={handleApplicationSubmit} />;
 };
 
 export default ApplicationPresenter;

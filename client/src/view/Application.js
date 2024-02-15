@@ -1,32 +1,35 @@
 import React, { useState } from "react";
 
-function ApplicationForm({ onSubmitApplication}) {
-    const [expertise, setExpertise] = useState("");
+function ApplicationForm({ competences, onSubmitApplication}) {
+    const [selectedCompetence, setSelectedCompetence] = useState('');
     const [experience, setExperience] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const competences = [{ competenceName: expertise, yearsOfExperience: experience }];
-        const availability = [{ fromDate, toDate }];
-        onSubmitApplication(competences, availability);
+        onSubmitApplication(selectedCompetence, experience, fromDate, toDate);
     }
 
     return (
         <div className="application-container">
             <h2>Apply for a position</h2>
             <form onSubmit={handleSubmit}>
-                <div classname="form-group">
-                    <label htmlFor="expertise">Area of Expertise</label>
-                    <input
-                        id="expertise"
-                        type="text"
-                        value={expertise}
-                        onChange={(e) => setExpertise(e.target.value)}
-                        placeholder="Enter your area of experise"
+                <div className="form-group">
+                    <label htmlFor="competence">Area of Expertise</label>
+                    <select
+                        id="competence"
+                        value={selectedCompetence}
+                        onChange={(e) => setSelectedCompetence(e.target.value)}
                         required
-                        />
+                    >
+                        <option value="">Select an expertise</option>
+                        {competences.map((comp) => (
+                            <option key={comp.competence_id} value={comp.name}>
+                                {comp.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="form-group">
                     <label htmlFor="experience">Years of Experience</label>

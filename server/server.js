@@ -18,6 +18,7 @@ app.use(cors({
 
 app.post("/login", authController.login);
 app.post("/apply", applicationController.submitApplication);
+app.get("/apply", applicationController.handleCompetences);
 
 const port = process.env.PORT;
 const host = process.env.HOST;

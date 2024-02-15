@@ -12,6 +12,7 @@ const login = async (req, res) => {
       username: user.getUserName,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET,  { expiresIn: '1 hour' } );
+    console.log(`Token received for verification:`, token);
 
     res.json({ success: true, message: "Login successful", token: token, user: payload });
   } else {
