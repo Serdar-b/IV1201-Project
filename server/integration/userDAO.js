@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const pool = require("../db");
 const User = require("../model/User");
 
@@ -8,7 +10,6 @@ const findUserByUsername = async (username) => {
   try {
     const res = await pool.query(query, values);
     if (res.rows.length > 0) {
-      console.log("User found:", res.rows[0]);
       return new User(res.rows[0]);
     }
     return null;
@@ -17,7 +18,6 @@ const findUserByUsername = async (username) => {
     return null;
   }
 };
-
 
 const findUserByUsernameOrEmail = async (username, email) => {
   const query =
@@ -55,4 +55,5 @@ const createUser = async (userData) => {
   }
 }
 
-module.exports = { findUserByUsername, findUserByUsernameOrEmail, createUser };
+
+module.exports = { findUserByUsername, findUserByUsernameOrEmail, createUser, findUser };
