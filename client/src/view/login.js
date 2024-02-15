@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // Login component that acts purely as a View in the MVP pattern
 function Login({ onLogin }) {
@@ -7,7 +7,10 @@ function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();    
+  
+  const location = useLocation(); 
+  const registrationSuccess = location.state?.registrationSuccess;
 
   // Function to handle form submission
   const handleSubmit = (event) => {
@@ -23,6 +26,7 @@ function Login({ onLogin }) {
   return (
     <div className="login-container">
       <h2>Login</h2>
+      {registrationSuccess && <p>Registration successful! You can now log in.</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username</label>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Register from "../view/Register"; // Make sure to import the Register view
+import Register from "../view/Register";
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPresenter = () => {
@@ -10,14 +10,14 @@ const RegisterPresenter = () => {
 
     const navigate = useNavigate();
 
-    const handleRegister = async (username, email, password) => {
+    const handleRegister = async (name, surname, pnr,  email, password, username) => {
         try {
             const response = await fetch("http://localhost:5001/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, email, password }),
+                body: JSON.stringify({ name, surname, pnr, email, password, username }),
             });
 
             const data = await response.json();
@@ -27,7 +27,7 @@ const RegisterPresenter = () => {
                     isRegistered: true,
                     message: "Registration successful",
                 });
-                navigate('/login');
+                navigate('/login', { state: { registrationSuccess: true } });
             } else {
                 setRegisterStatus({
                     isRegistered: false,
