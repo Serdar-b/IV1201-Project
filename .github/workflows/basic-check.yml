@@ -35,28 +35,28 @@ jobs:
 
       - name: Cache node modules
         uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            server/node_modules
+            client/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
-            ${{ runner.os }}-
 
-      - name: Install Dependencies
+      - name: Install Server Dependencies
         run: npm install
+        working-directory: server
 
-      - name: Run Tests
+      - name: Run Server Tests
+        run: npm test
+        working-directory: server
         env:
           PORT: 5001
-          HOST: localhost
           PGUSER: postgres
           PGHOST: postgres # Use the service name as the host
           PGPASSWORD: password
           PGDATABASE: mypostgres
           PGPORT: 5432
           JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
-        run: npm test
+
+          run: npm test
