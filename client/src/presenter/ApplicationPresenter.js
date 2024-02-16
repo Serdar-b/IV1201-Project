@@ -16,20 +16,12 @@ const ApplicationPresenter = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-              //  body: JSON.stringify({ competences: competencesSubmission, availability, userData }),
                 
             });
             const data = await response.json();
                setCompetences(data);
                 console.log("data", competences);
 
-/*
-                const response = await fetch("http://localhost:5001/competences");
-                const data = await response.json();
-                console.log("data", data);
-                setCompetences(data);
-
-                */
             } catch (error) {
                 console.error("Error fetching competences:", error);
             } 
