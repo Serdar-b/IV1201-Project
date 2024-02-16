@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./server
+    ports:
+      - "5001:5001"
+    environment:
+      PORT: 5001
+      HOST: 0.0.0.0
+      PGUSER: postgres
+      PGHOST: db
+      PGDATABASE: myPostgres
+      PGPASSWORD: newpassword
+      PGPORT: 5432
+      JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: myPostgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: newpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - /home/hajawi/Downloads/existing-database.sql:/docker-entrypoint-initdb.d/init.sql # Add this line
+
+volumes:
+  postgres_data:
+
+
+#   db:
+#     image: postgres
+#     environment:
+#       POSTGRES_DB: myPostgres
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: newpassword
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:

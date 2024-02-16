@@ -12,7 +12,7 @@ const login = async (req, res) => {
       username: user.getUserName,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1 minute' });
-
+    //res.cookie('token', token, { httpOnly: true, path: '/', secure: false, sameSite: 'Strict' }); 
     res.json({ success: true, message: "Login successful", token: token, user: payload });
   } else {
     res.status(401).json({ success: false, message: "Invalid credentials" });
