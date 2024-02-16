@@ -1,0 +1,41 @@
+name: Basic Dependency Check
+
+on: [push, pull_request]
+
+jobs:
+  check-backend-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' 
+    
+    - name: Install backend dependencies
+      run: npm install
+      working-directory: ./server 
+    
+    # run backend tests
+    - name: Run backend tests
+      run: npm test
+      working-directory: ./server
+      env:
+        NODE_ENV: test
+        # Add any other environment variables tests might need
+
+  check-frontend-dependencies:
+    runs-on: ubuntu-latest
+    needs: check-backend-dependencies
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' 
+    
+    - name: Install frontend dependencies
+      run: npm install
+      working-directory: ./client 

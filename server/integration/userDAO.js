@@ -21,7 +21,7 @@ const findUserByUsername = async (username) => {
 
 const findUserByUsernameOrEmail = async (username, email) => {
   const query =
-    "SELECT * FROM public.person WHERE username = $1 OR email = $2"; 
+    "SELECT * FROM public.person WHERE username = $1 OR email = $2";
   const values = [username, email];
 
   try {
@@ -30,7 +30,7 @@ const findUserByUsernameOrEmail = async (username, email) => {
       console.log("User found:", res.rows);
       return new User(res.rows[0]);
     }
-    return null; 
+    return null;
   } catch (err) {
     console.error("Error executing query", err.stack);
     return null;
@@ -39,7 +39,7 @@ const findUserByUsernameOrEmail = async (username, email) => {
 
 const createUser = async (userData) => {
   const query =
-  "INSERT INTO public.person (name, surname, pnr, email, password, username) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *"; 
+    "INSERT INTO public.person (name, surname, pnr, email, password, username) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
   const values = [userData.name, userData.surname, userData.pnr, userData.email, userData.password, userData.username];
 
   try {
@@ -54,6 +54,7 @@ const createUser = async (userData) => {
     return { success: false, error: err.message };
   }
 }
+
 
 
 
