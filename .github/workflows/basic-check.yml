@@ -58,5 +58,3 @@ jobs:
           PGDATABASE: mypostgres
           PGPORT: 5432
           JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
-
-          run: npm test
