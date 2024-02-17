@@ -13,7 +13,7 @@ const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
       {user && <p>Welcome, {user.name}!</p>}
-      <button onClick={navigateToApply}>Apply Now</button>
+      <button onClick={navigateToApply} className="dashboard-button" >Apply Now</button>
     </div>
   );
 };

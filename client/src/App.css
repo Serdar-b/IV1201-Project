@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 form {
@@ -19,20 +19,27 @@ input[type="password"] {
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 button {
-  width: 100%;
   padding: 10px;
   margin: 5px 0 0 0;
   border: none;
   border-radius: 5px;
-  background-color: #5CDB95;
+  background-color: #5cdb95;
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.application-button {
+  width: 50%;
+}
+
+.dashboard-button {
+  width: 20%;
 }
 
 button:hover {
@@ -40,7 +47,7 @@ button:hover {
 }
 
 p {
-  color: #05386B;
+  color: #05386b;
 }
 
 .welcome-message {
@@ -50,18 +57,18 @@ p {
 }
 
 header {
-  background-color: #379683; 
+  background-color: #379683;
   color: white;
   padding: 10px 0;
 }
 
 header nav .nav-content {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin: 0 auto; 
-  padding: 0 20px; 
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 header a {
@@ -85,12 +92,12 @@ header ul {
 
 header nav {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 }
 
 header a:hover {
-  color: #5CDB95;
+  color: #5cdb95;
   transform: scale(1.2);
 }
 
