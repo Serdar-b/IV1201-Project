@@ -15,8 +15,8 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: mypostgres
+          POSTGRES_PASSWORD: newpassword
+          POSTGRES_DB: myPostgres
         ports:
           - 5432:5432
         # Use health checks to wait for the database to be ready
