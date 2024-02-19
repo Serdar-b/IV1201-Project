@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Login from "../view/Login"; 
+import Login from "../view/Login";
 import { useNavigate } from 'react-router-dom';
 
 const LoginPresenter = () => {
@@ -25,12 +25,13 @@ const LoginPresenter = () => {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
                 console.log('User set in localStorage:', localStorage.getItem('user'));
+                console.log('users role' + data.user.role);
                 setLoginStatus({
                     isLoggedIn: true,
                     message: "Login successful",
                     user: data.user,
                 });
-                
+
                 navigate('/dashboard');
             } else {
                 setLoginStatus({

@@ -39,8 +39,9 @@ const findUserByUsernameOrEmail = async (username, email) => {
 
 const createUser = async (userData) => {
   const query =
-    "INSERT INTO public.person (name, surname, pnr, email, password, username) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-  const values = [userData.name, userData.surname, userData.pnr, userData.email, userData.password, userData.username];
+    "INSERT INTO public.person (name, surname, pnr, email, password, role_id, username) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *";
+  const roleId = 2;
+  const values = [userData.name, userData.surname, userData.pnr, userData.email, userData.password, roleId, userData.username];
 
   try {
     const res = await pool.query(query, values);
@@ -54,6 +55,7 @@ const createUser = async (userData) => {
     return { success: false, error: err.message };
   }
 }
+
 
 
 

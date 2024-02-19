@@ -37,6 +37,14 @@ class User {
   get getName() {
     return this.name;
   }
+
+  get getRoleId() {
+    return this.role_id;
+  }
+
+  set setRoleId(role_id) {
+    this.role_id = role_id;
+  }
 }
 
 module.exports = User;

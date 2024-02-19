@@ -14,6 +14,7 @@ const login = async (req, res) => {
         person_id: user.person_id,
         name: user.name,
         username: user.username,
+        role: user.getRoleId,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30 minutes' });
       res.json({ success: true, message: "Login successful", token: token, user: payload });
@@ -28,32 +29,32 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, surname, pnr, password, email, username} = req.body;
-  
-    // Check if the user already exists
-    const existingUser = await userDAO.findUserByUsernameOrEmail(username, email);
-    if (existingUser) {
-      return res.status(409).json({ success: false, message: "User already exists" });
-    }
+  const { name, surname, pnr, password, email, username } = req.body;
 
-    // Hash the password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+  // Check if the user already exists
+  const existingUser = await userDAO.findUserByUsernameOrEmail(username, email);
+  if (existingUser) {
+    return res.status(409).json({ success: false, message: "User already exists" });
+  }
 
-    const userCreationResult = await userDAO.createUser({
-      name,
-      surname,
-      pnr,
-      email,
-      password: hashedPassword,
-      username,
-    });
+  // Hash the password
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    if (userCreationResult.success) {
-      res.json({ success: true, message: "Registration successful" });
-    } else {
-      res.status(500).json({ success: false, message: "Could not register user" });
-    }
+  const userCreationResult = await userDAO.createUser({
+    name,
+    surname,
+    pnr,
+    email,
+    password: hashedPassword,
+    username,
+  });
+
+  if (userCreationResult.success) {
+    res.json({ success: true, message: "Registration successful" });
+  } else {
+    res.status(500).json({ success: false, message: "Could not register user" });
+  }
 
 };
 
