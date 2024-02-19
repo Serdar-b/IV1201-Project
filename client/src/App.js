@@ -9,7 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 
 function App() {
-  
+
   return (
     <Router>
       <div className="App">
@@ -21,8 +21,8 @@ function App() {
             </Layout>
           } />
           <Route path="/register" element={
-            <Layout showHeader={true}>
-              <ProtectedRoute><RegisterPresenter /></ProtectedRoute>
+            <Layout showHeader={false}>
+              <RegisterPresenter />
             </Layout>
           } />
           <Route path="/dashboard" element={
@@ -41,4 +41,4 @@ function App() {
   );
 }
 
- export default App;
+export default App;

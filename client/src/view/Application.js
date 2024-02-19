@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function ApplicationForm({ competences, onSubmitApplication}) {
+function ApplicationForm({ competences, onSubmitApplication }) {
     const [selectedCompetence, setSelectedCompetence] = useState('');
     const [experience, setExperience] = useState("");
     const [fromDate, setFromDate] = useState("");

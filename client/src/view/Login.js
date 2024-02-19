@@ -7,9 +7,9 @@ function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();    
-  
-  const location = useLocation(); 
+  const navigate = useNavigate();
+
+  const location = useLocation();
   const registrationSuccess = location.state?.registrationSuccess;
 
   // Function to handle form submission
@@ -19,7 +19,7 @@ function Login({ onLogin }) {
   };
 
   const handleRegisterClick = () => {
-    navigate('/register'); 
+    navigate('/register');
   };
 
   // Render the login form
@@ -34,7 +34,7 @@ function Login({ onLogin }) {
             id="username"
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)} 
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter username"
             required
           />
@@ -45,7 +45,7 @@ function Login({ onLogin }) {
             id="password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} 
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
             required
           />
