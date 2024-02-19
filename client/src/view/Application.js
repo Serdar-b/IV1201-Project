@@ -11,6 +11,10 @@ function ApplicationForm({ competences, onSubmitApplication }) {
         onSubmitApplication(selectedCompetence, experience, fromDate, toDate);
     }
 
+    const handleError= () => {
+        
+    }
+
     return (
         <div className="application-container">
             <h2>Apply for a position</h2>
