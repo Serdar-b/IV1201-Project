@@ -57,7 +57,7 @@ function Login({ onLogin }) {
         </button>
         {/* <button type="button" className="register-button" onClick={handleRegisterClick}>Register</button> */}
         <p>
-          Don'thave an account?
+          Don't have an account?
           <button
             type="button"
             className="register-button"

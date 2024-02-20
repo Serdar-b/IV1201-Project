@@ -24,9 +24,16 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  // If there's a user, render the "children" components
+  // Clone the children and pass the currentUser as a prop
+  const childrenWithProps = React.Children.map(children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { user: currentUser });
+    }
+    return child;
+  });
+
   console.log('User found:', currentUser.name);
-  return children;
+  return <>{childrenWithProps}</>;
 };
 
 export default ProtectedRoute;
