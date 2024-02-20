@@ -19,12 +19,35 @@ const LoginPresenter = () => {
   const navigate = useNavigate();
 
   /**
- * Handles the user login process.
- * @param {string} username - The username entered by the user.
- * @param {string} password - The password entered by the user.
- */
+   * Handles the user login process.
+   * @param {string} username - The username entered by the user.
+   * @param {string} password - The password entered by the user.
+   */
 
   const handleLogin = async (username, password) => {
+    if (username.length < 3) {
+      setLoginStatus({
+        isRegistered: false,
+        message: "Username must be at least 3 characters long.",
+      });
+      return;
+    }
+
+    if (!isNaN(username.charAt(0))) {
+        setLoginStatus({
+        isRegistered: false,
+        message: "Username must not start with a number.",
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      setLoginStatus({
+        isRegistered: false,
+        message: "password must be at least 6 characters long.",
+      });
+      return;
+    }
     try {
       const response = await fetch("http://localhost:5001/login", {
         method: "POST",
@@ -74,7 +97,8 @@ const LoginPresenter = () => {
         </div>
       ) : (
         <div>
-          {<div className="loader"></div>} {/* Display loader animation on success */}
+          {<div className="loader"></div>}{" "}
+          {/* Display loader animation on success */}
           <div>
             <p>{loginStatus.message}</p>
           </div>

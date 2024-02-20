@@ -12,7 +12,7 @@ function Register(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Make sure to pass all the state variables to the onRegister prop function
+   
     props.onRegister( name, surname, pnr, email, password, username);
   };
 
