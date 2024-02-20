@@ -154,78 +154,7 @@
 
 
 
-# name: Node.js CI/CD
-
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
-
-# jobs:
-#   build-and-test:
-#     runs-on: ubuntu-latest
-
-#     services:
-#       postgres:
-#         image: postgres
-#         env:
-#           POSTGRES_USER: postgres
-#           POSTGRES_PASSWORD: newpassword
-#           POSTGRES_DB: myPostgres
-#         ports:
-#           - 5432:5432
-#         options: >-
-#           --health-cmd pg_isready
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
-
-#     steps:
-#       - uses: actions/checkout@v2
-      
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: '20'
-
-#       - name: Install Server Dependencies
-#         run: npm install
-#         working-directory: ./server
-
-#       - name: Wait for PostgreSQL to be ready
-#         run: |
-#           until pg_isready -h localhost -p 5432; do
-#             echo "Waiting for PostgreSQL to be ready..."
-#             sleep 2
-#           done
-
-#       - name: Set up Database
-#         run: |
-#           cd server  # Navigate to the server directory before running the setup script
-#           npm run setup-db  # Ensure this script is defined in your server/package.json
-#         env:
-#           PGUSER: postgres
-#           PGPASSWORD: newpassword
-#           PGHOST: postgres  # Use the service name to connect within the GitHub Actions environment
-#           PGDATABASE: myPostgres
-#           PGPORT: 5432
-
-#       - name: Run Server Tests
-#         run: npm test
-#         working-directory: ./server
-#         env:
-#           PORT: 5001
-#           HOST: localhost
-#           PGUSER: postgres
-#           PGHOST: postgres  # Again, use the service name here
-#           PGPASSWORD: newpassword
-#           PGDATABASE: myPostgres
-#           PGPORT: 5432
-#           JWT_SECRET: ${ secrets.JWT_SECRET }
-
-#     # Include additional steps for client-side setup and testing if necessary
-name: Node.js CI/CD with Docker
+name: Node.js CI/CD
 
 on:
   push:
@@ -237,42 +166,62 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: newpassword
+          POSTGRES_DB: myPostgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
 
-      - name: Set up Docker Compose
-        run: sudo apt-get install -y docker-compose
-
-      - name: Build and Start Services
-        run: docker-compose up -d
-        working-directory: ./  # Ensure this is the root where your docker-compose.yml is located
+      - name: Install Server Dependencies
+        run: npm install
+        working-directory: ./server
 
       - name: Wait for PostgreSQL to be ready
         run: |
-          until docker-compose exec -T db pg_isready -h db -p 5432; do
+          until pg_isready -h localhost -p 5432; do
             echo "Waiting for PostgreSQL to be ready..."
-            sleep 5
+            sleep 2
           done
 
-      - name: Set up Database Schema (if needed)
+      - name: Set up Database
         run: |
-          docker-compose exec -T db psql -U postgres -d myPostgres -c '
-            -- Your SQL schema setup commands go here.
-            -- For example:
-            CREATE TABLE IF NOT EXISTS public.person (
-              id SERIAL PRIMARY KEY,
-              name VARCHAR(50),
-              surname VARCHAR(50),
-              pnr VARCHAR(50),
-              email VARCHAR(50),
-              password VARCHAR(50),
-              role_id INTEGER,
-              username VARCHAR(50)
-            );
-          '
-        # Replace the SQL comment placeholder with your actual SQL commands.
+          cd server  # Navigate to the server directory before running the setup script
+          npm run setup-db  # Ensure this script is defined in your server/package.json
+        env:
+          PGUSER: postgres
+          PGPASSWORD: newpassword
+          PGHOST: postgres  # Use the service name to connect within the GitHub Actions environment
+          PGDATABASE: myPostgres
+          PGPORT: 5432
 
-      - name: Run Backend Tests
-        run: |
-          docker-compose exec -T backend npm test
-        # Runs tests in the backend service container.
+      - name: Run Server Tests
+        run: npm test
+        working-directory: ./server
+        env:
+          PORT: 5001
+          HOST: localhost
+          PGUSER: postgres
+          PGHOST: postgres  # Again, use the service name here
+          PGPASSWORD: newpassword
+          PGDATABASE: myPostgres
+          PGPORT: 5432
+          JWT_SECRET: ${ secrets.JWT_SECRET }
+
+    # Include additional steps for client-side setup and testing if necessary
