@@ -225,9 +225,7 @@
 #           JWT_SECRET: ${ secrets.JWT_SECRET }
 
 #     # Include additional steps for client-side setup and testing if necessary
-
-
-name: Node.js CI/CD
+name: Node.js CI/CD with Docker
 
 on:
   push:
@@ -239,49 +237,28 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: newpassword
-          POSTGRES_DB: myPostgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'  # Specify the Node.js version you are using
+      - name: Set up Docker Compose
+        run: sudo apt-get install -y docker-compose
 
-      - name: Install Server Dependencies
-        run: npm install
-        working-directory: ./server
+      - name: Build and Start Services
+        run: docker-compose up -d
+        working-directory: ./  # Ensure this is the root where your docker-compose.yml is located
 
       - name: Wait for PostgreSQL to be ready
         run: |
-          until pg_isready -h postgres -p 5432; do
+          until docker-compose exec -T db pg_isready -h db -p 5432; do
             echo "Waiting for PostgreSQL to be ready..."
-            sleep 5  # Increase sleep time to ensure PostgreSQL has enough time to initialize
+            sleep 5
           done
-        env:
-          PGUSER: postgres
-          PGPASSWORD: newpassword
-          PGHOST: postgres
-          PGDATABASE: myPostgres
-          PGPORT: 5432
 
-      - name: Set up Database Schema
+      - name: Set up Database Schema (if needed)
         run: |
-          psql -h postgres -U postgres -d myPostgres -a -c '
+          docker-compose exec -T db psql -U postgres -d myPostgres -c '
+            -- Your SQL schema setup commands go here.
+            -- For example:
             CREATE TABLE IF NOT EXISTS public.person (
               id SERIAL PRIMARY KEY,
               name VARCHAR(50),
@@ -292,20 +269,10 @@ jobs:
               role_id INTEGER,
               username VARCHAR(50)
             );
-            -- Include additional setup SQL commands as needed
           '
-        env:
-          PGPASSWORD: newpassword
+        # Replace the SQL comment placeholder with your actual SQL commands.
 
-      - name: Run Server Tests
-        run: npm test
-        working-directory: ./server
-        env:
-          PORT: 5001
-          HOST: localhost
-          PGUSER: postgres
-          PGHOST: postgres  # Ensure this matches the service name
-          PGPASSWORD: newpassword
-          PGDATABASE: myPostgres
-          PGPORT: 5432
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      - name: Run Backend Tests
+        run: |
+          docker-compose exec -T backend npm test
+        # Runs tests in the backend service container.
