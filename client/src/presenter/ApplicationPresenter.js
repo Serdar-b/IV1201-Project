@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ApplicationForm from "../view/Application";
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Presenter component for handling job application functionality.
+ * This component fetches competences, handles application submission,
+ * and renders the application form view.
+ * @returns {React.ReactElement} The ApplicationForm component with competences and a submit handler.
+ */
 const ApplicationPresenter = () => {
     const navigate = useNavigate();
     const [competences, setCompetences] = useState([]);
@@ -12,24 +18,33 @@ const ApplicationPresenter = () => {
             try {
 
                 const response = await fetch("http://localhost:5001/apply", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                
-            });
-            const data = await response.json();
-               setCompetences(data);
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+
+                });
+                const data = await response.json();
+                setCompetences(data);
                 console.log("data", competences);
 
             } catch (error) {
                 console.error("Error fetching competences:", error);
-            } 
+            }
         };
 
         fetchCompetences();
     }, []);
     console.log("komp", competences);
+
+    /**
+    * Handles the submission of a job application.
+    * @param {string} selectedCompetence - The selected competence.
+    * @param {number} experience - The years of experience.
+    * @param {string} fromDate - The start date of availability.
+    * @param {string} toDate - The end date of availability.
+    */
+
     const handleApplicationSubmit = async (selectedCompetence, experience, fromDate, toDate) => {
         const userData = JSON.parse(localStorage.getItem('user'));
         // Adjust the structure of the request body as needed

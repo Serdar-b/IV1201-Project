@@ -2,15 +2,33 @@ import React, { useState } from 'react';
 import Register from "../view/Register";
 import { useNavigate } from 'react-router-dom';
 
+
+/**
+ * Presenter component for handling user registration functionality.
+ * @returns {React.ReactElement} The Register component with an onRegister handler if not already registered,
+ * otherwise displays a success message.
+ */
+
 const RegisterPresenter = () => {
     const [registerStatus, setRegisterStatus] = useState({
-        isRegistered: false,
-        message: "",
+        isRegistered: false,  // Tracks whether the user has been registered
+        message: "",  // Message to display based on registration success/failure
     });
 
     const navigate = useNavigate();
 
-    const handleRegister = async (name, surname, pnr,  email, password, username) => {
+    /**
+    * Handles the registration process. It sends the user details to the backend for registration,
+    * updates the registration state based on the response, and navigates to the login page on success.
+    * @param {string} name - The user's name.
+    * @param {string} surname - The user's surname.
+    * @param {string} pnr - The user's personal identification number.
+    * @param {string} email - The user's email address.
+    * @param {string} password - The user's password.
+    * @param {string} username - The desired username for the user.
+    */
+
+    const handleRegister = async (name, surname, pnr, email, password, username) => {
         try {
             const response = await fetch("http://localhost:5001/register", {
                 method: "POST",
@@ -27,6 +45,7 @@ const RegisterPresenter = () => {
                     isRegistered: true,
                     message: "Registration successful",
                 });
+                // Navigate to login page with state indicating successful registration
                 navigate('/login', { state: { registrationSuccess: true } });
             } else {
                 setRegisterStatus({
