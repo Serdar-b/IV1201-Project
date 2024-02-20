@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Component for user registration.
+ * @param {Object} props - The props object.
+ * @param {Function} props.onRegister - The function to handle the registration process.
+ * @returns {React.ReactElement} The register component.
+ */
+
 function Register(props) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -10,6 +17,12 @@ function Register(props) {
   const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
+
+  /**
+  * Handles form submission for user registration.
+  * @param {Event} event - The form submission event.
+  */
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
