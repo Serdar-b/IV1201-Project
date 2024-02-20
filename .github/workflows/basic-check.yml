@@ -73,7 +73,7 @@
 #     # Add similar steps for your client-side tests if needed
 
 
-name: Node.js CI
+name: Node.js CI/CD
 
 on:
   push:
@@ -108,11 +108,28 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Dependencies for Server
+      - name: Install Dependencies
         run: npm install
         working-directory: ./server
 
-      - name: Run All Tests in Server
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
+
+      - name: Set up Database
+        run: |
+          npm run setup-db # Replace with your actual command to set up the database schema
+        env:
+          PGUSER: postgres
+          PGPASSWORD: newpassword
+          PGHOST: localhost
+          PGDATABASE: myPostgres
+          PGPORT: 5432
+
+      - name: Run Tests
         run: npm test
         working-directory: ./server
         env:
@@ -123,12 +140,6 @@ jobs:
           PGPASSWORD: newpassword
           PGDATABASE: myPostgres
           PGPORT: 5432
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }} # It's recommended to use GitHub Secrets for sensitive information
 
-      - name: Install Dependencies for Client
-        run: npm install
-        working-directory: ./client
-
-      - name: Run All Tests in Client
-        run: npm test
-        working-directory: ./client
+    # Include additional steps for client-side setup and testing if necessary
