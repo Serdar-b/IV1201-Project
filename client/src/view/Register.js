@@ -1,19 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Register(props) {
-  
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [pnr, setPnr] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  
 
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-   
-    props.onRegister( name, surname, pnr, email, password, username);
+
+    props.onRegister(name, surname, pnr, email, password, username);
+  };
+
+  const handleAlreadyHaveAccount = () => {
+    navigate("/login");
   };
 
   return (
@@ -57,7 +61,7 @@ function Register(props) {
           <label htmlFor="email">Email</label>
           <input
             id="email"
-            type="text" 
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter email"
@@ -79,15 +83,23 @@ function Register(props) {
           <label htmlFor="password">Password</label>
           <input
             id="password"
-            type="password" 
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
             required
           />
         </div>
-        <button type="submit" className="register-button">Register</button>
+        <button type="submit" className="register-button">
+          Register
+        </button>
       </form>
+      <p>
+        Already have an account?
+        <button onClick={handleAlreadyHaveAccount} className="login-link">
+          Log in
+        </button>
+      </p>
     </div>
   );
 }
