@@ -33,7 +33,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '14'  # Specify the Node.js version you are using
 
       - name: Install Server Dependencies
         run: npm install
@@ -54,12 +54,12 @@ jobs:
 
       - name: Set up Database
         run: |
-          cd server  # Navigate to the server directory before running the setup script
-          npm run setup-db  # Ensure this script is defined in your server/package.json
+          npm run setup-db
+        working-directory: ./server
         env:
           PGUSER: postgres
           PGPASSWORD: newpassword
-          PGHOST: postgres  # Use the service name to connect within the GitHub Actions environment
+          PGHOST: postgres  # Use 'postgres' as the hostname within GitHub Actions
           PGDATABASE: myPostgres
           PGPORT: 5432
 
@@ -70,8 +70,10 @@ jobs:
           PORT: 5001
           HOST: localhost
           PGUSER: postgres
-          PGHOST: postgres  # Again, use the service name here
+          PGHOST: postgres  # Use 'postgres' here again
           PGPASSWORD: newpassword
           PGDATABASE: myPostgres
           PGPORT: 5432
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+# Include additional steps for client-side setup and testing if necessary
