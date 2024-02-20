@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "setup-db": "psql -U postgres -d myPostgres -a -f /home/hajawi/Downloads/existing-database.sql",
     "test": "jest --runInBand --ci",
     "start": "node server",
     "dev": "nodemon server"
