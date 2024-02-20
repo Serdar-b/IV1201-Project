@@ -226,6 +226,7 @@
 
 #     # Include additional steps for client-side setup and testing if necessary
 
+
 name: Node.js CI/CD
 
 on:
@@ -248,10 +249,10 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready -U postgres -d myPostgres
+          --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
 
     steps:
       - uses: actions/checkout@v2
@@ -269,7 +270,7 @@ jobs:
         run: |
           until pg_isready -h postgres -p 5432; do
             echo "Waiting for PostgreSQL to be ready..."
-            sleep 5
+            sleep 5  # Increase sleep time to ensure PostgreSQL has enough time to initialize
           done
         env:
           PGUSER: postgres
@@ -303,7 +304,7 @@ jobs:
           PORT: 5001
           HOST: localhost
           PGUSER: postgres
-          PGHOST: postgres
+          PGHOST: postgres  # Ensure this matches the service name
           PGPASSWORD: newpassword
           PGDATABASE: myPostgres
           PGPORT: 5432
