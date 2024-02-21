@@ -1,88 +1,4 @@
-name: Node.js CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: newpassword
-          POSTGRES_DB: myPostgres
-        ports:
-          - 5432:5432
-        # Use health checks to wait for the database to be ready
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14" # or the version you're using
-
-      - name: Cache node modules for server
-        uses: actions/cache@v2
-        with:
-          path: server/node_modules
-          key: ${ runner.os }-server-${ hashFiles('**/server/package-lock.json') }
-          restore-keys: |
-            ${ runner.os }-server-
-
-      - name: Cache node modules for client
-        uses: actions/cache@v2
-        with:
-          path: client/node_modules
-          key: ${ runner.os }-client-${ hashFiles('**/client/package-lock.json') }
-          restore-keys: |
-            ${ runner.os }-client-
-
-      - name: Install Dependencies for Server
-        run: npm install
-        working-directory: ./server
-
-      - name: Install Dependencies for Client
-        run: npm install
-        working-directory: ./client
-
-      - name: Run Tests for Server
-        env:
-          PORT: 5001
-          HOST: localhost
-          PGUSER: postgres
-          PGHOST: postgres # Use the service name as the host
-          PGPASSWORD: newpassword
-          PGDATABASE: myPostgres
-          PGPORT: 5432
-          JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
-        run: npm test
-        working-directory: ./server
-
-    # Add similar steps for your client-side tests if needed
-
-
-
-
-
-
-
-
-
-
-
-# name: Node.js CI/CD
+# name: Node.js CI
 
 # on:
 #   push:
@@ -103,6 +19,7 @@ jobs:
 #           POSTGRES_DB: myPostgres
 #         ports:
 #           - 5432:5432
+#         # Use health checks to wait for the database to be ready
 #         options: >-
 #           --health-cmd pg_isready
 #           --health-interval 10s
@@ -111,45 +28,128 @@ jobs:
 
 #     steps:
 #       - uses: actions/checkout@v2
-      
 #       - name: Set up Node.js
 #         uses: actions/setup-node@v2
 #         with:
-#           node-version: '20'
+#           node-version: "20" 
 
-#       - name: Install Server Dependencies
+#       - name: Cache node modules for server
+#         uses: actions/cache@v2
+#         with:
+#           path: server/node_modules
+#           key: ${ runner.os }-server-${ hashFiles('**/server/package-lock.json') }
+#           restore-keys: |
+#             ${ runner.os }-server-
+
+#       - name: Cache node modules for client
+#         uses: actions/cache@v2
+#         with:
+#           path: client/node_modules
+#           key: ${ runner.os }-client-${ hashFiles('**/client/package-lock.json') }
+#           restore-keys: |
+#             ${ runner.os }-client-
+
+#       - name: Install Dependencies for Server
 #         run: npm install
 #         working-directory: ./server
 
-#       - name: Wait for PostgreSQL to be ready
-#         run: |
-#           until pg_isready -h localhost -p 5432; do
-#             echo "Waiting for PostgreSQL to be ready..."
-#             sleep 2
-#           done
+#       - name: Install Dependencies for Client
+#         run: npm install
+#         working-directory: ./client
 
-#       - name: Set up Database
-#         run: |
-#           cd server  # Navigate to the server directory before running the setup script
-#           npm run setup-db  # Ensure this script is defined in your server/package.json
-#         env:
-#           PGUSER: postgres
-#           PGPASSWORD: newpassword
-#           PGHOST: postgres  # Use the service name to connect within the GitHub Actions environment
-#           PGDATABASE: myPostgres
-#           PGPORT: 5432
-
-#       - name: Run Server Tests
-#         run: npm test
-#         working-directory: ./server
+#       - name: Run Tests for Server
 #         env:
 #           PORT: 5001
 #           HOST: localhost
 #           PGUSER: postgres
-#           PGHOST: postgres  # Again, use the service name here
+#           PGHOST: postgres # Use the service name as the host
 #           PGPASSWORD: newpassword
 #           PGDATABASE: myPostgres
 #           PGPORT: 5432
-#           JWT_SECRET: ${ secrets.JWT_SECRET }
+#           JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
+#         run: npm test
+#         working-directory: ./server
+
+#     # Add similar steps for your client-side tests if needed
+
+
+
+
+
+
+
+
+
+
+
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: newpassword
+          POSTGRES_DB: myPostgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Server Dependencies
+        run: npm install
+        working-directory: ./server
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
+
+      - name: Set up Database
+        run: |
+          cd server  # Navigate to the server directory before running the setup script
+          npm run setup-db  # Ensure this script is defined in your server/package.json
+        env:
+          PGUSER: postgres
+          PGPASSWORD: newpassword
+          PGHOST: postgres  # Use the service name to connect within the GitHub Actions environment
+          PGDATABASE: myPostgres
+          PGPORT: 5432
+
+      - name: Run Server Tests
+        run: npm test
+        working-directory: ./server
+        env:
+          PORT: 5001
+          HOST: localhost
+          PGUSER: postgres
+          PGHOST: postgres  # Again, use the service name here
+          PGPASSWORD: newpassword
+          PGDATABASE: myPostgres
+          PGPORT: 5432
+          JWT_SECRET: ${ secrets.JWT_SECRET }
 
     
