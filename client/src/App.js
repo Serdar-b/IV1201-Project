@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPresenter from './presenter/LoginPresenter';
 import RegisterPresenter from './presenter/RegisterPresenter';
 import ApplicationPresenter from './presenter/ApplicationPresenter';
+import ApplicationsListPresenter from './presenter/ApplicationsListPresenter';
 import Dashboard from './view/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
@@ -33,6 +34,11 @@ function App() {
           <Route path="/apply" element={
             <Layout showHeader={true}>
               <ProtectedRoute><ApplicationPresenter /></ProtectedRoute>
+            </Layout>
+          } />
+          <Route path="/applications" element={
+            <Layout showHeader={true}>
+              <ProtectedRoute><ApplicationsListPresenter /></ProtectedRoute>
             </Layout>
           } />
         </Routes>

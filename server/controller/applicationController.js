@@ -1,3 +1,4 @@
+const { application } = require("express");
 const applicationDAO = require("../integration/applicationDAO");
 
 const submitApplication = async (req, res) => {
@@ -44,4 +45,22 @@ const handleCompetences = async (req, res) => {
   }
 };
 
-module.exports = { submitApplication, handleCompetences };
+const listAllApplications = async (req, res) => {
+  try {
+    // Fetch all applications using the DAO
+    const result = await applicationDAO.getAllApplications();
+    
+    // Return the fetched applications to the client
+    res.json({ applications: result }); // Correctly use 'result' to return the applications
+  } catch (error) {
+    console.error("Error fetching all applications: ", error.stack);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching applications",
+    });
+  }
+};
+
+
+
+module.exports = { submitApplication, handleCompetences, listAllApplications };

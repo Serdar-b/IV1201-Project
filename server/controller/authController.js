@@ -86,4 +86,13 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const verifyRecruiter = (req, res, next) => {
+  if (req.user && req.user.role === 'recruiter') {
+    next();
+  } else {
+    res.status(403).send({ message: 'Access denied' });
+  }
+};
+
+
+module.exports = { login, register, verifyRecruiter };

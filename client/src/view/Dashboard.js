@@ -9,7 +9,7 @@ const Dashboard = ({ user }) => {
   }
 
   const navigateToAllApplications = () => {
-    navigate('/all-applications');
+    navigate('/applications');
   }
 
   if (!user) {
