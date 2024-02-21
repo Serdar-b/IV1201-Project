@@ -26,7 +26,7 @@ const findUserByUsernameOrEmail = async (username, email) => {
   try {
     const res = await pool.query(query, values);
     if (res.rows.length > 0) {
-      console.log("User found:", res.rows);
+     // console.log("User found:", res.rows);
       return new User(res.rows[0]);
     }
     return null;

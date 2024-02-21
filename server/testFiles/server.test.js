@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { server } = require("../../server"); // Import server instance directly
+const { server } = require("../../server"); 
 const pool = require("./../db");
 const mockUser = { username: "ArmandTodd", password: "LbH38urF4Kn" };
 
