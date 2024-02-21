@@ -6,6 +6,7 @@ import RegisterPresenter from './presenter/RegisterPresenter';
 import ApplicationPresenter from './presenter/ApplicationPresenter';
 import ApplicationsListPresenter from './presenter/ApplicationsListPresenter';
 import Dashboard from './view/Dashboard';
+import NotAuthorized from './view/NotAuthorized';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 
@@ -38,7 +39,14 @@ function App() {
           } />
           <Route path="/applications" element={
             <Layout showHeader={true}>
-              <ProtectedRoute><ApplicationsListPresenter /></ProtectedRoute>
+              <ProtectedRoute allowedRoles={[1]}>
+                <ApplicationsListPresenter />
+              </ProtectedRoute>
+            </Layout>
+          } />
+          <Route path="/not-authorized" element={
+            <Layout showHeader={true}>
+              <NotAuthorized />
             </Layout>
           } />
         </Routes>

@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+  import React, { useState, useEffect } from 'react';
+  import { Navigate } from 'react-router-dom';
 
 
-/**
- * A protected route component that ensures a user is authenticated before rendering children components.
- * @param {React.ReactNode} props.children - The children elements to be rendered if the user is authenticated.
- * @returns {React.ReactElement} The protected route component.
- */
+  /**
+   * A protected route component that ensures a user is authenticated before rendering children components.
+   * @param {React.ReactNode} props.children - The children elements to be rendered if the user is authenticated.
+   * @returns {React.ReactElement} The protected route component.
+   */
 
-const ProtectedRoute = ({ children }) => {
-  // State to hold the current user data, initialized from local storage
+const ProtectedRoute = ({ children, allowedRoles }) => {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
 
-  // Effect hook to update currentUser state if the user data in local storage changes
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    setCurrentUser(userData);
+    setCurrentUser(JSON.parse(localStorage.getItem('user')));
   }, []);
 
   // Redirect to login page if no currentUser is found
@@ -24,7 +21,14 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  // Clone the children and pass the currentUser as a prop
+  // Check if the currentUser's role is allowed to access this route
+  if (allowedRoles && !allowedRoles.includes(currentUser.role)) {
+    // Redirect to a "not authorized" or another page if the user's role is not allowed
+    console.log('User role not authorized for this route');
+    return <Navigate to="/not-authorized" replace />;
+  }
+
+  // If authorized, clone the children and pass the currentUser as a prop
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, { user: currentUser });

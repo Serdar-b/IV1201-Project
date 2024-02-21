@@ -20,7 +20,7 @@ app.post("/login", authController.login);
 app.post("/register", authController.register);
 app.post("/apply", applicationController.submitApplication);
 app.get("/apply", applicationController.handleCompetences);
-app.get("/applications", applicationController.listAllApplications)
+app.get("/applications", applicationController.listAllApplications);
 
 const port = process.env.PORT;  
 const host = process.env.HOST;
