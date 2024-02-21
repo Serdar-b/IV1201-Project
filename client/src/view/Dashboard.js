@@ -1,9 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+/**
+ * Component for displaying the user dashboard.
+ * @returns {React.ReactElement} The dashboard component.
+ */
+
 const Dashboard = ({ user }) => {
   const navigate = useNavigate();
 
+  //Navigates to the apply page
   const navigateToApply = () => {
     navigate('/apply');
   }

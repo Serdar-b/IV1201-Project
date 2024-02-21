@@ -3,10 +3,19 @@ import { useNavigate, Link } from "react-router-dom";
 import homeIcon from "../images/home.png";
 import "../App.css";
 
+/**
+ * Component for displaying the header navigation.
+ * @returns {React.ReactElement} The header component.
+ */
+
 const Header = () => {
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  /**
+   * Handles the logout process.
+   * Removes user data from local storage and navigates to the login page.
+   */
   const handleLogout = () => {
     setIsLoggingOut(true);
     localStorage.removeItem("user");
