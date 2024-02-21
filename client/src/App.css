@@ -155,7 +155,7 @@ header a:hover {
 
 
 
-
+/* application css */
 .application-container {
   background-color: #fff;
   max-width: 400px;
@@ -218,4 +218,50 @@ header a:hover {
 
 .application-button:hover {
   background-color: #45a17a;
+}
+
+
+
+
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.register-button {
+  padding: 10px 15px;
+  width: 100%;
+  background-color: #5cdb95;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #45a17a;
+}
+
+.login-link {
+  background: none;
+  border: none;
+  color: #5cdb95;
+  padding: 0;
+  cursor: pointer;
+}
+
+.login-link:hover {
+  text-decoration: underline;
 }
