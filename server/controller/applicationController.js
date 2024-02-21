@@ -1,5 +1,5 @@
-const { application } = require("express");
 const applicationDAO = require("../integration/applicationDAO");
+const Application = require("../model/Application");
 
 const submitApplication = async (req, res) => {
   const { competences, availability, userData } = req.body;
@@ -8,7 +8,7 @@ const submitApplication = async (req, res) => {
     const success = await applicationDAO.saveApplication(
       userData,
       competences,
-      availability
+      availability,
     );
     if (success) {
       res.json({ success: true, message: "Application submitted successfull" });
@@ -47,11 +47,23 @@ const handleCompetences = async (req, res) => {
 
 const listAllApplications = async (req, res) => {
   try {
-    // Fetch all applications using the DAO
-    const result = await applicationDAO.getAllApplications();
+    const applicationsData = await applicationDAO.getAllApplications();
     
-    // Return the fetched applications to the client
-    res.json({ applications: result }); // Correctly use 'result' to return the applications
+    const applicationsWithStatus = applicationsData.map(appData => {
+      // Create an instance of Application for each application
+      const appInstance = new Application({
+        person_id: appData.person_id,
+        competences: appData.competences, 
+        availability: appData.availability, 
+      });
+
+      return {
+        ...appData,
+        status: appInstance.getStatus // Use the getter to get the status
+      };
+    });
+
+    res.json({ applications: applicationsWithStatus });
   } catch (error) {
     console.error("Error fetching all applications: ", error.stack);
     res.status(500).json({
@@ -60,7 +72,6 @@ const listAllApplications = async (req, res) => {
     });
   }
 };
-
 
 
 module.exports = { submitApplication, handleCompetences, listAllApplications };

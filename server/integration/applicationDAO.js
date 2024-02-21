@@ -98,23 +98,30 @@ const getCompetences = async () => {
   }
 };
 
+
+
+
+
 const getAllApplications = async () => {
   try {
     const query = `
-      SELECT 
-        p.person_id, 
-        p.name, 
-        p.surname, 
-        array_agg(c.name) AS competences, 
-        array_agg(cp.years_of_experience) AS experience, 
-        array_agg(a.from_date || ' to ' || a.to_date) AS availability
-      FROM person p
-      JOIN competence_profile cp ON p.person_id = cp.person_id
-      JOIN competence c ON cp.competence_id = c.competence_id
-      JOIN availability a ON p.person_id = a.person_id
-      WHERE p.role_id = 2  -- Assuming role_id 2 is for applicants
-      GROUP BY p.person_id
-    `;
+    SELECT
+    p.name,
+    p.surname,
+    (
+        SELECT string_agg(c.name || ' (' || cp.years_of_experience || ' years)', ', ')
+        FROM competence_profile cp
+        JOIN competence c ON cp.competence_id = c.competence_id
+        WHERE cp.person_id = p.person_id
+    ) AS competences_with_experience,
+    (
+        SELECT string_agg(a.from_date || ' to ' || a.to_date, '; ')
+        FROM availability a
+        WHERE a.person_id = p.person_id
+    ) AS availability_periods
+FROM
+    person p`
+
     const result = await pool.query(query);
     return result.rows;
   } catch (error) {
