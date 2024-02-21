@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 
+
+/**
+ * Form component for applying for a position.
+ * @param {Object} props - The props object.
+ * @param {Array<Object>} props.competences - The list of competences available for selection.
+ * @param {Function} props.onSubmitApplication - The function to handle the submission of the application.
+ * @returns {JSX.Element} The application form.
+ */
+
 function ApplicationForm({ competences, onSubmitApplication }) {
     const [selectedCompetence, setSelectedCompetence] = useState('');
     const [experience, setExperience] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
+
+
+    /**
+   * Handles the submission of the application form.
+   * @param {Event} event - The form submission event.
+   */
 
     const handleSubmit = (event) => {
         event.preventDefault();

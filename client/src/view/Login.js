@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// Login component that acts purely as a View in the MVP pattern
+/**
+ * @param {Function} props.onLogin - The function to handle login attempts.
+ * @returns {React.ReactElement} The login component.
+ */
+
 function Login({ onLogin }) {
   // Local state to hold username and password entered by the user
   const [username, setUsername] = useState("");
@@ -55,7 +59,6 @@ function Login({ onLogin }) {
         <button type="submit" className="login-button">
           Login
         </button>
-        {/* <button type="button" className="register-button" onClick={handleRegisterClick}>Register</button> */}
         <p>
           Don'thave an account?
           <button
