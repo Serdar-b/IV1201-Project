@@ -21,7 +21,7 @@ const Dashboard = ({ user }) => {
     return (
       <div>
         <h1>Recruiter Dashboard</h1>
-        {user && <p>Welcome, {user.name}!</p>}
+        {<p>Welcome, {user.name}!</p>}
         <button onClick={navigateToAllApplications} className ="dashboard-button"> View All Applications </button>
       </div>
     );
@@ -30,7 +30,7 @@ const Dashboard = ({ user }) => {
     return (
       <div>
       <h1>Dashboard</h1>
-      {user && <p>Welcome, {user.name}!</p>}
+      {<p>Welcome, {user.name}!</p>}
       <button onClick={navigateToApply} className="dashboard-button" >Apply Now</button>
     </div>
     );
