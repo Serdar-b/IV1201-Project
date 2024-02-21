@@ -24,7 +24,6 @@ const ApplicationPresenter = () => {
         });
         const data = await response.json();
         setCompetences(data);
-        console.log("data", competences);
       } catch (error) {
         console.error("Error fetching competences:", error);
       }

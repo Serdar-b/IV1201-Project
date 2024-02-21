@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPresenter from './presenter/LoginPresenter';
 import RegisterPresenter from './presenter/RegisterPresenter';
 import ApplicationPresenter from './presenter/ApplicationPresenter';
+import ApplicationsListPresenter from './presenter/ApplicationsListPresenter';
 import Dashboard from './view/Dashboard';
+import NotAuthorized from './view/NotAuthorized';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 
@@ -33,6 +35,18 @@ function App() {
           <Route path="/apply" element={
             <Layout showHeader={true}>
               <ProtectedRoute><ApplicationPresenter /></ProtectedRoute>
+            </Layout>
+          } />
+          <Route path="/applications" element={
+            <Layout showHeader={true}>
+              <ProtectedRoute allowedRoles={[1]}>
+                <ApplicationsListPresenter />
+              </ProtectedRoute>
+            </Layout>
+          } />
+          <Route path="/not-authorized" element={
+            <Layout showHeader={true}>
+              <NotAuthorized />
             </Layout>
           } />
         </Routes>

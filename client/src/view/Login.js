@@ -60,7 +60,7 @@ function Login({ onLogin }) {
           Login
         </button>
         <p>
-          Don'thave an account?
+          Don't have an account?
           <button
             type="button"
             className="register-button"
