@@ -3,6 +3,7 @@ const Application = require("../model/Application");
 
 const submitApplication = async (req, res) => {
   const { competences, availability, userData } = req.body;
+  const userAgent = req.headers['user-agent'];
 
   try {
     const success = await applicationDAO.saveApplication(
@@ -11,15 +12,19 @@ const submitApplication = async (req, res) => {
       availability,
     );
     if (success) {
-      res.json({ success: true, message: "Application submitted successfull" });
+      res.json({ success: true, message: "Application submitted successfully" });
       console.log(userData.person_id);
     } else {
+      const logMessage = "Failed to submit application";
+      await applicationDAO.logApplicationError(userData.person_id, userData.email, userData.username, logMessage, userAgent);
       res
         .status(500)
-        .json({ success: false, message: "Failed to submit application" });
+        .json({ success: false, logMessage });
     }
   } catch (err) {
-    console.error("Error submitting application: ", err);
+    const logMessage = 'Error submitting application: ' + err.message;
+    await applicationDAO.logApplicationError(userData.person_id, userData.email, userData.username, logMessage, userAgent);
+    console.error(logMessage);
     res
       .status(500)
       .json({
@@ -35,7 +40,9 @@ const handleCompetences = async (req, res) => {
     res.json(result);
     console.log(result);
   } catch (err) {
-    console.error("Error fetching competences: ", err.stack);
+    const logMessage = "Error fetching competences: " + err.stack;
+    await applicationDAO.logApplicationError(userData.person_id, userData.email, userData.username, logMessage, userAgent);
+    console.error(logMessage);
     res
       .status(500)
       .json({
@@ -65,7 +72,9 @@ const listAllApplications = async (req, res) => {
 
     res.json({ applications: applicationsWithStatus });
   } catch (error) {
-    console.error("Error fetching all applications: ", error.stack);
+    const logMessage = "Error fetching all applications: " + error.stack;
+    await applicationDAO.logApplicationError(userData.person_id, userData.email, userData.username, logMessage, userAgent);
+    console.error(logMessage);
     res.status(500).json({
       success: false,
       message: "An error occurred while fetching applications",

@@ -26,18 +26,21 @@ const login = async (req, res) => {
       res.json({ success: true, message: "Login successful", user: payload });
     } else {
       // Password does not match
-      await userDAO.logFailedAttempt(null, null, username, 'entered wrong password', userAgent);
+      const logMessage = "Entered wrong password";
+      await userDAO.logFailedAttempt(null, null, username, logMessage, userAgent);
       res.status(401).json({ success: false, message: "Invalid credentials" });
     }
   } else {
     // User not found with the username or email
-    await userDAO.logFailedAttempt(null, null, null, 'user not found during login attempt', userAgent);
+    const logMessage = "User not found";
+    await userDAO.logFailedAttempt(null, null, null, logMessage, userAgent);
     res.status(401).json({ success: false, message: "Invalid credentials" });
   }
 };
 
 const register = async (req, res) => {
   const { name, surname, pnr, password, email, username } = req.body;
+  const userAgent = req.headers['user-agent'];
 
   //this two added for server side validation as it requires in number 25
   if (!username || username.length < 3) {
@@ -81,9 +84,15 @@ const register = async (req, res) => {
   if (userCreationResult.success) {
     res.json({ success: true, message: "Registration successful" });
   } else {
+    const logMessage = "Could not register user";
+    try {
+      await userDAO.logFailedAttempt(null, email, username, logMessage, userAgent);
+    } catch (error) {
+      console.error('Failed to log failed attempt:', error);
+    }
     res
       .status(500)
-      .json({ success: false, message: "Could not register user" });
+      .json({ success: false, message: logMessage });
   }
 };
 

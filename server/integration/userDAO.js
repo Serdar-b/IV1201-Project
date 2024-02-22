@@ -108,9 +108,9 @@ const logFailedAttempt = async (personId, email, username, reason, userAgent) =>
   
   try {
     await pool.query(insertText, insertValues);
-    console.log('Failed login attempt logged.');
+    console.log('Logging success.');
   } catch (err) {
-    console.error('Error logging failed attempt: ', err);
+    console.error('Error creating log: ', err);
   }
 };
 
