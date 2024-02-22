@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
+  const userAgent = req.headers['user-agent'];
   const user = await userDAO.findUserByUsername(username);
 
   if (user) {
@@ -25,15 +26,15 @@ const login = async (req, res) => {
       res.json({ success: true, message: "Login successful", user: payload });
     } else {
       // Password does not match
+      await userDAO.logFailedAttempt(null, null, username, 'entered wrong password', userAgent);
       res.status(401).json({ success: false, message: "Invalid credentials" });
     }
   } else {
     // User not found with the username or email
+    await userDAO.logFailedAttempt(null, null, null, 'user not found during login attempt', userAgent);
     res.status(401).json({ success: false, message: "Invalid credentials" });
   }
 };
-
-
 
 const register = async (req, res) => {
   const { name, surname, pnr, password, email, username } = req.body;

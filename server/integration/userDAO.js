@@ -99,4 +99,19 @@ const createUser = async (userData) => {
   }
 };
 
-module.exports = { findUserByUsername, findUserByUsernameOrEmail, createUser };
+const logFailedAttempt = async (personId, email, username, reason, userAgent) => {
+  const insertText = `
+    INSERT INTO logs (person_id, email, username, reason, user_agent)
+    VALUES ($1, $2, $3, $4, $5)
+  `;
+  const insertValues = [personId, email, username, reason, userAgent];
+  
+  try {
+    await pool.query(insertText, insertValues);
+    console.log('Failed login attempt logged.');
+  } catch (err) {
+    console.error('Error logging failed attempt: ', err);
+  }
+};
+
+module.exports = { findUserByUsername, findUserByUsernameOrEmail, createUser, logFailedAttempt };
