@@ -70,18 +70,41 @@ const createUser = async (userData) => {
   }
 };
 
-const logFailedAttempt = async (personId, email, username, reason, userAgent) => {
-  const insertText = `
-    INSERT INTO logs (person_id, email, username, reason, user_agent)
-    VALUES ($1, $2, $3, $4, $5)
-  `;
-  const insertValues = [personId, email, username, reason, userAgent];
+// const logFailedAttempt = async (personId, email, username, reason, userAgent) => {
+//   const insertText = `
+//     INSERT INTO logs (person_id, email, username, reason, user_agent)
+//     VALUES ($1, $2, $3, $4, $5)
+//   `;
+//   const insertValues = [personId, email, username, reason, userAgent];
   
+//   try {
+//     await pool.query(insertText, insertValues);
+//     console.log('Logging success.');
+//   } catch (err) {
+//     console.error('Error creating log: ', err);
+//   }
+// };
+
+const logFailedAttempt = async (personId, email, username, reason, userAgent) => {
+  const client = await pool.connect();
+
   try {
-    await pool.query(insertText, insertValues);
+    await client.query('BEGIN'); 
+    const insertText = `
+      INSERT INTO logs (person_id, email, username, reason, user_agent)
+      VALUES ($1, $2, $3, $4, $5)
+    `;
+    const insertValues = [personId, email, username, reason, userAgent];
+    
+    await client.query(insertText, insertValues);
+
+    await client.query('COMMIT'); 
     console.log('Logging success.');
   } catch (err) {
+    await client.query('ROLLBACK'); 
     console.error('Error creating log: ', err);
+  } finally {
+    client.release(); 
   }
 };
 

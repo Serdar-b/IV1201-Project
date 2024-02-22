@@ -59,6 +59,24 @@ const register = async (req, res) => {
       });
   }
 
+  if (isNaN(pnr) || pnr.includes(".")) {
+    return res
+      .status(400)
+      .send({
+        success: false,
+        message: "PNR must be a number.",
+      });
+  }
+
+  if (!email.includes("@") || !email.includes(".")) {
+    return res
+      .status(400)
+      .send({
+        success: false,
+        message: "Please enter a valid email address.",
+      });
+  }
+
   // Check if the user already exists
   const existingUser = await userDAO.findUserByUsernameOrEmail(username, email);
   if (existingUser) {

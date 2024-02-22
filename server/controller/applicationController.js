@@ -74,9 +74,6 @@ const setApplicationStatus = async (req, res) => {
   
   const { status, person_id } = req.body;
 
-  console.log("status: " + status)
-
-  console.log("person id: " + person_id)
 
   try {
     const result = await applicationDAO.setStatus(status, person_id);
