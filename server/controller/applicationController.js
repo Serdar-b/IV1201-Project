@@ -54,23 +54,11 @@ const handleCompetences = async (req, res) => {
 
 const listAllApplications = async (req, res) => {
   try {
-    const applicationsData = await applicationDAO.getAllApplications();
+
+    const result = await applicationDAO.getAllApplications();
     
-    const applicationsWithStatus = applicationsData.map(appData => {
-      // Create an instance of Application for each application
-      const appInstance = new Application({
-        person_id: appData.person_id,
-        competences: appData.competences, 
-        availability: appData.availability, 
-      });
-
-      return {
-        ...appData,
-        status: appInstance.getStatus // Use the getter to get the status
-      };
-    });
-
-    res.json({ applications: applicationsWithStatus });
+    // Return the fetched applications to the client
+    res.json({ applications: result }); 
   } catch (error) {
     const logMessage = "Error fetching all applications: " + error.stack;
     await applicationDAO.logApplicationError(userData.person_id, userData.email, userData.username, logMessage, userAgent);
@@ -82,5 +70,26 @@ const listAllApplications = async (req, res) => {
   }
 };
 
+const setApplicationStatus = async (req, res) => {
+  
+  const { status, person_id } = req.body;
 
-module.exports = { submitApplication, handleCompetences, listAllApplications };
+  console.log("status: " + status)
+
+  console.log("person id: " + person_id)
+
+  try {
+    const result = await applicationDAO.setStatus(status, person_id);
+
+    res.json({ applications: result }); 
+  } catch (error) {
+    console.error("Error fetching all applications: ", error.stack);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching applications",
+    });
+  }
+
+}
+
+module.exports = { submitApplication, handleCompetences, listAllApplications, setApplicationStatus };

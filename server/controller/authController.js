@@ -8,7 +8,7 @@ const login = async (req, res) => {
   const user = await userDAO.findUserByUsername(username);
 
   if (user) {
-    // Now compare the provided password with the hashed password stored in the database
+    // Compare the provided password with the hashed password stored in the database
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       const payload = {
@@ -20,7 +20,6 @@ const login = async (req, res) => {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "30 minutes",
       });
-      // res.json({ success: true, message: "Login successful", token: token, user: payload });
 
       res.cookie("token", token, { httpOnly: true });
       res.json({ success: true, message: "Login successful", user: payload });

@@ -98,7 +98,6 @@ const LoginPresenter = () => {
       ) : (
         <div>
           {<div className="loader"></div>}{" "}
-          {/* Display loader animation on success */}
           <div>
             <p>{loginStatus.message}</p>
           </div>

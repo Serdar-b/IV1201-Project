@@ -31,7 +31,6 @@ const ApplicationPresenter = () => {
 
     fetchCompetences();
   }, []);
-  // console.log("komp", competences);
 
   useEffect(() => {
     console.log("Competences updated:", competences);
@@ -68,7 +67,6 @@ const ApplicationPresenter = () => {
     }
 
     const userData = JSON.parse(localStorage.getItem("user"));
-    // Adjust the structure of the request body as needed
     const competencesSubmission = [
       { competenceName: selectedCompetence, yearsOfExperience: experience },
     ];
