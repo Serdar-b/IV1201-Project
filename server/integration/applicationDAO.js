@@ -62,40 +62,6 @@ const getCompetences = async () => {
 };
 
 
-// const getAllApplications = async () => {
-//   try {
-//     const query = `
-//     SELECT
-//       p.person_id, 
-//       p.name,
-//       p.surname,
-//       (
-//         SELECT string_agg(c.name || ' (' || cp.years_of_experience || ' years)', ', ')
-//         FROM competence_profile cp
-//         JOIN competence c ON cp.competence_id = c.competence_id
-//         WHERE cp.person_id = p.person_id
-//       ) AS competences_with_experience,
-//       (
-//         SELECT string_agg(a.from_date || ' to ' || a.to_date, '; ')
-//         FROM availability a
-//         WHERE a.person_id = p.person_id
-//       ) AS availability_periods,
-//       (
-//         SELECT string_agg(DISTINCT cp.status, ', ')
-//         FROM competence_profile cp
-//         WHERE cp.person_id = p.person_id
-//       ) AS status
-//     FROM
-//       person p`
-
-//     const result = await pool.query(query);
-//     return result.rows;
-//   } catch (error) {
-//     console.error("Error fetching all applications: ", error.stack);
-//     throw new Error("An error occurred while fetching all applications");
-//   }
-// };
-
 const getAllApplications = async () => {
   const client = await pool.connect();
 
@@ -174,20 +140,6 @@ const setStatus = async (status, person_id) => {
 };
 
 
-// const logApplicationError = async (personId, email, username, reason, userAgent) => {
-//   const insertText = `
-//     INSERT INTO logs (person_id, email, username, reason, user_agent)
-//     VALUES ($1, $2, $3, $4, $5)
-//   `;
-//   const insertValues = [personId, email, username, reason, userAgent];
-  
-//   try {
-//     await pool.query(insertText, insertValues);
-//     console.log('Logging success.');
-//   } catch (err) {
-//     console.error('Error creating log: ', err);
-//   }
-// };
 
 const logApplicationError = async (personId, email, username, reason, userAgent) => {
   const client = await pool.connect();
