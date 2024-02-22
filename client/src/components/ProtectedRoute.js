@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   // Check if the currentUser's role is allowed to access this route
   if (allowedRoles && !allowedRoles.includes(currentUser.role)) {
-    // Redirect to a "not authorized" or another page if the user's role is not allowed
+    // Redirect to a "not authorized"
     console.log('User role not authorized for this route');
     return <Navigate to="/not-authorized" replace />;
   }

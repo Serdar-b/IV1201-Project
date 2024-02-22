@@ -19,7 +19,7 @@ function Login({ onLogin }) {
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent the form from causing a page reload
-    onLogin(username, password); // Call the onLogin function passed from the Presenter with the current username and password
+    onLogin(username, password); 
   };
 
   const handleRegisterClick = () => {
