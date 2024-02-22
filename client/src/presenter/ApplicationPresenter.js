@@ -31,7 +31,6 @@ const ApplicationPresenter = () => {
 
     fetchCompetences();
   }, []);
-  // console.log("komp", competences);
 
   useEffect(() => {
     console.log("Competences updated:", competences);

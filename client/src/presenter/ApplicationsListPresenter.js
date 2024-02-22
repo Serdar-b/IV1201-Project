@@ -42,7 +42,7 @@ const ApplicationsListPresenter = () => {
     try {
       const response = await fetch('http://localhost:5001/applications', {
         method: 'GET',
-        credentials: 'include', // To ensure cookies are sent with the request for authentication
+        credentials: 'include', 
         headers: {
           'Content-Type': 'application/json',
         },
@@ -61,7 +61,6 @@ const ApplicationsListPresenter = () => {
   };
 
   useEffect(() => {
-    // Perform filtering logic here
     const filtered = applications.filter(app => {
       const nameMatch = app.name?.toLowerCase().includes(searchTerm.toLowerCase()) || app.surname?.toLowerCase().includes(searchTerm.toLowerCase());
       const availabilityCheck = app.availability_periods && app.availability_periods.length > 0;
