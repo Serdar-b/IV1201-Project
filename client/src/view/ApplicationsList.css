@@ -9,6 +9,7 @@
     gap: 10px;
     margin-bottom: 50px; 
     position: relative;
+    min-width: 0;
   }
   
   
@@ -35,17 +36,18 @@
   
   .pagination {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     position: absolute; 
-    bottom: 200px; 
-    right: 300px;
+    bottom: 150px; 
+    right: -550px;
     padding-right: 10px; 
+    width: 100%;
+    box-sizing: border-box;
   }
   
   
-  
-  
+
   .pagination span {
     margin: 0 15px;
   }

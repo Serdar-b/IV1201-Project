@@ -21,6 +21,7 @@ app.post("/register", authController.register);
 app.post("/apply", applicationController.submitApplication);
 app.get("/apply", applicationController.handleCompetences);
 app.get("/applications", applicationController.listAllApplications);
+app.post("/applications", applicationController.setApplicationStatus);
 
 const port = process.env.PORT;  
 const host = process.env.HOST;

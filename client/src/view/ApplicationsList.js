@@ -1,57 +1,48 @@
-import React, { useState, useEffect } from 'react';
+// ApplicationsList.js
+import React, { useState } from 'react';
 import './ApplicationsList.css';
 import Select from 'react-select';
 
-const ApplicationsList = ({ applications, error, competences }) => {
+const ApplicationsList = ({
+  applications,
+  error,
+  competences,
+  onSearchTermChange,
+  onCompetenceChange,
+  onUpdateStatus
+}) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCompetences, setSelectedCompetences] = useState([]);
 
   const applicationsPerPage = 10;
 
-  useEffect(() => {
-    // Reset to the first page when the search term changes
-    setCurrentPage(0);
-  }, [searchTerm, selectedCompetences]);
-  if (error) {
-    return <div>An error occurred: {error}</div>;
-  }
-
-  const options = competences.map(comp => ({ value: comp.name, label: comp.name }));
-
-  const handleCompetenceChange = selectedOptions => {
-    setSelectedCompetences(selectedOptions || []);
-  };
-  
-
-  const filteredApplications = applications.filter(app => {
-    const nameMatch = app.name?.toLowerCase().includes(searchTerm.toLowerCase()) || app.surname?.toLowerCase().includes(searchTerm.toLowerCase());
-    const availabilityCheck = app.availability_periods && app.availability_periods.length > 0;
-  
-    // Split the app.competences_with_experience string into an array of competences
-    const appCompetences = app.competences_with_experience ? app.competences_with_experience.split(', ').map(c => c.split(' (')[0].toLowerCase()) : [];
-    
-    // Check if every selectedCompetence is included in the appCompetences array
-    const competenceMatch = selectedCompetences.length === 0 || selectedCompetences.every(selectedCompetence => 
-      appCompetences.includes(selectedCompetence.value.toLowerCase())
-    );
-  
-    return nameMatch && availabilityCheck && competenceMatch;
-  });
-  
-
-
-  // Calculate the current applications to display after filtering
+  // Calculate the current applications to display
   const indexOfLastApplication = (currentPage + 1) * applicationsPerPage;
   const indexOfFirstApplication = indexOfLastApplication - applicationsPerPage;
-  const currentApplications = filteredApplications.slice(indexOfFirstApplication, indexOfLastApplication);
+  const currentApplications = applications.slice(indexOfFirstApplication, indexOfLastApplication);
 
-  // Calculate total pages after filtering
-  const totalPages = Math.ceil(filteredApplications.length / applicationsPerPage);
+  // Calculate total pages
+  const totalPages = Math.ceil(applications.length / applicationsPerPage);
 
   // Change page handler
   const paginate = (direction) => {
     setCurrentPage(prevPage => Math.max(0, Math.min(prevPage + direction, totalPages - 1)));
+  };
+
+  const handleStatusChange = (status, person_id) => {
+    onUpdateStatus(status.value, person_id)
+  };
+  
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'accepted':
+        return { backgroundColor: 'green', color: 'white', padding: '5px', borderRadius: '5px' };
+      case 'rejected':
+        return { backgroundColor: 'red', color: 'white', padding: '5px', borderRadius: '5px' };
+      case 'unhandled':
+        return { backgroundColor: 'darkgrey', color: 'white', padding: '5px', borderRadius: '5px' };
+      default:
+        return {};
+    }
   };
 
   return (
@@ -60,19 +51,19 @@ const ApplicationsList = ({ applications, error, competences }) => {
       <input
         type="text"
         placeholder="Search by name..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => onSearchTermChange(e.target.value)}
         className="search-input"
       />
       <Select
         isMulti
         name="competences"
-        options={options}
+        options={competences.map(comp => ({ value: comp.name, label: comp.name }))}
         className="basic-multi-select"
         classNamePrefix="select"
-        onChange={handleCompetenceChange}
-        value={selectedCompetences}
+        onChange={onCompetenceChange}
       />
+
+      {error && <div>An error occurred: {error}</div>}
 
       <div className="applications-container">
         {currentApplications.length > 0 ? (
@@ -81,7 +72,21 @@ const ApplicationsList = ({ applications, error, competences }) => {
               <div><strong>Applicant:</strong> {app.name} {app.surname}</div>
               <div><strong>Competences:</strong> {app.competences_with_experience}</div>
               <div><strong>Availability:</strong> {app.availability_periods}</div>
-              <div><strong>Status:</strong> {app.status}</div>
+              <div style={getStatusStyle(app.status)}>
+                <strong>Status:</strong> {app.status ? app.status.charAt(0).toUpperCase() + app.status.slice(1) : 'Unknown'}
+              </div>
+              <Select
+                name="status"
+                options={[
+                  { value: 'unhandled', label: 'Unhandled' },
+                  { value: 'accepted', label: 'Accepted' },
+                  { value: 'rejected', label: 'Rejected' }
+                ]}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={(selectedOption) => handleStatusChange(selectedOption, app.person_id, app.competence_id)}
+                value={app.status ? { value: app.status, label: app.status.charAt(0).toUpperCase() + app.status.slice(1) } : null}
+              />
             </div>
           ))
         ) : (
