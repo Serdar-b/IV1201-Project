@@ -19,7 +19,7 @@ const submitApplication = async (req, res) => {
       await applicationDAO.logApplicationError(userData.person_id, userData.email, userData.username, logMessage, userAgent);
       res
         .status(500)
-        .json({ success: false, logMessage });
+        .json({ success: false, message: logMessage });
     }
   } catch (err) {
     const logMessage = 'Error submitting application: ' + err.message;
