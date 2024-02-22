@@ -29,17 +29,17 @@ const Dashboard = ({ user }) => {
       <div>
         <h1>Recruiter Dashboard</h1>
         {<p>Welcome, {user.name}!</p>}
-        <button onClick={navigateToAllApplications} className ="dashboard-button"> View All Applications </button>
+        <button onClick={navigateToAllApplications} className="dashboard-button"> View All Applications </button>
       </div>
     );
-  } else if (user.role === 2) {
+  } else {
     // Applicant view
     return (
       <div>
-      <h1>Dashboard</h1>
-      {<p>Welcome, {user.name}!</p>}
-      <button onClick={navigateToApply} className="dashboard-button" >Apply Now</button>
-    </div>
+        <h1>Dashboard</h1>
+        {<p>Welcome, {user.name}!</p>}
+        <button onClick={navigateToApply} className="dashboard-button" >Apply Now</button>
+      </div>
     );
   }
 
