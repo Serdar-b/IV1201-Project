@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../view/Header';
+import Footer from '../view/Footer';
 
 /**
  * A layout component that wraps content with optional header display.
@@ -10,9 +11,10 @@ import Header from '../view/Header';
 
 const Layout = ({ children, showHeader = true }) => {
     return (
-        <div>
+        <div className="layout-container">
             {showHeader && <Header />}
-            {children}
+            <main className="layout-content">{children}</main>
+            <Footer />
         </div>
     );
 };

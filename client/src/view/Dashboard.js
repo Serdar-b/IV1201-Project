@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 
 /**
@@ -44,7 +44,7 @@ const Dashboard = ({ user }) => {
   }
 
   // Default return
-  return <navigate to="/login" />;
+  return <Navigate to="/login" />;
 };
 
 export default Dashboard;
