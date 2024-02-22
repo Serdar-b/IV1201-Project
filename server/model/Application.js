@@ -1,18 +1,10 @@
 class Application {
-    constructor({ person_id, competences, availability, status = "Unhandled" }) {
+    constructor({ person_id, competences, availability}) {
         this.person_id = person_id;
         this.competences = competences;
         this.availability = availability;
-        this.status = status;
     }
 
-    setStatus(status) {
-        this.status = status;
-    }
-
-    get getStatus() {
-        return this.status;
-    }
 
     get getPersonId() {
         return this.person_id;

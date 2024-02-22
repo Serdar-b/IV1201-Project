@@ -99,9 +99,6 @@ const getCompetences = async () => {
 };
 
 
-
-
-
 const getAllApplications = async () => {
   try {
     const query = `
@@ -118,7 +115,12 @@ const getAllApplications = async () => {
         SELECT string_agg(a.from_date || ' to ' || a.to_date, '; ')
         FROM availability a
         WHERE a.person_id = p.person_id
-    ) AS availability_periods
+    ) AS availability_periods,
+    (
+      SELECT string_agg(DISTINCT cp.status, ', ')
+      FROM competence_profile cp
+      WHERE cp.person_id = p.person_id
+    ) AS status
 FROM
     person p`
 

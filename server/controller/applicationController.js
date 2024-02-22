@@ -47,23 +47,11 @@ const handleCompetences = async (req, res) => {
 
 const listAllApplications = async (req, res) => {
   try {
-    const applicationsData = await applicationDAO.getAllApplications();
     
-    const applicationsWithStatus = applicationsData.map(appData => {
-      // Create an instance of Application for each application
-      const appInstance = new Application({
-        person_id: appData.person_id,
-        competences: appData.competences, 
-        availability: appData.availability, 
-      });
-
-      return {
-        ...appData,
-        status: appInstance.getStatus // Use the getter to get the status
-      };
-    });
-
-    res.json({ applications: applicationsWithStatus });
+    const result = await applicationDAO.getAllApplications();
+    
+    // Return the fetched applications to the client
+    res.json({ applications: result }); 
   } catch (error) {
     console.error("Error fetching all applications: ", error.stack);
     res.status(500).json({
