@@ -11,6 +11,27 @@ import ApplicationsList from '../view/ApplicationsList';
 const ApplicationsListPresenter = () => {
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState('');
+  const [competences, setCompetences] = useState([]);
+
+  useEffect(() => {
+    // Fetch competences when the component mounts
+    const fetchCompetences = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/apply", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setCompetences(data);
+      } catch (error) {
+        console.error("Error fetching competences:", error);
+      }
+    };
+
+    fetchCompetences();
+  }, []);
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -38,7 +59,7 @@ const ApplicationsListPresenter = () => {
     fetchApplications();
   }, []);
 
-  return <ApplicationsList applications={applications} error={error} />;
+  return <ApplicationsList applications={applications} error={error} competences = {competences} />;
 };
 
 export default ApplicationsListPresenter;

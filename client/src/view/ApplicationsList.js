@@ -1,35 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import './ApplicationsList.css';
+import Select from 'react-select';
 
-const ApplicationsList = ({ applications, error }) => {
+const ApplicationsList = ({ applications, error, competences }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchCompetence, setSearchCompetence] = useState('');
+  const [selectedCompetences, setSelectedCompetences] = useState([]);
 
   const applicationsPerPage = 10;
 
   useEffect(() => {
     // Reset to the first page when the search term changes
     setCurrentPage(0);
-  }, [searchTerm, searchCompetence]);
-
+  }, [searchTerm, selectedCompetences]);
   if (error) {
     return <div>An error occurred: {error}</div>;
   }
 
+  const options = competences.map(comp => ({ value: comp.name, label: comp.name }));
 
-// Filter applications based on the search term, availability, and specific competence
-const filteredApplications = applications.filter(app => {
-  const nameMatch = (app.name?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
-                    (app.surname?.toLowerCase() ?? '').includes(searchTerm.toLowerCase());
-  const availabilityCheck = app.availability_periods && app.availability_periods.length > 0;
+  const handleCompetenceChange = selectedOptions => {
+    setSelectedCompetences(selectedOptions || []);
+  };
   
-  // Assuming competences_with_experience is a string and ensuring it's not null before calling toLowerCase()
-  const competenceMatch = searchCompetence ? (app.competences_with_experience?.toLowerCase() ?? '').includes(searchCompetence.toLowerCase()) : true;
-  
-  return nameMatch && availabilityCheck && competenceMatch;
-});
 
+  const filteredApplications = applications.filter(app => {
+    const nameMatch = app.name?.toLowerCase().includes(searchTerm.toLowerCase()) || app.surname?.toLowerCase().includes(searchTerm.toLowerCase());
+    const availabilityCheck = app.availability_periods && app.availability_periods.length > 0;
+  
+    // Split the app.competences_with_experience string into an array of competences
+    const appCompetences = app.competences_with_experience ? app.competences_with_experience.split(', ').map(c => c.split(' (')[0].toLowerCase()) : [];
+    
+    // Check if every selectedCompetence is included in the appCompetences array
+    const competenceMatch = selectedCompetences.length === 0 || selectedCompetences.every(selectedCompetence => 
+      appCompetences.includes(selectedCompetence.value.toLowerCase())
+    );
+  
+    return nameMatch && availabilityCheck && competenceMatch;
+  });
+  
 
 
   // Calculate the current applications to display after filtering
@@ -55,13 +64,16 @@ const filteredApplications = applications.filter(app => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-input"
       />
-      <input
-        type="text"
-        placeholder="Search by competences..."
-        value={searchCompetence}
-        onChange={(e) => setSearchCompetence(e.target.value)}
-        className="search-input"
+      <Select
+        isMulti
+        name="competences"
+        options={options}
+        className="basic-multi-select"
+        classNamePrefix="select"
+        onChange={handleCompetenceChange}
+        value={selectedCompetences}
       />
+
       <div className="applications-container">
         {currentApplications.length > 0 ? (
           currentApplications.map((app) => (
