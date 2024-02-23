@@ -18,7 +18,7 @@ function Login({ onLogin }) {
 
   // Function to handle form submission
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the form from causing a page reload
+    event.preventDefault(); 
     onLogin(username, password); 
   };
 

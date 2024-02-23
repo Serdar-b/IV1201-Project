@@ -10,6 +10,14 @@ const login = async (req, res) => {
     return res.status(400).json({ success: false, message: "Username and password are required." });
   }
 
+  if (username.length < 3) {
+    return res.status(400).json({ success: false, message: "Username must be at least 3 characters long" });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ success: false, message: "password must be at least 6 characters long" });
+  }
+
   try {
     const user = await userDAO.findUserByUsername(username);
 
