@@ -30,7 +30,7 @@ const handleCompetences = async (req, res) => {
     res.json(result);
   } catch (error) {
     console.error('Error fetching competences:', error);
-    // Log the error with user details if available or provide nulls
+    
     await applicationDAO.logApplicationError(null, null, null, error.message, req.headers['user-agent']);
     res.status(500).json({ success: false, message: "An error occurred while fetching competences" });
   }
@@ -42,7 +42,7 @@ const listAllApplications = async (req, res) => {
     res.json({ applications: result });
   } catch (error) {
     console.error('Error fetching all applications:', error);
-    // Log the error with user details if available or provide nulls
+    
     await applicationDAO.logApplicationError(null, null, null, error.message, req.headers['user-agent']);
     res.status(500).json({ success: false, message: "An error occurred while fetching applications" });
   }
@@ -56,7 +56,7 @@ const setApplicationStatus = async (req, res) => {
     res.json({ success: true, message: "Application status updated successfully", applications: result });
   } catch (error) {
     console.error('Error setting application status:', error);
-    // Log the error with user details if available or provide nulls
+   
     await applicationDAO.logApplicationError(person_id, null, null, error.message, req.headers['user-agent']);
     res.status(500).json({ success: false, message: "An error occurred while setting application status" });
   }
