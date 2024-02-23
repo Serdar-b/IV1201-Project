@@ -54,15 +54,15 @@ const LoginPresenter = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // Needed to include the cookie with the request
+        credentials: "include", 
         body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        localStorage.setItem("user", JSON.stringify(data.user)); // Store user data in local storage
-        console.log("users role" + data.user.role); // Logging
+        localStorage.setItem("user", JSON.stringify(data.user)); 
+        console.log("users role" + data.user.role); 
         setLoginStatus({
           isLoggedIn: true,
           message: "Login successful",
@@ -70,19 +70,19 @@ const LoginPresenter = () => {
         });
 
         setTimeout(() => {
-          navigate("/dashboard"); // Navigate to dashboard after a delay
+          navigate("/dashboard"); 
         }, 2000);
       } else {
         setLoginStatus({
           isLoggedIn: false,
-          message: "Invalid credentials", // Update message on invalid credentials
+          message: "Invalid credentials", 
           user: null,
         });
       }
     } catch (error) {
       setLoginStatus({
         isLoggedIn: false,
-        message: "An error occurred while logging in.", // Update message on error
+        message: "An error occurred while logging in.", 
         user: null,
       });
     }
