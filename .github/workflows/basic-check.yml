@@ -133,8 +133,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: npm install
 
       - name: Run Static Code Analysis (ESLint)
         run: |
