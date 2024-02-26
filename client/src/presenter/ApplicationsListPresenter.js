@@ -25,7 +25,8 @@ const ApplicationsListPresenter = () => {
   // Fetch competences when the component mounts
   const fetchCompetences = async () => {
     try {
-      const response = await fetch("http://localhost:5001/apply", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
+      // const response = await fetch("http://localhost:5001/apply", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,8 @@ const ApplicationsListPresenter = () => {
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch('http://localhost:5001/applications', {
+      // const response = await fetch('http://localhost:5001/applications', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
         method: 'GET',
         credentials: 'include', 
         headers: {
@@ -89,7 +91,8 @@ const ApplicationsListPresenter = () => {
 
     const handleStatusChange = async (status, person_id) => {
       try {
-        const response = await fetch("http://localhost:5001/applications", {
+        // const response = await fetch("http://localhost:5001/applications", {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
