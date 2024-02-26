@@ -80,8 +80,6 @@
 
 
 
-
-
 name: Node.js CI/CD
 
 on:
@@ -128,16 +126,7 @@ jobs:
             sleep 2
           done
 
-      - name: Set up Database
-        run: |
-          cd server  # Navigate to the server directory before running the setup script
-          npm run setup-db  # Ensure this script is defined in your server/package.json
-        env:
-          PGUSER: postgres
-          PGPASSWORD: newpassword
-          PGHOST: postgres  # Use the service name to connect within the GitHub Actions environment
-          PGDATABASE: myPostgres
-          PGPORT: 5432
+      # Removed Set up Database step that caused the error
 
       - name: Run Server Tests
         run: npm test
@@ -150,6 +139,7 @@ jobs:
           PGPASSWORD: newpassword
           PGDATABASE: myPostgres
           PGPORT: 5432
-          JWT_SECRET: ${ secrets.JWT_SECRET }
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
 
     
