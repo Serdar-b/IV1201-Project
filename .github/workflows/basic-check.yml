@@ -31,7 +31,7 @@
 #       - name: Set up Node.js
 #         uses: actions/setup-node@v2
 #         with:
-#           node-version: "20" 
+#           node-version: "20"
 
 #       - name: Cache node modules for server
 #         uses: actions/cache@v2
@@ -72,13 +72,6 @@
 
 #     # Add similar steps for your client-side tests if needed
 
-
-
-
-
-
-
-
 name: Node.js CI/CD
 
 on:
@@ -112,7 +105,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Server Dependencies
         run: npm install
@@ -125,22 +118,18 @@ jobs:
             sleep 2
           done
 
- 
       - uses: actions/checkout@v2
 
       - name: Set up Node.js with a specific version
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
-
+          node-version: "20"
 
       - name: Run Static Code Analysis (ESLint)
         run: |
           npm install eslint --save-dev
           npx eslint . --ext .js,.jsx
+        working-directory: ./client
 
       - name: Run Tests
         run: npm test
-
-
-    
