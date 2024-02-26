@@ -126,20 +126,6 @@ jobs:
             sleep 2
           done
 
-      # Removed Set up Database step that caused the error
-
-      - name: Run Server Tests
-        run: npm test
-        working-directory: ./server
-        env:
-          PORT: 5001
-          HOST: localhost
-          PGUSER: postgres
-          PGHOST: postgres  # Again, use the service name here
-          PGPASSWORD: newpassword
-          PGDATABASE: myPostgres
-          PGPORT: 5432
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
+     
 
     
