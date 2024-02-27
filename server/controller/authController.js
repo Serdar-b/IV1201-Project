@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const login = async (req, res) => {
   const { username, password } = req.body;
   const userAgent = req.headers['user-agent'];
+  const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   if (!username || !password) {
     return res.status(400).json({ success: false, message: "Username and password are required." });
@@ -22,14 +23,14 @@ const login = async (req, res) => {
     const user = await userDAO.findUserByUsername(username);
 
     if (!user) {
-      await userDAO.logFailedAttempt(null, null, null, "User not found", userAgent);
+      await userDAO.logFailedAttempt(null, null, null, "User not found", userAgent, ipAddress);
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      await userDAO.logFailedAttempt(null, null, username, "Entered wrong password", userAgent);
+      await userDAO.logFailedAttempt(null, null, username, "Entered wrong password", userAgent, ipAddress);
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
@@ -49,7 +50,6 @@ const login = async (req, res) => {
 
   } catch (error) {
     console.error('Login error:', error);
-    // You could also use the logFailedAttempt function here if it makes sense for your application
     res.status(500).json({ success: false, message: "An error occurred during login." });
   }
 };
@@ -97,13 +97,13 @@ const register = async (req, res) => {
       res.json({ success: true, message: "Registration successful" });
     } else {
       const logMessage = "Could not register user";
-      await userDAO.logFailedAttempt(null, email, username, logMessage, userAgent);
+      await userDAO.logFailedAttempt(null, email, username, logMessage, userAgent, ipAddress);
       res.status(500).json({ success: false, message: logMessage });
     }
 
   } catch (error) {
     console.error('Registration error:', error);
-    await userDAO.logFailedAttempt(null, email, username, error.message, userAgent);
+    await userDAO.logFailedAttempt(null, email, username, error.message, userAgent, ipAddress);
     res.status(500).json({ success: false, message: "An error occurred during registration." });
   }
 };

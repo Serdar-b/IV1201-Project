@@ -141,17 +141,17 @@ const setStatus = async (status, person_id) => {
 
 
 
-const logApplicationError = async (personId, email, username, reason, userAgent) => {
+const logApplicationError = async (personId, email, username, reason, userAgent, ipAddress) => {
   const client = await pool.connect();
 
   try {
     await client.query('BEGIN'); 
 
     const insertText = `
-      INSERT INTO logs (person_id, email, username, reason, user_agent)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO logs (person_id, email, username, reason, user_agent, ip_address)
+      VALUES ($1, $2, $3, $4, $5, $6)
     `;
-    const insertValues = [personId, email, username, reason, userAgent];
+    const insertValues = [personId, email, username, reason, userAgent, ipAddress];
     
     await client.query(insertText, insertValues);
 
@@ -164,7 +164,5 @@ const logApplicationError = async (personId, email, username, reason, userAgent)
     client.release(); 
   }
 };
-
-
 
 module.exports = { saveApplication, getCompetences, getAllApplications, logApplicationError, setStatus };
