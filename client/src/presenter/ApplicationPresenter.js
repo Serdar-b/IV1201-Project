@@ -17,7 +17,7 @@ const ApplicationPresenter = () => {
     const fetchCompetences = async () => {
       try {
         // const response = await fetch("http://localhost:5001/apply", {
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const ApplicationPresenter = () => {
 
     try {
       // const response = await fetch("http://localhost:5001/apply", {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
