@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Tests for Server
         run: npm test
-        working-directory: ./server/testFiles/intetegration_test
+        working-directory: ./server/testFiles/integration_test
 
       - uses: actions/checkout@v2
 
