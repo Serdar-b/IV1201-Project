@@ -44,6 +44,10 @@ jobs:
             sleep 2
           done
 
+      - name: Run Tests for Server
+        run: npm test
+        working-directory: ./server/testFiles
+
       - uses: actions/checkout@v2
 
       - name: Set up Node.js with a specific version
