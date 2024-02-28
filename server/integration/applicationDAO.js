@@ -1,14 +1,173 @@
+// const pool = require("../db");
+
+// const saveApplication = async (userData, competences, availability) => {
+//   // Start a new client from the pool
+//   const client = await pool.connect();
+
+//   try {
+//     // Begin the transaction
+//     await client.query("BEGIN");
+
+//     // Loop through competences and insert them
+//     for (let { competenceName, yearsOfExperience } of competences) {
+//       const compRes = await client.query(
+//         "SELECT competence_id FROM public.competence WHERE name = $1",
+//         [competenceName]
+//       );
+//       if (compRes.rows.length > 0) {
+//         const competenceId = compRes.rows[0].competence_id;
+
+//         await client.query(
+//           "INSERT INTO public.competence_profile (person_id, competence_id, years_of_experience) VALUES ($1, $2, $3)",
+//           [userData.person_id, competenceId, yearsOfExperience]
+//         );
+//       }
+//     }
+
+//     // Loop through availability periods and insert them
+//     for (let { fromDate, toDate } of availability) {
+//       await client.query(
+//         "INSERT INTO public.availability (person_id, from_date, to_date) VALUES ($1, $2, $3)",
+//         [userData.person_id, fromDate, toDate]
+//       );
+//     }
+
+//     // If everything is successful, commit the transaction
+//     await client.query("COMMIT");
+//     return true;
+//   } catch (err) {
+//     // If there is an error, rollback the transaction
+//     await client.query("ROLLBACK");
+//     console.error("Error saving application: ", err.stack);
+//     return false;
+//   } finally {
+//     // Release the client back to the pool
+//     client.release();
+//   }
+// };
+
+// const getCompetences = async () => {
+//   try {
+//     const result = await pool.query("SELECT * FROM public.competence");
+//     if (result.rows.length > 0) {
+//       return result.rows;
+//     } else {
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error("Error getting competence: ", err.stack);
+//     throw err;
+//   }
+// };
+
+// const getAllApplications = async () => {
+//   const client = await pool.connect();
+
+//   try {
+//     await client.query('BEGIN');
+
+//     const query = `
+//     SELECT
+//       p.person_id,
+//       p.name,
+//       p.surname,
+//       (
+//         SELECT string_agg(c.name || ' (' || cp.years_of_experience || ' years)', ', ')
+//         FROM competence_profile cp
+//         JOIN competence c ON cp.competence_id = c.competence_id
+//         WHERE cp.person_id = p.person_id
+//       ) AS competences_with_experience,
+//       (
+//         SELECT string_agg(a.from_date || ' to ' || a.to_date, '; ')
+//         FROM availability a
+//         WHERE a.person_id = p.person_id
+//       ) AS availability_periods,
+//       (
+//         SELECT string_agg(DISTINCT cp.status, ', ')
+//         FROM competence_profile cp
+//         WHERE cp.person_id = p.person_id
+//       ) AS status
+//     FROM
+//       person p`
+
+//     const result = await client.query(query);
+
+//     await client.query('COMMIT');
+
+//     return result.rows;
+//   } catch (error) {
+//     await client.query('ROLLBACK');
+//     console.error("Error fetching all applications: ", error.stack);
+//     throw new Error("An error occurred while fetching all applications");
+//   } finally {
+//     client.release(); // Always release the client back to the pool
+//   }
+// };
+
+// const setStatus = async (status, person_id) => {
+//   const client = await pool.connect();
+
+//   try {
+//     // Start the transaction
+//     await client.query('BEGIN');
+
+//     // Update the status where the person_id and competence_id match
+//     const updateQuery = `
+//       UPDATE public.competence_profile
+//       SET status = $1
+//       WHERE person_id = $2
+//     `;
+
+//     const result = await client.query(updateQuery, [status, person_id]);
+
+//     // Commit the transaction
+//     await client.query('COMMIT');
+
+//     // Return some result or indication of success
+//     return { success: true, message: 'Status updated successfully', result: result.rowCount };
+//   } catch (error) {
+//     // If there is an error, rollback the transaction
+//     await client.query('ROLLBACK');
+//     console.error('Error changing application status: ', error.stack);
+//     return { success: false, message: 'An error occurred while changing application status', error: error.stack };
+//   } finally {
+//     // Release the client back to the pool
+//     client.release();
+//   }
+// };
+
+// const logApplicationError = async (personId, email, username, reason, userAgent, ipAddress) => {
+//   const client = await pool.connect();
+
+//   try {
+//     await client.query('BEGIN');
+
+//     const insertText = `
+//       INSERT INTO logs (person_id, email, username, reason, user_agent, ip_address)
+//       VALUES ($1, $2, $3, $4, $5, $6)
+//     `;
+//     const insertValues = [personId, email, username, reason, userAgent, ipAddress];
+
+//     await client.query(insertText, insertValues);
+
+//     await client.query('COMMIT');
+//     console.log('Logging success.');
+//   } catch (err) {
+//     await client.query('ROLLBACK');
+//     console.error('Error creating log: ', err);
+//   } finally {
+//     client.release();
+//   }
+// };
+
+// module.exports = { saveApplication, getCompetences, getAllApplications, logApplicationError, setStatus };
+
 const pool = require("../db");
 
 
-const saveApplication = async (userData, competences, availability) => {
-  // Start a new client from the pool
-  const client = await pool.connect();
 
+const saveApplication = async (client, userData, competences, availability) => {
   try {
-    // Begin the transaction
-    await client.query("BEGIN");
-
     // Loop through competences and insert them
     for (let { competenceName, yearsOfExperience } of competences) {
       const compRes = await client.query(
@@ -33,17 +192,61 @@ const saveApplication = async (userData, competences, availability) => {
       );
     }
 
-    // If everything is successful, commit the transaction
-    await client.query("COMMIT");
     return true;
   } catch (err) {
-    // If there is an error, rollback the transaction
-    await client.query("ROLLBACK");
     console.error("Error saving application: ", err.stack);
-    return false;
-  } finally {
-    // Release the client back to the pool
-    client.release();
+    throw err; // Throw the error to be handled by the caller
+  }
+};
+
+const setStatus = async (client, status, person_id) => {
+  try {
+    // Use the provided client to execute the query
+    const updateQuery = `
+      UPDATE public.competence_profile
+      SET status = $1
+      WHERE person_id = $2
+    `;
+
+    await client.query(updateQuery, [status, person_id]);
+
+    // Return a success message (no need to commit the transaction here)
+    return { success: true, message: "Status updated successfully" };
+  } catch (error) {
+    console.error("Error changing application status: ", error.stack);
+    throw error; // Throw the error to be handled by the caller
+  }
+};
+
+const logApplicationError = async (
+  client,
+  personId,
+  email,
+  username,
+  reason,
+  userAgent,
+  ipAddress
+) => {
+  try {
+    // Use the provided client to execute the insert query
+    const insertText = `
+      INSERT INTO logs (person_id, email, username, reason, user_agent, ip_address)
+      VALUES ($1, $2, $3, $4, $5, $6)
+    `;
+    const insertValues = [
+      personId,
+      email,
+      username,
+      reason,
+      userAgent,
+      ipAddress,
+    ];
+
+    await client.query(insertText, insertValues);
+    console.log("Logging success.");
+  } catch (err) {
+    console.error("Error creating log: ", err);
+    throw err; // Throw the error to be handled by the caller
   }
 };
 
@@ -57,112 +260,49 @@ const getCompetences = async () => {
     }
   } catch (error) {
     console.error("Error getting competence: ", err.stack);
-    throw err;
+    throw new Error("Failed to fetch competences");
   }
 };
 
-
-const getAllApplications = async () => {
-  const client = await pool.connect();
-
+const getAllApplications = async (client) => {
   try {
-    await client.query('BEGIN'); 
-
     const query = `
-    SELECT
-      p.person_id, 
-      p.name,
-      p.surname,
-      (
-        SELECT string_agg(c.name || ' (' || cp.years_of_experience || ' years)', ', ')
-        FROM competence_profile cp
-        JOIN competence c ON cp.competence_id = c.competence_id
-        WHERE cp.person_id = p.person_id
-      ) AS competences_with_experience,
-      (
-        SELECT string_agg(a.from_date || ' to ' || a.to_date, '; ')
-        FROM availability a
-        WHERE a.person_id = p.person_id
-      ) AS availability_periods,
-      (
-        SELECT string_agg(DISTINCT cp.status, ', ')
-        FROM competence_profile cp
-        WHERE cp.person_id = p.person_id
-      ) AS status
-    FROM
-      person p`
+      SELECT
+        p.person_id, 
+        p.name,
+        p.surname,
+        (
+          SELECT string_agg(c.name || ' (' || cp.years_of_experience || ' years)', ', ')
+          FROM competence_profile cp
+          JOIN competence c ON cp.competence_id = c.competence_id
+          WHERE cp.person_id = p.person_id
+        ) AS competences_with_experience,
+        (
+          SELECT string_agg(a.from_date || ' to ' || a.to_date, '; ')
+          FROM availability a
+          WHERE a.person_id = p.person_id
+        ) AS availability_periods,
+        (
+          SELECT string_agg(DISTINCT cp.status, ', ')
+          FROM competence_profile cp
+          WHERE cp.person_id = p.person_id
+        ) AS status
+      FROM
+        person p`;
 
     const result = await client.query(query);
 
-    await client.query('COMMIT'); 
-
     return result.rows;
   } catch (error) {
-    await client.query('ROLLBACK'); 
     console.error("Error fetching all applications: ", error.stack);
     throw new Error("An error occurred while fetching all applications");
-  } finally {
-    client.release(); // Always release the client back to the pool
   }
 };
 
-
-const setStatus = async (status, person_id) => {
-  const client = await pool.connect();
-
-  try {
-    // Start the transaction
-    await client.query('BEGIN');
-
-    // Update the status where the person_id and competence_id match
-    const updateQuery = `
-      UPDATE public.competence_profile
-      SET status = $1
-      WHERE person_id = $2
-    `;
-
-    const result = await client.query(updateQuery, [status, person_id]);
-
-    // Commit the transaction
-    await client.query('COMMIT');
-
-    // Return some result or indication of success
-    return { success: true, message: 'Status updated successfully', result: result.rowCount };
-  } catch (error) {
-    // If there is an error, rollback the transaction
-    await client.query('ROLLBACK');
-    console.error('Error changing application status: ', error.stack);
-    return { success: false, message: 'An error occurred while changing application status', error: error.stack };
-  } finally {
-    // Release the client back to the pool
-    client.release();
-  }
+module.exports = {
+  saveApplication,
+  getCompetences,
+  getAllApplications,
+  logApplicationError,
+  setStatus,
 };
-
-
-
-const logApplicationError = async (personId, email, username, reason, userAgent, ipAddress) => {
-  const client = await pool.connect();
-
-  try {
-    await client.query('BEGIN'); 
-
-    const insertText = `
-      INSERT INTO logs (person_id, email, username, reason, user_agent, ip_address)
-      VALUES ($1, $2, $3, $4, $5, $6)
-    `;
-    const insertValues = [personId, email, username, reason, userAgent, ipAddress];
-    
-    await client.query(insertText, insertValues);
-
-    await client.query('COMMIT'); 
-    console.log('Logging success.');
-  } catch (err) {
-    await client.query('ROLLBACK'); 
-    console.error('Error creating log: ', err);
-  } finally {
-    client.release(); 
-  }
-};
-
-module.exports = { saveApplication, getCompetences, getAllApplications, logApplicationError, setStatus };

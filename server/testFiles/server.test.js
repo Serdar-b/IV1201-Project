@@ -19,6 +19,20 @@ describe("POST /login", () => {
   });
 });
 
-afterAll(async () => {
-    await pool.end();
-  });
+// afterAll(async () => {
+//     await pool.end();
+//   });
+
+
+// // In your test file(s)
+afterAll(done => {
+  if (server && server.close) {
+      server.close(() => {
+          console.log('Server closed');
+          done(); // Ensure to call done to signal Jest that async operations are complete
+      });
+  } else {
+      done();
+  }
+});
+
