@@ -28,6 +28,8 @@ Clone the repository to your local machine:
 git clone https://github.com/Serdar-b/IV1201-Project.git
 cd  IV1201-Project
 
+```
+
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -90,4 +92,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+```
+
 ```
