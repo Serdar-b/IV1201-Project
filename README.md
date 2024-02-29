@@ -1,10 +1,24 @@
-# Getting Started with Create React App
+# Recruitment Application - IV1201
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a full-stack application with client-side rendering and a monolithic architecture.
 
-## Available Scripts
+## Project Structure
 
-In the project directory, you can run:
+- **Frontend:** React (JavaScript)
+- **Backend:** Express (Node.js)
+- **Database:** PostgreSQL
+
+## Getting Started
+
+These instructions will guide you through getting a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+You will need the following tools installed on your system:
+
+- Node.js
+- npm (Node Package Manager)
+- PostgreSQL
 
 ### `npm start`
 
