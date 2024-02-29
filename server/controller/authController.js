@@ -166,8 +166,11 @@ const login = async (req, res) => {
       expiresIn: "30 minutes",
     });
 
-    res.cookie("token", token, { httpOnly: true });
-    res.json({ success: true, message: "Login successful", user: payload });
+    
+    //res.cookie("token", token, { httpOnly: true, secure: true });
+    //res.json({ success: true, message: "Login successful", user: payload });
+   
+res.json({ success: true, message: "Login successful", user: payload, token: token });
 
 
     // Commit if all goes well

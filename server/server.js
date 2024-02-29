@@ -4,6 +4,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const authController = require("./controller/authController");
 const applicationController = require("./controller/applicationController");
+const authenticateToken = require('./middlewareProtection'); 
 const app = express();
 const cors = require("cors");
 
@@ -20,10 +21,10 @@ app.use(cors(corsOptions));
 
 app.post("/login", authController.login);
 app.post("/register", authController.register);
-app.post("/apply", applicationController.submitApplication);
-app.get("/apply", applicationController.handleCompetences);
-app.get("/applications", applicationController.listAllApplications);
-app.post("/applications", applicationController.setApplicationStatus);
+app.post("/apply",authenticateToken, applicationController.submitApplication);
+app.get("/apply",authenticateToken, applicationController.handleCompetences);
+app.get("/applications",authenticateToken, applicationController.listAllApplications);
+app.post("/applications",authenticateToken, applicationController.setApplicationStatus);
 
 const port = process.env.PORT || 5001;
 

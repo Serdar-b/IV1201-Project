@@ -103,7 +103,7 @@ const setApplicationStatus = async (req, res) => {
   const { status, person_id } = req.body;
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-
+  
   const client = await pool.connect();
 
   try {

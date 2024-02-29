@@ -15,7 +15,7 @@ const ApplicationsListPresenter = () => {
   const [competences, setCompetences] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCompetences, setSelectedCompetences] = useState([]);
-
+  const token = localStorage.getItem('token');
   useEffect(() => {
 
     fetchCompetences();
@@ -30,6 +30,7 @@ const ApplicationsListPresenter = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
       });
       const data = await response.json();
@@ -40,13 +41,16 @@ const ApplicationsListPresenter = () => {
   };
 
   const fetchApplications = async () => {
+
     try {
+      const token = localStorage.getItem('token');
       // const response = await fetch('http://localhost:5001/applications', {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
         method: 'GET',
         credentials: 'include', 
         headers: {
           'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`,
         },
       });
 
@@ -91,11 +95,13 @@ const ApplicationsListPresenter = () => {
 
     const handleStatusChange = async (status, person_id) => {
       try {
+        const token = localStorage.getItem('token');
         // const response = await fetch("http://localhost:5001/applications", {
           const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
           credentials: "include",
           body: JSON.stringify({ status, person_id }),

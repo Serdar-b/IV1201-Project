@@ -65,7 +65,9 @@ const LoginPresenter = () => {
       const data = await response.json();
 
       if (data.success) {
+        localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
+        
         console.log("users role" + data.user.role);
         setLoginStatus({
           isLoggedIn: true,

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const ApplicationPresenter = () => {
   const navigate = useNavigate();
   const [competences, setCompetences] = useState([]);
+  const token = localStorage.getItem('token'); // Get the token from local storage
 
   useEffect(() => {
     // Fetch competences when the component mounts
@@ -21,7 +22,9 @@ const ApplicationPresenter = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
+          credentials: "include",
         });
         const data = await response.json();
         setCompetences(data);
@@ -72,14 +75,16 @@ const ApplicationPresenter = () => {
       { competenceName: selectedCompetence, yearsOfExperience: experience },
     ];
     const availability = [{ fromDate, toDate }];
-
+    const token = localStorage.getItem('token');
     try {
       // const response = await fetch("http://localhost:5001/apply", {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
+        credentials: "include",
         body: JSON.stringify({
           competences: competencesSubmission,
           availability,
