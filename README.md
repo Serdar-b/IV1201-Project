@@ -20,26 +20,46 @@ You will need the following tools installed on your system:
 - npm (Node Package Manager)
 - PostgreSQL
 
-### Installation
+### Running the Application
 
-Clone the repository to your local machine:
+Step 1: Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/Serdar-b/IV1201-Project.git
 cd  IV1201-Project
-
 ```
 
-# Running the Application
+Step 2: Change to the right directory
+
+```bash
+cd  IV1201-Project
+```
+
+Step 3: Navigate into `client` directorie and start the React application:
+
+```bash
+cd  client
+```
+
+step 4: install all dependencies:
+
+```bash
+cd  npm install
+```
+
+step 5: install all dependencies:
+
+```bash
+cd  npm start
+```
 
 - Frontend
-  Navigate to the client directory and start the React application:
+- Navigate to the client directory and start the React application:
 
 ```bash
 cd IV1201-Project/client
 npm install
 npm start
-
 
 ```
 
