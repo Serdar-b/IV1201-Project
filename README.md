@@ -30,6 +30,19 @@ cd  IV1201-Project
 
 ```
 
+# Running the Application
+
+- Frontend
+  Navigate to the client directory and start the React application:
+
+```bash
+cd IV1201-Project/client
+npm install
+npm start
+
+
+```
+
 ### `npm start`
 
 Runs the app in the development mode.\
