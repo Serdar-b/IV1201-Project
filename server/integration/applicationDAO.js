@@ -162,11 +162,21 @@
 
 // module.exports = { saveApplication, getCompetences, getAllApplications, logApplicationError, setStatus };
 
+
 const pool = require("../db");
 
-
-
 const saveApplication = async (client, userData, competences, availability) => {
+  if (!userData || !competences || !availability) {
+    throw new Error('User data, competences, and availability are required.');
+  }
+
+  if (!userData.person_id) {
+    throw new Error('A valid user ID is required.');
+  }
+
+  if (!Array.isArray(competences) || competences.length === 0) {
+    throw new Error('Competences must be a non-empty array.');
+  }
   try {
     // Loop through competences and insert them
     for (let { competenceName, yearsOfExperience } of competences) {
@@ -200,6 +210,11 @@ const saveApplication = async (client, userData, competences, availability) => {
 };
 
 const setStatus = async (client, status, person_id) => {
+  
+  if (!person_id || isNaN(person_id)) {
+    return { success: false, message: "Invalid person ID provided." };
+  }
+
   try {
     // Use the provided client to execute the query
     const updateQuery = `
