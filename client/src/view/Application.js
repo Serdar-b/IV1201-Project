@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 
 /**
@@ -10,6 +11,7 @@ import React, { useState } from "react";
  */
 
 function ApplicationForm({ competences, onSubmitApplication }) {
+    const { t } = useTranslation();
     const [selectedCompetence, setSelectedCompetence] = useState('');
     const [experience, setExperience] = useState("");
     const [fromDate, setFromDate] = useState("");
@@ -28,17 +30,17 @@ function ApplicationForm({ competences, onSubmitApplication }) {
 
     return (
         <div className="application-container">
-            <h2>Apply for a position</h2>
+            <h2>{t('application_form.title')}</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="competence">Area of Expertise</label>
+                    <label htmlFor="competence">{t('application_form.area_of_expertise')}</label>
                     <select
                         id="competence"
                         value={selectedCompetence}
                         onChange={(e) => setSelectedCompetence(e.target.value)}
                         required
                     >
-                        <option value="">Select an expertise</option>
+                        <option value="">{t('application_form.select_expertise')}</option>
                         {competences.map((comp) => (
                             <option key={comp.competence_id} value={comp.name}>
                                 {comp.name}
@@ -47,18 +49,18 @@ function ApplicationForm({ competences, onSubmitApplication }) {
                     </select>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="experience">Years of Experience</label>
+                    <label htmlFor="experience">{t('application_form.years_of_experience')}</label>
                     <input
                         id="experience"
                         type="number"
                         value={experience}
                         onChange={(e) => setExperience(e.target.value)}
-                        placeholder="Enter your years of experience"
+                        placeholder={t('application_form.enter_experience')}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="fromDate">From</label>
+                    <label htmlFor="fromDate">{t('application_form.from')}</label>
                     <input
                         id="fromDate"
                         type="date"
@@ -68,7 +70,7 @@ function ApplicationForm({ competences, onSubmitApplication }) {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="toDate">To</label>
+                    <label htmlFor="toDate">{t('application_form.to')}</label>
                     <input
                         id="toDate"
                         type="date"
@@ -77,7 +79,7 @@ function ApplicationForm({ competences, onSubmitApplication }) {
                         required
                     />
                 </div>
-                <button type="submit" className="application-button">Submit Application</button>
+                <button type="submit" className="application-button">{t('application_form.submit')}</button>
             </form>
         </div>
     );

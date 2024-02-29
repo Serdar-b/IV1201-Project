@@ -1,0 +1,61 @@
+{
+  "header": {
+    "jobs": "Emplois à Grönalund",
+    "logout": "Déconnexion"
+  },
+  "language_switcher": {
+    "choose_language": "Choisir la langue"
+  },
+  "login": {
+    "title": "Connexion",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "enter_username": "Entrez votre nom d'utilisateur",
+    "enter_password": "Entrez votre mot de passe",
+    "login_button": "Se connecter",
+    "register_prompt": "Vous n'avez pas de compte ?",
+    "register_button": "S'inscrire",
+    "registration_success": "Inscription réussie ! Vous pouvez maintenant vous connecter."
+  },
+  "dashboard": {
+    "recruiter_title": "Tableau de Bord du Recruteur",
+    "applicant_title": "Tableau de Bord",
+    "welcome": "Bienvenue, {{name}} !",
+    "view_all_applications": "Voir toutes les candidatures",
+    "apply_now": "Postuler maintenant"
+  },
+  "application_form": {
+    "title": "Postuler pour un poste",
+    "area_of_expertise": "Domaine d'expertise",
+    "select_expertise": "Sélectionnez une expertise",
+    "years_of_experience": "Années d'expérience",
+    "enter_experience": "Entrez vos années d'expérience",
+    "from": "De",
+    "to": "À",
+    "submit_button": "Soumettre la candidature"
+  },
+  "register": {
+    "title": "S'inscrire",
+    "name": "Prénom",
+    "surname": "Nom",
+    "pnr": "NIR",
+    "email": "Email",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "enter_name": "Entrez le prénom",
+    "enter_surname": "Entrez le nom",
+    "enter_pnr": "Entrez le NIR",
+    "enter_email": "Entrez l'email",
+    "enter_username": "Entrez le nom d'utilisateur",
+    "enter_password": "Entrez le mot de passe",
+    "register_button": "S'inscrire",
+    "already_have_account": "Vous avez déjà un compte ?",
+    "login": "Connexion"
+  },
+  "footer": {
+    "contact_us": "Contactez-nous pour plus d'informations :",
+    "email": "Email : group@three.com",
+    "phone": "Téléphone : 070 000 00 00",
+    "address": "P. Sherman, 42 Wallaby Way, Sydney"
+  }
+}
