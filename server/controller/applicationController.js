@@ -79,6 +79,14 @@ const submitApplication = async (req, res) => {
     return res.status(400).json({ success: false, message: "Competences, availability, and user data are required." });
   }
 
+  if (userData.role !== 2) {
+    return res.status(400).json({ success: false, message: "User role has to be applicant." });
+  }
+  if (isNaN(userData.person_id)) {
+    return res.status(400).json({ success: false, message: "Person ID must be a number." });
+  }
+
+  console.log("userData: " + userData.role);
   const client = await pool.connect();
 
   try {
@@ -104,6 +112,13 @@ const setApplicationStatus = async (req, res) => {
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   
+  if (!person_id) {
+    return res.status(400).json({ success: false, message: "Person ID must not be a null." });
+  }
+
+  if (isNaN(person_id)) {
+    return res.status(400).json({ success: false, message: "Person ID must be a number." });
+  }
   const client = await pool.connect();
 
   try {
