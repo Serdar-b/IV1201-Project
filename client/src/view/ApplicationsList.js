@@ -94,7 +94,7 @@ const ApplicationsList = ({
       <Select
         isMulti
         name="competences"
-        options={competences.map(comp => ({ value: comp.name, label: comp.name }))}
+        options={competences.map(comp => ({ value: comp.name, label: t(`database.${comp.name}`) }))}
         className="basic-multi-select"
         classNamePrefix="select"
         onChange={onCompetenceChange}
