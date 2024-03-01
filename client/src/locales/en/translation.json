@@ -1,0 +1,93 @@
+{
+    "header": {
+        "jobs": "Grönalund Jobs",
+        "logout": "Logout"
+      },
+    "language_switcher": {
+        "choose_language": "Choose Language"
+      },
+    "login": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "enter_username": "Enter your username",
+      "enter_password": "Enter your password",
+      "login_button": "Login",
+      "register_prompt": "Don't have an account?",
+      "register_button": "Register",
+      "registration_success": "Registration successful! You can now log in."
+    },
+    "dashboard": {
+        "recruiter_title": "Recruiter Dashboard",
+        "applicant_title": "Dashboard",
+        "welcome": "Welcome, {{name}}!",
+        "view_all_applications": "View All Applications",
+        "apply_now": "Apply Now"
+      },
+    "application_form": {
+      "title": "Apply for a Position",
+      "area_of_expertise": "Area of Expertise",
+      "select_expertise": "Select an expertise",
+      "years_of_experience": "Years of Experience",
+      "enter_experience": "Enter your years of experience",
+      "from": "From",
+      "to": "To",
+      "submit_button": "Submit Application"
+    },
+    "register": {
+        "title": "Register",
+        "name": "Name",
+        "surname": "Surname",
+        "pnr": "PNR",
+        "email": "Email",
+        "username": "Username",
+        "password": "Password",
+        "enter_name": "Enter name",
+        "enter_surname": "Enter surname",
+        "enter_pnr": "Enter pnr",
+        "enter_email": "Enter email",
+        "enter_username": "Enter username",
+        "enter_password": "Enter password",
+        "register_button": "Register",
+        "already_have_account": "Already have an account?",
+        "login": "Log in"
+      },
+      "applications_list": {
+        "all_applications": "All Applications",
+        "search_by_name": "Search by name...",
+        "applicant": "Applicant",
+        "competences": "Competences",
+        "availability": "Availability",
+        "status": "Status",
+        "no_applications_found": "No applications found.",
+        "page_of": "Page {{current}} of {{total}}",
+        "left": "Left",
+        "right": "Right",
+        "page": "Page",
+        "of": "of"
+      },
+      "footer": {
+          "contact_us": "Contact us for more information:",
+          "email": "Email: group@three.com",
+          "phone": "Phone: 070 000 00 00",
+          "address": "P. Sherman, 42 Wallaby Way, Sydney"
+      },
+      "not_authorized": {
+        "title": "Access Denied",
+        "message": "You do not have permission to view this page."
+      },
+      "database": {
+        "lotteries": "Lotteries",
+        "ticket sales": "Ticket Sales",
+        "roller coaster operation": "Roller Coaster",
+        "none": "None", 
+        "years": "Years",
+        "to": "to",
+        "unhandled": "Unhandled",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "no_competences": "No Competences.",
+        "unknown": "Unknown"
+      }
+  }
+  

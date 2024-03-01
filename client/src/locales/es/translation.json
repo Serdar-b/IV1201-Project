@@ -1,0 +1,92 @@
+{
+  "header": {
+    "jobs": "Trabajos en Grönalund",
+    "logout": "Cerrar sesión"
+  },
+  "language_switcher": {
+    "choose_language": "Elegir idioma"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "enter_username": "Ingrese su nombre de usuario",
+    "enter_password": "Ingrese su contraseña",
+    "login_button": "Iniciar sesión",
+    "register_prompt": "¿No tienes una cuenta?",
+    "register_button": "Registrarse",
+    "registration_success": "¡Registro exitoso! Ahora puedes iniciar sesión."
+  },
+  "dashboard": {
+    "recruiter_title": "Tablero de Reclutador",
+    "applicant_title": "Tablero",
+    "welcome": "Bienvenido, {{name}}!",
+    "view_all_applications": "Ver todas las aplicaciones",
+    "apply_now": "Aplicar ahora"
+  },
+  "application_form": {
+    "title": "Solicitar una posición",
+    "area_of_expertise": "Área de Experticia",
+    "select_expertise": "Selecciona una experiencia",
+    "years_of_experience": "Años de experiencia",
+    "enter_experience": "Introduce tus años de experiencia",
+    "from": "Desde",
+    "to": "Hasta",
+    "submit": "Enviar solicitud"
+  },
+  "register": {
+    "title": "Registrarse",
+    "name": "Nombre",
+    "surname": "Apellido",
+    "pnr": "NRP",
+    "email": "Correo electrónico",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "enter_name": "Ingrese nombre",
+    "enter_surname": "Ingrese apellido",
+    "enter_pnr": "Ingrese NRP",
+    "enter_email": "Ingrese correo electrónico",
+    "enter_username": "Ingrese nombre de usuario",
+    "enter_password": "Ingrese contraseña",
+    "register_button": "Registrarse",
+    "already_have_account": "¿Ya tienes una cuenta?",
+    "login": "Iniciar sesión"
+  },
+  "applications_list": {
+    "all_applications": "Todas las aplicaciones",
+    "search_by_name": "Buscar por nombre...",
+    "applicant": "Solicitante",
+    "competences": "Competencias",
+    "availability": "Disponibilidad",
+    "status": "Estado",
+    "no_applications_found": "No se encontraron aplicaciones.",
+    "page_of": "Página {{current}} de {{total}}",
+    "left": "Izquierda",
+    "right": "Derecha",
+    "page": "Página",
+    "of": "de"
+  },
+  "footer": {
+    "contact_us": "Contáctanos para más información:",
+    "email": "Correo electrónico: group@three.com",
+    "phone": "Teléfono: 070 000 00 00",
+    "address": "P. Sherman, 42 Wallaby Way, Sídney"
+  },
+  "not_authorized": {
+    "title": "Acceso Denegado",
+    "message": "No tienes permiso para ver esta página."
+  },
+  "database": {
+    "lotteries": "Loterías",
+    "ticket sales": "Venta de entradas",
+    "roller coaster operation": "Operación de montaña rusa",
+    "none": "Ninguno",
+    "years": "Años",
+    "to": "a",
+    "unhandled": "Sin manejar",
+    "accepted": "Aceptado",
+    "rejected": "Rechazado",
+    "no_competences": "Sin competencias.",
+    "unknown": "Desconocido"
+  }
+}

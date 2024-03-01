@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import homeIcon from "../images/home.png";
 import "../App.css";
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component for displaying the header navigation.
@@ -11,6 +12,7 @@ import "../App.css";
 const Header = () => {
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { t } = useTranslation();
 
   /**
    * Handles the logout process.
@@ -34,13 +36,13 @@ const Header = () => {
           {!isLoggingOut ? (
             <>
               <Link to="/dashboard">
-                <img src={homeIcon} alt="Home" className="home-icon" />
+                <img src={homeIcon} alt={t("header.home")} className="home-icon" />
               </Link>
               <Link to="/dashboard" className="header-link">
-                Grönalund jobb
+                {t("header.jobs")} 
               </Link>
               <button onClick={handleLogout} className="header-link">
-                Logout
+                {t("header.logout")}
               </button>
             </>
           ) : (

@@ -1,10 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const NotAuthorized = () => {
+    const { t } = useTranslation();
+
     return (
         <div>
-            <h1>Access Denied</h1>
-            <p>You do not have permission to view this page.</p>
+            <h1>{t("not_authorized.title")}</h1>
+            <p>{t("not_authorized.message")}</p>
         </div>
     );
 };

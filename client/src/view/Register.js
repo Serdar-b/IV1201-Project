@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 /**
  * Component for user registration.
@@ -16,6 +17,7 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   /**
@@ -35,82 +37,80 @@ function Register(props) {
 
   return (
     <div className="register-container">
-      <h2>Register</h2>
+      <h2>{t("register.title")}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Name</label>
+        <label htmlFor="name">{t("register.name")}</label>
           <input
             id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter name"
+            placeholder={t("register.enter_name")}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="surname">Surname</label>
+          <label htmlFor="surname">{t("register.surname")}</label>
           <input
             id="surname"
             type="text"
             value={surname}
             onChange={(e) => setSurname(e.target.value)}
-            placeholder="Enter surname"
+            placeholder={t("register.enter_surname")}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="pnr">PNR</label>
+          <label htmlFor="pnr">{t("register.pnr")}</label>
           <input
             id="pnr"
             type="text"
             value={pnr}
             onChange={(e) => setPnr(e.target.value)}
-            placeholder="Enter pnr"
+            placeholder={t("register.enter_pnr")}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t("register.email")}</label>
           <input
             id="email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
+            placeholder={t("register.enter_email")}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">{t("register.username")}</label>
           <input
             id="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter username"
+            placeholder={t("register.enter_username")}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{t("register.password")}</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
+            placeholder={t("register.enter_password")}
             required
           />
         </div>
-        <button type="submit" className="register-button">
-          Register
-        </button>
+        <button type="submit">{t("register.register_button")}</button>
       </form>
       <p>
-        Already have an account?
+        {t("register.already_have_account")}{" "}
         <button onClick={handleAlreadyHaveAccount} className="login-link">
-          Log in
+          {t("register.login")}
         </button>
       </p>
     </div>
