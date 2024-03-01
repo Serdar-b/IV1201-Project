@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ApplicationsList from '../view/ApplicationsList';
+import { useTranslation } from 'react-i18next';
+
 
 /**
  * Presenter component for listing all applications.
@@ -16,6 +18,8 @@ const ApplicationsListPresenter = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCompetences, setSelectedCompetences] = useState([]);
   const token = localStorage.getItem('token');
+  const { t } = useTranslation();
+
   useEffect(() => {
 
     fetchCompetences();
@@ -43,6 +47,7 @@ const ApplicationsListPresenter = () => {
   const fetchApplications = async () => {
 
     try {
+
       const token = localStorage.getItem('token');
       // const response = await fetch('http://localhost:5001/applications', {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
@@ -62,8 +67,10 @@ const ApplicationsListPresenter = () => {
       setApplications(data.applications);
 
     } catch (err) {
-      setError(err.message);
+      console.log(err)
+      setError(t("error_fetching_applications"));
     }
+
   };
 
   useEffect(() => {

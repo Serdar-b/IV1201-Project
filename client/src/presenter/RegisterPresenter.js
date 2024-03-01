@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Register from "../view/Register";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 /**
  * Presenter component for handling user registration functionality.
@@ -14,6 +15,7 @@ const RegisterPresenter = () => {
     message: "", // Message to display based on registration success/failure
   });
 
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   /**
@@ -33,7 +35,7 @@ const RegisterPresenter = () => {
     if (username.length < 3) {
       setRegisterStatus({
         isRegistered: false,
-        message: "Username must be at least 3 characters long.",
+        message: t("login.three_characters_long"),
       });
       return;
     }
@@ -42,7 +44,7 @@ const RegisterPresenter = () => {
     if (password.length < 6) {
       setRegisterStatus({
         isRegistered: false,
-        message: "password must be at least 6 characters long.",
+        message: t("login.password_atleast_six_characters"),
       });
       return;
     }
@@ -51,7 +53,7 @@ const RegisterPresenter = () => {
     if (isNaN(pnr) || pnr.includes(".")) {
       setRegisterStatus({
         isRegistered: false,
-        message: "PNR must be a number.",
+        message: t("register.pnr_must_be_a_number"),
       });
       return;
     }
@@ -60,7 +62,7 @@ const RegisterPresenter = () => {
     if (!email.includes("@") || !email.includes(".")) {
       setRegisterStatus({
         isRegistered: false,
-        message: "Please enter a valid email address.",
+        message: t("register.valid_email"),
       });
       return;
     }
@@ -80,19 +82,19 @@ const RegisterPresenter = () => {
       if (data.success) {
         setRegisterStatus({
           isRegistered: true,
-          message: "Registration successful",
+          message: t("register.registration_successful"),
         });
         navigate("/login", { state: { registrationSuccess: true } });
       } else {
         setRegisterStatus({
           isRegistered: false,
-          message: data.message || "Registration failed",
+          message: data.message || t("register.registration_failed"),
         });
       }
     } catch (error) {
       setRegisterStatus({
         isRegistered: false,
-        message: "An error occurred during registration.",
+        message: t("register.registration_error"),
       });
     }
   };
@@ -106,7 +108,7 @@ const RegisterPresenter = () => {
         </div>
       ) : (
         <div>
-          <p>Registration successful! You can now log in.</p>
+          <p>{t("register.registration_success")}</p>
         </div>
       )}
     </div>

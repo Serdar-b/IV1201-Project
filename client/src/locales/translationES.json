@@ -15,7 +15,12 @@
     "login_button": "Iniciar sesión",
     "register_prompt": "¿No tienes una cuenta?",
     "register_button": "Registrarse",
-    "registration_success": "¡Registro exitoso! Ahora puedes iniciar sesión."
+    "three_characters_long": "El nombre de usuario debe tener al menos 3 caracteres.",
+    "username_not_start_with_number": "El nombre de usuario no debe comenzar con un número.",
+    "password_atleast_six_characters": "La contraseña debe tener al menos 6 caracteres.",
+    "login_successful": "Inicio de sesión exitoso",
+    "invalid_credentials": "Credenciales inválidas",
+    "login_error": "Ocurrió un error al iniciar sesión."
   },
   "dashboard": {
     "recruiter_title": "Tablero de Reclutador",
@@ -25,17 +30,22 @@
     "apply_now": "Aplicar ahora"
   },
   "application_form": {
-    "title": "Solicitar una posición",
-    "area_of_expertise": "Área de Experticia",
-    "select_expertise": "Selecciona una experiencia",
+    "title": "Solicitar un puesto",
+    "area_of_expertise": "Área de especialización",
+    "select_expertise": "Seleccione una especialización",
     "years_of_experience": "Años de experiencia",
-    "enter_experience": "Introduce tus años de experiencia",
+    "enter_experience": "Ingrese sus años de experiencia",
     "from": "Desde",
     "to": "Hasta",
-    "submit": "Enviar solicitud"
+    "submit_button": "Enviar solicitud",
+    "years_of_experience_cannot_be_negative": "Los años de experiencia no pueden ser negativos.",
+    "start_date_not_in_past": "La fecha de inicio no puede estar en el pasado.",
+    "end_after_start_date": "La fecha de finalización debe ser después de la fecha de inicio.",
+    "application_submitted_sucessfully": "Solicitud enviada con éxito",
+    "application_submit_error": "Ocurrió un error al enviar la solicitud."
   },
   "register": {
-    "title": "Registrarse",
+    "title": "Registro",
     "name": "Nombre",
     "surname": "Apellido",
     "pnr": "NRP",
@@ -44,13 +54,19 @@
     "password": "Contraseña",
     "enter_name": "Ingrese nombre",
     "enter_surname": "Ingrese apellido",
-    "enter_pnr": "Ingrese NRP",
+    "enter_pnr": "Ingrese el NRP",
     "enter_email": "Ingrese correo electrónico",
     "enter_username": "Ingrese nombre de usuario",
     "enter_password": "Ingrese contraseña",
     "register_button": "Registrarse",
     "already_have_account": "¿Ya tienes una cuenta?",
-    "login": "Iniciar sesión"
+    "login": "Iniciar sesión",
+    "pnr_must_be_a_number": "El NRP debe ser un número.",
+    "valid_email": "Por favor, introduce una dirección de correo electrónico válida.",
+    "registration_success": "¡Registro exitoso! Ahora puedes iniciar sesión.",
+    "registration_successful": "Registro exitoso",
+    "registration_failed": "Registro fallido",
+    "registration_error": "Ocurrió un error durante el registro."
   },
   "applications_list": {
     "all_applications": "Todas las aplicaciones",
@@ -64,7 +80,9 @@
     "left": "Izquierda",
     "right": "Derecha",
     "page": "Página",
-    "of": "de"
+    "of": "de",
+    "error_fetching_applications": "Error al recuperar aplicaciones"
+
   },
   "footer": {
     "contact_us": "Contáctanos para más información:",

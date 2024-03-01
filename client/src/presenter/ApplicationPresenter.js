@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ApplicationForm from "../view/Application";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 /**
  * Presenter component for handling job application functionality.
@@ -12,6 +13,7 @@ const ApplicationPresenter = () => {
   const navigate = useNavigate();
   const [competences, setCompetences] = useState([]);
   const token = localStorage.getItem('token'); // Get the token from local storage
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Fetch competences when the component mounts
@@ -54,19 +56,19 @@ const ApplicationPresenter = () => {
     toDate
   ) => {
     if (Number(experience) < 0) {
-      alert("Years of experience cannot be negative.");
+      alert(t("application_form.years_of_experience_cannot_be_negative"));
       return;
     }
 
     // Validate that the fromDate is not in the past
     if (new Date(fromDate) < new Date()) {
-      alert("The start date cannot be in the past.");
+      alert(t("application_form.start_date_not_in_past"));
       return;
     }
 
     // Validate that the toDate is after the fromDate
     if (new Date(toDate) <= new Date(fromDate)) {
-      alert("The end date must be after the start date.");
+      alert(t("application_form.end_after_start_date"));
       return;
     }
 
@@ -94,7 +96,7 @@ const ApplicationPresenter = () => {
 
       const data = await response.json();
       if (data.success) {
-        alert("Application submitted successfully");
+        alert(t("application_form.application_submitted_sucessfully"));
         navigate("/dashboard");
       } else {
         alert(data.message);
@@ -104,7 +106,7 @@ const ApplicationPresenter = () => {
         "An error occurred while submitting the application.",
         error
       );
-      alert("An error occurred while submitting the application.");
+      alert(t("application_form.application_submit_error"));
     }
   };
 

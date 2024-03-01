@@ -35,7 +35,7 @@ function Login({ onLogin }) {
   return (
     <div className="login-container">
       <h2>{t("login.title")}</h2>
-      {registrationSuccess && <p>{t("login.registration_success")}</p>}
+      {registrationSuccess && <p>{t("register.registration_success")}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">{t("login.username")}</label>

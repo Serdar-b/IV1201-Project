@@ -1,0 +1,110 @@
+{
+    "header": {
+      "jobs": "Grönalund İş İlanları",
+      "logout": "Çıkış Yap"
+    },
+    "language_switcher": {
+      "choose_language": "Dil Seçin"
+    },
+    "login": {
+      "title": "Giriş Yap",
+      "username": "Kullanıcı Adı",
+      "password": "Şifre",
+      "enter_username": "Kullanıcı adınızı girin",
+      "enter_password": "Şifrenizi girin",
+      "login_button": "Giriş Yap",
+      "register_prompt": "Hesabınız yok mu?",
+      "register_button": "Kayıt Ol",
+      "three_characters_long": "Kullanıcı adı en az 3 karakter uzunluğunda olmalı.",
+      "username_not_start_with_number": "Kullanıcı adı bir sayı ile başlamamalı.",
+      "password_atleast_six_characters": "Şifre en az 6 karakter uzunluğunda olmalı.",
+      "login_successful": "Giriş başarılı",
+      "invalid_credentials": "Geçersiz bilgiler",
+      "login_error": "Giriş yapılırken bir hata oluştu."
+    },
+    "dashboard": {
+      "recruiter_title": "İşe Alım Sorumlusu Paneli",
+      "applicant_title": "Kontrol Paneli",
+      "welcome": "Hoşgeldiniz, {{name}}!",
+      "view_all_applications": "Tüm Başvuruları Görüntüle",
+      "apply_now": "Şimdi Başvur"
+    },
+    "application_form": {
+      "title": "Pozisyon İçin Başvur",
+      "area_of_expertise": "Uzmanlık Alanı",
+      "select_expertise": "Bir uzmanlık seçin",
+      "years_of_experience": "Tecrübe Yılları",
+      "enter_experience": "Tecrübe yıllarınızı girin",
+      "from": "Başlangıç",
+      "to": "Bitiş",
+      "submit_button": "Başvuruyu Gönder",
+      "years_of_experience_cannot_be_negative": "Tecrübe yılları negatif olamaz.",
+      "start_date_not_in_past": "Başlangıç tarihi geçmişte olamaz.",
+      "end_after_start_date": "Bitiş tarihi, başlangıç tarihinden sonra olmalıdır.",
+      "application_submitted_sucessfully": "Başvuru başarıyla gönderildi",
+      "application_submit_error": "Başvuru gönderilirken bir hata oluştu."
+    },
+    "register": {
+      "title": "Kayıt Ol",
+      "name": "İsim",
+      "surname": "Soyisim",
+      "pnr": "PNR",
+      "email": "E-posta",
+      "username": "Kullanıcı Adı",
+      "password": "Şifre",
+      "enter_name": "İsminizi girin",
+      "enter_surname": "Soyisminizi girin",
+      "enter_pnr": "PNR girin",
+      "enter_email": "E-posta adresinizi girin",
+      "enter_username": "Kullanıcı adınızı girin",
+      "enter_password": "Şifrenizi girin",
+      "register_button": "Kayıt Ol",
+      "already_have_account": "Zaten bir hesabınız var mı?",
+      "login": "Giriş Yap",
+      "pnr_must_be_a_number": "PNR bir sayı olmalıdır.",
+      "valid_email": "Lütfen geçerli bir e-posta adresi girin.",
+      "registration_success": "Kayıt başarılı! Artık giriş yapabilirsiniz.",
+      "registration_successful": "Kayıt başarılı",
+      "registration_failed": "Kayıt başarısız",
+      "registration_error": "Kayıt sırasında bir hata oluştu."
+    },
+    "applications_list": {
+      "all_applications": "Tüm Başvurular",
+      "search_by_name": "İsme göre ara...",
+      "applicant": "Başvuran",
+      "competences": "Yetkinlikler",
+      "availability": "Uygunluk",
+      "status": "Durum",
+      "no_applications_found": "Başvuru bulunamadı.",
+      "page_of": "{{current}} / {{total}} sayfa",
+      "left": "Sol",
+      "right": "Sağ",
+      "page": "Sayfa",
+      "of": " / ",
+      "error_fetching_applications": "Başvurular getirilirken hata oluştu"
+    },
+    "footer": {
+      "contact_us": "Daha fazla bilgi için bize ulaşın:",
+      "email": "E-posta: group@three.com",
+      "phone": "Telefon: 070 000 00 00",
+      "address": "P. Sherman, 42 Wallaby Way, Sydney"
+    },
+    "not_authorized": {
+      "title": "Erişim Reddedildi",
+      "message": "Bu sayfayı görüntüleme izniniz yok."
+    },
+    "database": {
+      "lotteries": "Piyangolar",
+      "ticket sales": "Bilet Satışı",
+      "roller coaster operation": "Hız Treni",
+      "none": "Yok",
+      "years": "Yıllar",
+      "to": "ile",
+      "unhandled": "İşlenmemiş",
+      "accepted": "Kabul Edildi",
+      "rejected": "Reddedildi",
+      "no_competences": "Yetkinlik Yok.",
+      "unknown": "Bilinmeyen"
+    }
+  }
+  

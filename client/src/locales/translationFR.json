@@ -12,10 +12,15 @@
     "password": "Mot de passe",
     "enter_username": "Entrez votre nom d'utilisateur",
     "enter_password": "Entrez votre mot de passe",
-    "login_button": "Se connecter",
+    "login_button": "Connexion",
     "register_prompt": "Vous n'avez pas de compte ?",
     "register_button": "S'inscrire",
-    "registration_success": "Inscription réussie ! Vous pouvez maintenant vous connecter."
+    "three_characters_long": "Le nom d'utilisateur doit comporter au moins 3 caractères.",
+    "username_not_start_with_number": "Le nom d'utilisateur ne doit pas commencer par un chiffre.",
+    "password_atleast_six_characters": "Le mot de passe doit comporter au moins 6 caractères.",
+    "login_successful": "Connexion réussie",
+    "invalid_credentials": "Identifiants invalides",
+    "login_error": "Une erreur s'est produite lors de la connexion."
   },
   "dashboard": {
     "recruiter_title": "Tableau de Bord du Recruteur",
@@ -25,17 +30,22 @@
     "apply_now": "Postuler maintenant"
   },
   "application_form": {
-    "title": "Postuler pour un poste",
+    "title": "Postuler à un poste",
     "area_of_expertise": "Domaine d'expertise",
     "select_expertise": "Sélectionnez une expertise",
     "years_of_experience": "Années d'expérience",
     "enter_experience": "Entrez vos années d'expérience",
     "from": "De",
     "to": "À",
-    "submit_button": "Soumettre la candidature"
+    "submit_button": "Soumettre la candidature",
+    "years_of_experience_cannot_be_negative": "Les années d'expérience ne peuvent pas être négatives.",
+    "start_date_not_in_past": "La date de début ne peut pas être dans le passé.",
+    "end_after_start_date": "La date de fin doit être après la date de début.",
+    "application_submitted_sucessfully": "Candidature soumise avec succès",
+    "application_submit_error": "Une erreur s'est produite lors de la soumission de la candidature."
   },
   "register": {
-    "title": "S'inscrire",
+    "title": "Inscription",
     "name": "Prénom",
     "surname": "Nom",
     "pnr": "NIR",
@@ -50,7 +60,13 @@
     "enter_password": "Entrez le mot de passe",
     "register_button": "S'inscrire",
     "already_have_account": "Vous avez déjà un compte ?",
-    "login": "Connexion"
+    "login": "Se connecter",
+    "pnr_must_be_a_number": "Le NIR doit être un nombre.",
+    "valid_email": "Veuillez entrer une adresse email valide.",
+    "registration_success": "Inscription réussie ! Vous pouvez maintenant vous connecter.",
+    "registration_successful": "Inscription réussie",
+    "registration_failed": "Échec de l'inscription",
+    "registration_error": "Une erreur s'est produite lors de l'inscription."
   },
   "applications_list": {
     "all_applications": "Toutes les candidatures",
@@ -64,7 +80,8 @@
     "left": "Gauche",
     "right": "Droite",
     "page": "Page",
-    "of": "de"
+    "of": "de",
+    "error_fetching_applications": "Échec de la récupération des candidatures"
   },
   "footer": {
     "contact_us": "Contactez-nous pour plus d'informations :",
