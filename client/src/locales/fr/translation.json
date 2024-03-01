@@ -52,10 +52,26 @@
     "already_have_account": "Vous avez déjà un compte ?",
     "login": "Connexion"
   },
+  "applications_list": {
+    "all_applications": "Toutes les candidatures",
+    "search_by_name": "Rechercher par nom...",
+    "applicant": "Candidat",
+    "competences": "Compétences",
+    "availability": "Disponibilité",
+    "status": "Statut",
+    "no_applications_found": "Aucune candidature trouvée.",
+    "page_of": "Page {{current}} sur {{total}}",
+    "left": "Gauche",
+    "right": "Droite"
+  },
   "footer": {
     "contact_us": "Contactez-nous pour plus d'informations :",
     "email": "Email : group@three.com",
     "phone": "Téléphone : 070 000 00 00",
     "address": "P. Sherman, 42 Wallaby Way, Sydney"
+  },
+  "not_authorized": {
+    "title": "Accès Refusé",
+    "message": "Vous n'avez pas la permission de voir cette page."
   }
 }

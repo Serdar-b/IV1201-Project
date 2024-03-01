@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './ApplicationsList.css';
 import Select from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 const ApplicationsList = ({
   applications,
@@ -11,6 +12,7 @@ const ApplicationsList = ({
   onCompetenceChange,
   onUpdateStatus
 }) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(0);
 
   const applicationsPerPage = 10;
@@ -47,10 +49,10 @@ const ApplicationsList = ({
 
   return (
     <div className="applications-list">
-      <h2>All Applications</h2>
+      <h2>{t('applications_list.all_applications')}</h2>
       <input
         type="text"
-        placeholder="Search by name..."
+        placeholder={t('applications_list.search_by_name')}
         onChange={(e) => onSearchTermChange(e.target.value)}
         className="search-input"
       />
@@ -69,11 +71,11 @@ const ApplicationsList = ({
         {currentApplications.length > 0 ? (
           currentApplications.map((app) => (
             <div className="application-card" key={app.person_id}>
-              <div><strong>Applicant:</strong> {app.name} {app.surname}</div>
-              <div><strong>Competences:</strong> {app.competences_with_experience}</div>
-              <div><strong>Availability:</strong> {app.availability_periods}</div>
+              <div><strong>{t('applications_list.applicant')}:</strong> {app.name} {app.surname}</div>
+              <div><strong>{t('applications_list.competences')}:</strong> {app.competences_with_experience}</div>
+              <div><strong>{t('applications_list.availability')}:</strong> {app.availability_periods}</div>
               <div style={getStatusStyle(app.status)}>
-                <strong>Status:</strong> {app.status ? app.status.charAt(0).toUpperCase() + app.status.slice(1) : 'Unknown'}
+                <strong>{t('applications_list.status')}:</strong> {app.status ? app.status.charAt(0).toUpperCase() + app.status.slice(1) : t('applications_list.unknown')}
               </div>
               <Select
                 name="status"
@@ -90,13 +92,13 @@ const ApplicationsList = ({
             </div>
           ))
         ) : (
-          <div>No applications found.</div>
+          <div>{t('applications_list.no_applications_found')}</div>
         )}
       </div>
       <div className="pagination">
-        <button onClick={() => paginate(-1)} disabled={currentPage <= 0}>Left</button>
+        <button onClick={() => paginate(-1)} disabled={currentPage <= 0}>{t('applications_list.left')}</button>
         <span>Page {currentPage + 1} of {totalPages}</span>
-        <button onClick={() => paginate(1)} disabled={currentPage >= totalPages - 1}>Right</button>
+        <button onClick={() => paginate(1)} disabled={currentPage >= totalPages - 1}>{t('applications_list.right')}</button>
       </div>
     </div>
   );
