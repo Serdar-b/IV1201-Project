@@ -62,7 +62,9 @@
     "no_applications_found": "Aucune candidature trouvée.",
     "page_of": "Page {{current}} sur {{total}}",
     "left": "Gauche",
-    "right": "Droite"
+    "right": "Droite",
+    "page": "Page",
+    "of": "de"
   },
   "footer": {
     "contact_us": "Contactez-nous pour plus d'informations :",
@@ -73,5 +75,18 @@
   "not_authorized": {
     "title": "Accès Refusé",
     "message": "Vous n'avez pas la permission de voir cette page."
+  },
+  "database": {
+    "lotteries": "Loterie",
+    "ticket sales": "Vente de billets",
+    "roller coaster operation": "Opération de montagnes russes",
+    "none": "Aucun",
+    "years": "Ans",
+    "to": "à",
+    "unhandled": "Non traité",
+    "accepted": "Accepté",
+    "rejected": "Rejeté",
+    "no_competences": "Aucune compétence.",
+    "unknown": "Inconnu"
   }
 }

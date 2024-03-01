@@ -62,7 +62,9 @@
         "no_applications_found": "No applications found.",
         "page_of": "Page {{current}} of {{total}}",
         "left": "Left",
-        "right": "Right"
+        "right": "Right",
+        "page": "Page",
+        "of": "of"
       },
       "footer": {
           "contact_us": "Contact us for more information:",
@@ -73,6 +75,19 @@
       "not_authorized": {
         "title": "Access Denied",
         "message": "You do not have permission to view this page."
+      },
+      "database": {
+        "lotteries": "Lotteries",
+        "ticket sales": "Ticket Sales",
+        "roller coaster operation": "Roller Coaster",
+        "none": "None", 
+        "years": "Years",
+        "to": "to",
+        "unhandled": "Unhandled",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "no_competences": "No Competences.",
+        "unknown": "Unknown"
       }
   }
   

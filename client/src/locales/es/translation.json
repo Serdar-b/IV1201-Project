@@ -62,7 +62,9 @@
     "no_applications_found": "No se encontraron aplicaciones.",
     "page_of": "Página {{current}} de {{total}}",
     "left": "Izquierda",
-    "right": "Derecha"
+    "right": "Derecha",
+    "page": "Página",
+    "of": "de"
   },
   "footer": {
     "contact_us": "Contáctanos para más información:",
@@ -73,5 +75,18 @@
   "not_authorized": {
     "title": "Acceso Denegado",
     "message": "No tienes permiso para ver esta página."
+  },
+  "database": {
+    "lotteries": "Loterías",
+    "ticket sales": "Venta de entradas",
+    "roller coaster operation": "Operación de montaña rusa",
+    "none": "Ninguno",
+    "years": "Años",
+    "to": "a",
+    "unhandled": "Sin manejar",
+    "accepted": "Aceptado",
+    "rejected": "Rechazado",
+    "no_competences": "Sin competencias.",
+    "unknown": "Desconocido"
   }
 }
