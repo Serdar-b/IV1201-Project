@@ -36,7 +36,7 @@ describe("ApplicationController Tests", () => {
               person_id: 1018, 
               name: "user1",
               username: "user", 
-              role: 6 
+              role: 2 
             }
           };
       

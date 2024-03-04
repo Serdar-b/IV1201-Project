@@ -150,7 +150,6 @@
 #           tags: ghcr.io/serdar-b/iv1201-project/server:latest
 
 
-
 name: Node.js CI/CD
 
 on:
@@ -197,12 +196,11 @@ jobs:
             sleep 2
           done
 
-      - uses: actions/checkout@v2
-
-      - name: Set up Node.js with a specific version
-        uses: actions/setup-node@v2
-        with:
-          node-version: "20"
+      - name: Run Jest Tests
+        run: npm test
+        working-directory: ./server
+        env:
+          CI: true  # This environment variable ensures Jest runs in CI-mode
 
       - name: Run Static Code Analysis (ESLint)
         run: |
