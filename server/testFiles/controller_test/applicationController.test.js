@@ -10,12 +10,10 @@ const testUser = {
 let token;
 
 beforeAll(async () => {
-  // Create a test user or ensure there's one in the database
-  // Optionally log in to obtain a token if your endpoints require authentication
   const loginResponse = await request(server)
     .post("/login")
     .send({ username: testUser.username, password: testUser.password });
-  token = loginResponse.body.token; // Store JWT token for authenticated requests
+  token = loginResponse.body.token; 
 });
 
 describe("ApplicationController Tests", () => {

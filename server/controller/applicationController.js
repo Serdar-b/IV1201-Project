@@ -6,9 +6,6 @@ const submitApplication = async (req, res) => {
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-  console.log("Received competences:", JSON.stringify(competences, null, 2));
-  console.log("Received availability:", JSON.stringify(availability, null, 2));
-  console.log("Received userData:", JSON.stringify(userData, null, 2));
 
   if (!competences || !availability || !userData) {
     return res.status(400).json({ success: false, message: "Competences, availability, and user data are required." });
