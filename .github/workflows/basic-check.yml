@@ -140,4 +140,4 @@ jobs:
           context: .
           file: ./server/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/iv1201-project/server:latest
+          tags: ghcr.io/serdar-b/iv1201-project/server:latest
