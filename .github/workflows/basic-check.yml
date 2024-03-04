@@ -137,7 +137,7 @@ jobs:
       - name: Build and push Docker images for server
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ../server/Dockerfile
+          context: ./server
+          file: ./server/Dockerfile
           push: true
           tags: ghcr.io/serdar-b/iv1201-project/server:latest
