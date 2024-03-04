@@ -37,6 +37,10 @@ const findUserByUsernameOrEmail = async (username, email) => {
   if (!email.includes("@") || !email.includes(".")) {
     return { success: false, message: "Email must have @ or ." };
   }
+
+  if (username && username.length < 3) {
+    throw new Error("Username must be at least 3 characters long.");
+  }
   const query = "SELECT * FROM public.person WHERE username = $1 OR email = $2";
   const values = [username, email];
 
@@ -54,17 +58,18 @@ const findUserByUsernameOrEmail = async (username, email) => {
 
 
 const createUser = async (client, userData) => {
+  
   if (!userData.username || userData.username.length < 3) {
-    return { success: false, message: "Username must be at least 3 characters long." };
+    throw new Error("Username must be at least 3 characters long.");
   }
   if (!userData.password || userData.password.length < 6) {
-    return { success: false, message: "Password must be at least 6 characters long." };
+    throw new Error("Password must be at least 6 characters long.");
   }
   if (isNaN(userData.pnr) || userData.pnr.includes(".")) {
-    return { success: false, message: "PNR must be a number." };
+    throw new Error("PNR must be a number.");
   }
   if (!userData.email.includes("@") || !userData.email.includes(".")) {
-    return { success: false, message: "Please enter a valid email address." };
+    throw new Error("Please enter a valid email address.");
   }
   const insertUserText = `
     INSERT INTO public.person (name, surname, pnr, email, password, role_id, username)

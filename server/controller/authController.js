@@ -125,7 +125,7 @@ const register = async (req, res) => {
       await client.query('COMMIT');
       res.json({ success: true, message: "Registration successful" });
     } else {
-      // Log failed attempt if user creation was not successful
+      
       const logMessage = "Could not register user";
       await userDAO.logFailedAttempt(client, null, email, username, logMessage, userAgent, ipAddress);
       await client.query('ROLLBACK');
@@ -133,10 +133,23 @@ const register = async (req, res) => {
     }
   } catch (error) {
    
-    await client.query('ROLLBACK');
+    if (client) {
+      await client.query('ROLLBACK');
+    }
+
+    const knownErrors = [
+      "Username must be at least 3 characters long.",
+      "Password must be at least 6 characters long.",
+      "PNR must be a number.",
+      "Please enter a valid email address.",
+      "User already exists" 
+    ];
+    if (knownErrors.includes(error.message)) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
     console.error('Registration error:', error);
     await userDAO.logFailedAttempt(client, null, email, username, error.message, userAgent, ipAddress);
-    res.status(500).json({ success: false, message: "AAAn error occurred during registration." });
+    res.status(500).json({ success: false, message: "An error occurred during registration." });
   } finally {
     client.release();
   }
