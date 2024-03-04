@@ -12,6 +12,11 @@ const saveApplication = async (client, userData, competences, availability) => {
   if (!Array.isArray(competences) || competences.length === 0) {
     throw new Error('Competences must be a non-empty array.');
   }
+
+  const hasNegativeExperience = competences.some(competence => competence.yearsOfExperience < 0);
+  if (hasNegativeExperience) {
+    throw new Error('Years of experience cannot be negative.');
+  }
   try {
     
     for (let { competenceName, yearsOfExperience } of competences) {
@@ -46,7 +51,7 @@ const saveApplication = async (client, userData, competences, availability) => {
 const setStatus = async (client, status, person_id) => {
   
   if (!person_id || isNaN(person_id)) {
-    return { success: false, message: "Invalid person ID provided." };
+    throw new Error('Invalid person ID provided.');
   }
 
   try {

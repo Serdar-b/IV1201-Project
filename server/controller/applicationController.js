@@ -6,7 +6,7 @@ const submitApplication = async (req, res) => {
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-  
+  console.log("Received availability:", availability);
   if (!competences || !availability || !userData) {
     return res.status(400).json({ success: false, message: "Competences, availability, and user data are required." });
   }
@@ -23,7 +23,16 @@ const submitApplication = async (req, res) => {
     return res.status(400).json({ success: false, message: "Years of experience cannot be negative." });
   }
 
-  console.log("userData: " + userData.role);
+  const isAvailabilityValid = availability.every(period => {
+    const fromDate = new Date(period.fromDate);
+    const toDate = new Date(period.toDate);
+    return fromDate < toDate && fromDate >= new Date(); 
+  });
+
+  if (!isAvailabilityValid) {
+    return res.status(400).json({ success: false, message: "The availability period must have a start date before the end date, and start dates must not be in the past." });
+  }
+
   const client = await pool.connect();
 
   try {
@@ -34,9 +43,21 @@ const submitApplication = async (req, res) => {
     await client.query('COMMIT');  
     res.json({ success: true, message: "Application submitted successfully" });
   } catch (error) {
-    await client.query('ROLLBACK');  
-    console.error('Error submitting application:', error);
+    await client.query('ROLLBACK'); 
+    
+    const knownErrors = [
+      "User data, competences, and availability are required.",
+      "A valid user ID is required.",
+      "Competences must be a non-empty array.",
+      "Years of experience cannot be negative.",
+      
+    ];
+  
     await applicationDAO.logApplicationError(client, userData.person_id, userData.email, userData.username, error.message, userAgent, ipAddress);
+    if (knownErrors.includes(error.message)) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+    console.error('Error submitting application:', error);
     res.status(500).json({ success: false, message: "An error occurred while submitting the application" });
   } finally {
     client.release();  
@@ -74,6 +95,11 @@ const setApplicationStatus = async (req, res) => {
     await client.query('ROLLBACK');
     console.error('Error setting application status:', error);
     await applicationDAO.logApplicationError(client, person_id, null, null, error.message, userAgent, ipAddress);
+    const knownErrors = ["Invalid person ID provided.",];
+    if (knownErrors.includes(error.message)) {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+
     res.status(500).json({ success: false, message: "An error occurred while setting application status" });
   } finally {
     client.release();
