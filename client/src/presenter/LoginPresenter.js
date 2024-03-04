@@ -83,7 +83,7 @@ const LoginPresenter = () => {
       } else {
         setLoginStatus({
           isLoggedIn: false,
-          message: t("login.invalid_credentials"),
+          message: data.message || t("login.invalid_credentials"),
           user: null,
         });
       }

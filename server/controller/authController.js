@@ -128,7 +128,7 @@ const register = async (req, res) => {
     await client.query('ROLLBACK');
     console.error('Registration error:', error);
     await userDAO.logFailedAttempt(client, null, email, username, error.message, userAgent, ipAddress);
-    res.status(500).json({ success: false, message: "An error occurred during registration." });
+    res.status(500).json({ success: false, message: "AAAn error occurred during registration." });
   } finally {
     client.release();
   }
