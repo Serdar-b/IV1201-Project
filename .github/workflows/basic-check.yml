@@ -1,65 +1,65 @@
-name: Node.js CI/CD
+# name: Node.js CI/CD
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: newpassword
-          POSTGRES_DB: myPostgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+#     services:
+#       postgres:
+#         image: postgres
+#         env:
+#           POSTGRES_USER: postgres
+#           POSTGRES_PASSWORD: newpassword
+#           POSTGRES_DB: myPostgres
+#         ports:
+#           - 5432:5432
+#         options: >-
+#           --health-cmd pg_isready
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
 
-    steps:
-      - uses: actions/checkout@v2
+#     steps:
+#       - uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "20"
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: "20"
 
-      - name: Install Server Dependencies
-        run: npm install
-        working-directory: ./server
+#       - name: Install Server Dependencies
+#         run: npm install
+#         working-directory: ./server
 
-      - name: Wait for PostgreSQL to be ready
-        run: |
-          until pg_isready -h localhost -p 5432; do
-            echo "Waiting for PostgreSQL to be ready..."
-            sleep 2
-          done
+#       - name: Wait for PostgreSQL to be ready
+#         run: |
+#           until pg_isready -h localhost -p 5432; do
+#             echo "Waiting for PostgreSQL to be ready..."
+#             sleep 2
+#           done
 
-      - uses: actions/checkout@v2
+#       - uses: actions/checkout@v2
 
-      - name: Set up Node.js with a specific version
-        uses: actions/setup-node@v2
-        with:
-          node-version: "20"
+#       - name: Set up Node.js with a specific version
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: "20"
 
-      - name: Run Static Code Analysis (ESLint)
-        run: |
-          npm install eslint --save-dev
-          npx eslint . --ext .js,.jsx
-        working-directory: ./client
+#       - name: Run Static Code Analysis (ESLint)
+#         run: |
+#           npm install eslint --save-dev
+#           npx eslint . --ext .js,.jsx
+#         working-directory: ./client
 
-      - name: Run Unit Tests
-        run: npm test
-        working-directory: ./server
+#       - name: Run Unit Tests
+#         run: npm test
+#         working-directory: ./server
 
 
 
@@ -148,3 +148,64 @@ jobs:
 #           file: ./server/Dockerfile
 #           push: true
 #           tags: ghcr.io/serdar-b/iv1201-project/server:latest
+
+
+
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: newpassword
+          POSTGRES_DB: myPostgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+
+      - name: Install Server Dependencies
+        run: npm install
+        working-directory: ./server
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
+
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js with a specific version
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+
+      - name: Run Static Code Analysis (ESLint)
+        run: |
+          npm install eslint --save-dev
+          npx eslint . --ext .js,.jsx
+        working-directory: ./client
