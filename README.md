@@ -34,20 +34,22 @@ Step 2: Change to the right directory
 ```bash
 cd  IV1201-Project
 ```
+#### Running the Backend 
 
-Step 3: Navigate into `client` directorie and start the React application:
+Step 3: Navigate into `server` directorie:
 
 ```bash
-cd  client
+cd  server
 ```
 
-step 4: install all dependencies:
+step 4: install all dependencies then run the server:
 
 ```bash
 cd  npm install
+npm run dev
 ```
 
-step 5: install all dependencies:
+step 5: 
 
 ```bash
 cd  npm start
