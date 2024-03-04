@@ -57,6 +57,11 @@ jobs:
           npx eslint . --ext .js,.jsx
         working-directory: ./client
 
+      - name: Run Unit Tests
+        run: npm test
+        working-directory: ./server
+
+
 
 
 
