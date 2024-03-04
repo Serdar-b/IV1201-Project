@@ -19,18 +19,10 @@ describe("POST /login", () => {
   });
 });
 
-// afterAll(async () => {
-//     await pool.end();
-//   });
-
-afterAll(done => {
+afterAll(async () => {
   if (server && server.close) {
-      server.close(() => {
-          console.log('Server closed');
-          done(); 
-      });
-  } else {
-      done();
+    await new Promise(resolve => server.close(resolve));
   }
+  await pool.end();
 });
 

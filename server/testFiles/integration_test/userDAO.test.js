@@ -40,7 +40,7 @@ describe("createUser", () => {
     expect(result.user).not.toBeNull();
     expect(result.user.name).toBe(newUser.name);
 
-    await client.query('ROLLBACK'); // Rollback to clean up test data
+    await client.query('ROLLBACK'); 
   });
 });
 
@@ -62,7 +62,8 @@ describe("findUserByUsername", () => {
 
 describe("findUserByUsernameOrEmail", () => {
   it("should return a User object when the user is found by name or by email", async () => {
-    const user = await findUserByUsernameOrEmail("ArmandTodd");
+    // Ensure you pass both username and email parameters
+    const user = await findUserByUsernameOrEmail("ArmandTodd", "armand@example.com");
 
     expect(user).not.toBeNull();
     expect(user).toBeInstanceOf(User);
@@ -70,11 +71,13 @@ describe("findUserByUsernameOrEmail", () => {
   });
 
   it("should return a null object when the user is not found by name or by email", async () => {
-    const user = await findUserByUsernameOrEmail("User1");
+    // Ensure you pass both username and email parameters
+    const user = await findUserByUsernameOrEmail("User1", "user1@example.com");
 
     expect(user).toBeNull();
   });
 });
+
 
 afterAll(async () => {
   if (!isPoolClosed) {
