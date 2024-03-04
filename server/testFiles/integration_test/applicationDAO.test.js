@@ -106,7 +106,6 @@ describe("setStatus", () => {
   
       expect(applications).not.toBeNull();
       expect(Array.isArray(applications)).toBe(true);
-      // This test is basic and may need to be adjusted based on the specific data and structure of your applications
     });
   });
   

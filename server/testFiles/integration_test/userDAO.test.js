@@ -62,7 +62,7 @@ describe("findUserByUsername", () => {
 
 describe("findUserByUsernameOrEmail", () => {
   it("should return a User object when the user is found by name or by email", async () => {
-    // Ensure you pass both username and email parameters
+
     const user = await findUserByUsernameOrEmail("ArmandTodd", "armand@example.com");
 
     expect(user).not.toBeNull();
@@ -71,7 +71,7 @@ describe("findUserByUsernameOrEmail", () => {
   });
 
   it("should return a null object when the user is not found by name or by email", async () => {
-    // Ensure you pass both username and email parameters
+   
     const user = await findUserByUsernameOrEmail("User1", "user1@example.com");
 
     expect(user).toBeNull();
