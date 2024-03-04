@@ -5,12 +5,13 @@ const User = require("../model/User");
 
 const findUserByUsername = async (username) => {
 
+ 
   if (!isNaN(username.charAt(0))) {
-    return { success: false, message: "Username must not start with a number." };
+    throw new Error("Username must not start with a number.");
   }
-
+  
   if (!username || username.length < 3) {
-    return { success: false, message: "Username must be at least 3 characters long." };
+    throw new Error("Username must be at least 3 characters long.");
   }
   const query = "SELECT * FROM public.person WHERE username = $1";
   const values = [username];

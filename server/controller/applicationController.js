@@ -6,6 +6,7 @@ const submitApplication = async (req, res) => {
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
+  
   if (!competences || !availability || !userData) {
     return res.status(400).json({ success: false, message: "Competences, availability, and user data are required." });
   }
@@ -15,6 +16,11 @@ const submitApplication = async (req, res) => {
   }
   if (isNaN(userData.person_id)) {
     return res.status(400).json({ success: false, message: "Person ID must be a number." });
+  }
+
+  const hasNegativeExperience = competences.some(competence => competence.yearsOfExperience < 0);
+  if (hasNegativeExperience) {
+    return res.status(400).json({ success: false, message: "Years of experience cannot be negative." });
   }
 
   console.log("userData: " + userData.role);

@@ -16,6 +16,10 @@ const login = async (req, res) => {
     return res.status(400).json({ success: false, message: "Username must be at least 3 characters long" });
   }
 
+  if (!isNaN(username.charAt(0))) {
+    return res.status(400).json({ success: false, message: "Username must not start with a number." });
+  }
+
   if (password.length < 6) {
     return res.status(400).json({ success: false, message: "password must be at least 6 characters long" });
   }
@@ -60,6 +64,10 @@ res.json({ success: true, message: "Login successful", user: payload, token: tok
   } catch (error) {
     // Rollback in case of any error
     await client.query('ROLLBACK');
+
+    if (error.message === "Username must not start with a number." || error.message === "Username must be at least 3 characters long.") {
+      return res.status(400).json({ success: false, message: error.message });
+    }
     console.error('Login error:', error);
     res.status(500).json({ success: false, message: "An error occurred during login." });
   } finally {
