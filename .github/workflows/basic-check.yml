@@ -138,6 +138,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./server/Dockerfile
+          file: ../server/Dockerfile
           push: true
           tags: ghcr.io/serdar-b/iv1201-project/server:latest
