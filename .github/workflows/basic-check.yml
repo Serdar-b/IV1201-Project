@@ -1,3 +1,150 @@
+# # name: Node.js CI/CD
+
+# # on:
+# #   push:
+# #     branches: [main]
+# #   pull_request:
+# #     branches: [main]
+
+# # jobs:
+# #   build-and-test:
+# #     runs-on: ubuntu-latest
+
+# #     services:
+# #       postgres:
+# #         image: postgres
+# #         env:
+# #           POSTGRES_USER: postgres
+# #           POSTGRES_PASSWORD: newpassword
+# #           POSTGRES_DB: myPostgres
+# #         ports:
+# #           - 5432:5432
+# #         options: >-
+# #           --health-cmd pg_isready
+# #           --health-interval 10s
+# #           --health-timeout 5s
+# #           --health-retries 5
+
+# #     steps:
+# #       - uses: actions/checkout@v2
+
+# #       - name: Set up Node.js
+# #         uses: actions/setup-node@v2
+# #         with:
+# #           node-version: "20"
+
+# #       - name: Install Server Dependencies
+# #         run: npm install
+# #         working-directory: ./server
+
+# #       - name: Wait for PostgreSQL to be ready
+# #         run: |
+# #           until pg_isready -h localhost -p 5432; do
+# #             echo "Waiting for PostgreSQL to be ready..."
+# #             sleep 2
+# #           done
+
+# #       - uses: actions/checkout@v2
+
+# #       - name: Set up Node.js with a specific version
+# #         uses: actions/setup-node@v2
+# #         with:
+# #           node-version: "20"
+
+# #       - name: Run Static Code Analysis (ESLint)
+# #         run: |
+# #           npm install eslint --save-dev
+# #           npx eslint . --ext .js,.jsx
+# #         working-directory: ./client
+
+# #       - name: Run Unit Tests
+# #         run: npm test
+# #         working-directory: ./server
+
+# # name: Node.js CI/CD
+
+# # on:
+# #   push:
+# #     branches: [main]
+# #   pull_request:
+# #     branches: [main]
+
+# # jobs:
+# #   build-and-test:
+# #     runs-on: ubuntu-latest
+
+# #     services:
+# #       postgres:
+# #         image: postgres
+# #         env:
+# #           POSTGRES_USER: postgres
+# #           POSTGRES_PASSWORD: newpassword
+# #           POSTGRES_DB: myPostgres
+# #         ports:
+# #           - 5432:5432
+# #         options: >-
+# #           --health-cmd pg_isready
+# #           --health-interval 10s
+# #           --health-timeout 5s
+# #           --health-retries 5
+
+# #     steps:
+# #       - uses: actions/checkout@v2
+
+# #       - name: Set up Node.js
+# #         uses: actions/setup-node@v2
+# #         with:
+# #           node-version: "20"
+
+# #       - name: Install Server Dependencies
+# #         run: npm install
+# #         working-directory: ./server
+
+# #       - name: Wait for PostgreSQL to be ready
+# #         run: |
+# #           until pg_isready -h localhost -p 5432; do
+# #             echo "Waiting for PostgreSQL to be ready..."
+# #             sleep 2
+# #           done
+
+# #       - uses: actions/checkout@v2
+
+# #       - name: Set up Node.js with a specific version
+# #         uses: actions/setup-node@v2
+# #         with:
+# #           node-version: "20"
+
+# #       - name: Run Static Code Analysis (ESLint)
+# #         run: |
+# #           npm install eslint --save-dev
+# #           npx eslint . --ext .js,.jsx
+# #         working-directory: ./client
+
+# #   build-and-push-docker:
+# #     needs: build-and-test
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - uses: actions/checkout@v2
+
+# #       - name: Set up Docker Buildx
+# #         uses: docker/setup-buildx-action@v1
+
+# #       - name: Log in to GitHub Container Registry
+# #         uses: docker/login-action@v1
+# #         with:
+# #           registry: ghcr.io
+# #           username: ${{ github.actor }}
+# #           password: ${{ secrets.GITHUB_TOKEN }}
+
+# #       - name: Build and push Docker images for server
+# #         uses: docker/build-push-action@v2
+# #         with:
+# #           context: ./server
+# #           file: ./server/Dockerfile
+# #           push: true
+# #           tags: ghcr.io/serdar-b/iv1201-project/server:latest
+
 # name: Node.js CI/CD
 
 # on:
@@ -44,106 +191,17 @@
 #             sleep 2
 #           done
 
-#       - uses: actions/checkout@v2
-
-#       - name: Set up Node.js with a specific version
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: "20"
-
-#       - name: Run Static Code Analysis (ESLint)
-#         run: |
-#           npm install eslint --save-dev
-#           npx eslint . --ext .js,.jsx
-#         working-directory: ./client
-
-#       - name: Run Unit Tests
+#       - name: Run Jest Tests
 #         run: npm test
 #         working-directory: ./server
 
-# name: Node.js CI/CD
-
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
-
-# jobs:
-#   build-and-test:
-#     runs-on: ubuntu-latest
-
-#     services:
-#       postgres:
-#         image: postgres
-#         env:
-#           POSTGRES_USER: postgres
-#           POSTGRES_PASSWORD: newpassword
-#           POSTGRES_DB: myPostgres
-#         ports:
-#           - 5432:5432
-#         options: >-
-#           --health-cmd pg_isready
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
-
-#     steps:
-#       - uses: actions/checkout@v2
-
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: "20"
-
-#       - name: Install Server Dependencies
-#         run: npm install
-#         working-directory: ./server
-
-#       - name: Wait for PostgreSQL to be ready
-#         run: |
-#           until pg_isready -h localhost -p 5432; do
-#             echo "Waiting for PostgreSQL to be ready..."
-#             sleep 2
-#           done
-
-#       - uses: actions/checkout@v2
-
-#       - name: Set up Node.js with a specific version
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: "20"
-
 #       - name: Run Static Code Analysis (ESLint)
 #         run: |
 #           npm install eslint --save-dev
 #           npx eslint . --ext .js,.jsx
 #         working-directory: ./client
 
-#   build-and-push-docker:
-#     needs: build-and-test
-#     runs-on: ubuntu-latest
 
-#     steps:
-#       - uses: actions/checkout@v2
-
-#       - name: Set up Docker Buildx
-#         uses: docker/setup-buildx-action@v1
-
-#       - name: Log in to GitHub Container Registry
-#         uses: docker/login-action@v1
-#         with:
-#           registry: ghcr.io
-#           username: ${{ github.actor }}
-#           password: ${{ secrets.GITHUB_TOKEN }}
-
-#       - name: Build and push Docker images for server
-#         uses: docker/build-push-action@v2
-#         with:
-#           context: ./server
-#           file: ./server/Dockerfile
-#           push: true
-#           tags: ghcr.io/serdar-b/iv1201-project/server:latest
 
 name: Node.js CI/CD
 
@@ -194,9 +252,13 @@ jobs:
       - name: Run Jest Tests
         run: npm test
         working-directory: ./server
+        env:
+          PGUSER: postgres
+          PGHOST: postgres  # Use service name as host
+          PGPASSWORD: newpassword
+          PGDATABASE: myPostgres
+          PGPORT: 5432
+          JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
+          NODE_ENV: test  # If your application behaves differently in a test environment
 
-      - name: Run Static Code Analysis (ESLint)
-        run: |
-          npm install eslint --save-dev
-          npx eslint . --ext .js,.jsx
-        working-directory: ./client
+     
