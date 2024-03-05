@@ -17,12 +17,14 @@ const mockUser = {
 };
 
 let token;
-let personId;
+let personId, username, nameOfUser;
 beforeAll(async () => {
   const loginResponse = await request(server).post("/login").send(mockUser);
   token = loginResponse.body.token;
   personId = loginResponse.body.user.person_id;
-  console.log("person   " +personId)
+  username = loginResponse.body.user.username;
+  nameOfUser = loginResponse.body.user.name;
+  console.log("person   " +personId + " username " + username + " name " + nameOfUser);
 });
 
 describe("POST /login", () => {
@@ -73,8 +75,8 @@ describe("POST /apply (submitApplication)", () => {
       ],
       userData: {
         person_id: personId, 
-        name: "user1",
-        username: "user", 
+        name: nameOfUser,
+        username: username, 
         role: 2 
       }
     };
