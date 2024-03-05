@@ -41,7 +41,7 @@ describe("saveApplication", () => {
   it("should throw an error if competences are not provided as a non-empty array", async () => {
     const userData = { person_id: 1 };
     const competences = [];
-    const availability = [{ fromDate: "2024-01-01", toDate: "2024-02-01" }];
+    const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
@@ -51,7 +51,7 @@ describe("saveApplication", () => {
   it("should throw an error if any competence has negative years of experience", async () => {
     const userData = { person_id: 1 };
     const competences = [{ competenceName: "Test Competence", yearsOfExperience: -1 }];
-    const availability = [{ fromDate: "2024-01-01", toDate: "2024-02-01" }];
+    const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
@@ -61,7 +61,7 @@ describe("saveApplication", () => {
   it("should successfully save the application when valid data is provided", async () => {
     const userData = { person_id: 1 }; 
     const competences = [{ competenceName: "Existing Competence", yearsOfExperience: 5 }]; 
-    const availability = [{ fromDate: "2024-01-01", toDate: "2024-02-01" }];
+    const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
     const result = await saveApplication(client, userData, competences, availability);
     expect(result).toBe(true);

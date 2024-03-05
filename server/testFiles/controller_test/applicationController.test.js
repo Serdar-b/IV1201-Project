@@ -14,6 +14,8 @@ beforeAll(async () => {
     .post("/login")
     .send({ username: testUser.username, password: testUser.password });
   token = loginResponse.body.token; 
+  personId = loginResponse.body.user.person_id;
+  
 });
 
 describe("ApplicationController Tests", () => {
@@ -33,7 +35,7 @@ describe("ApplicationController Tests", () => {
               }
             ],
             userData: {
-              person_id: 1018, 
+              person_id: personId, 
               name: "user1",
               username: "user", 
               role: 2 
@@ -78,7 +80,7 @@ describe("ApplicationController Tests", () => {
     it("should allow an authenticated user to set the status of an application", async () => {
       const statusData = {
         status: "Approved",
-        person_id: 1018 
+        person_id: personId 
       };
 
       const response = await request(server)
