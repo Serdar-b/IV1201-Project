@@ -12,10 +12,12 @@ const mockUser = {
 };
 
 let token;
-
+let personId;
 beforeAll(async () => {
   const loginResponse = await request(server).post("/login").send(mockUser);
   token = loginResponse.body.token;
+  personId = loginResponse.body.user.person_id;
+  console.log("person   " +personId)
 });
 
 describe("POST /login", () => {
@@ -60,12 +62,12 @@ describe("POST /apply (submitApplication)", () => {
       ],
       availability: [
         {
-          fromDate: "2024-04-05",
-          toDate: "2024-04-06"
+          fromDate: "2025-04-05",
+          toDate: "2025-04-06"
         }
       ],
       userData: {
-        person_id: 1018, 
+        person_id: personId, 
         name: "user1",
         username: "user", 
         role: 2 
