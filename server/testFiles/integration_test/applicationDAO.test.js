@@ -4,14 +4,18 @@ const {
     getCompetences,
     getAllApplications,
   } = require("../../integration/applicationDAO");
+  const userDAO = require("../../integration/userDAO");
+
  
   
 const pool = require("../../db");
 
 let client;
-
+let personId;
 beforeAll(async () => {
   client = await pool.connect();
+  const testUser = await userDAO.findUserByUsername('user');
+  personId = testUser.person_id;
 });
 
 afterAll(async () => {
@@ -31,7 +35,7 @@ describe("saveApplication", () => {
   it("should throw an error if the user ID is not provided", async () => {
     const userData = {};
     const competences = [{ competenceName: "Test Competence", yearsOfExperience: 5 }];
-    const availability = [{ fromDate: "2024-01-01", toDate: "2024-02-01" }];
+    const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
@@ -39,7 +43,7 @@ describe("saveApplication", () => {
   });
 
   it("should throw an error if competences are not provided as a non-empty array", async () => {
-    const userData = { person_id: 1 };
+    const userData = { person_id: personId };
     const competences = [];
     const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
@@ -49,7 +53,7 @@ describe("saveApplication", () => {
   });
 
   it("should throw an error if any competence has negative years of experience", async () => {
-    const userData = { person_id: 1 };
+    const userData = { person_id: personId };
     const competences = [{ competenceName: "Test Competence", yearsOfExperience: -1 }];
     const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
@@ -59,7 +63,7 @@ describe("saveApplication", () => {
   });
 
   it("should successfully save the application when valid data is provided", async () => {
-    const userData = { person_id: 1 }; 
+    const userData = { person_id: personId }; 
     const competences = [{ competenceName: "Existing Competence", yearsOfExperience: 5 }]; 
     const availability = [{ fromDate: "2025-01-01", toDate: "2025-02-01" }];
 
@@ -78,7 +82,7 @@ describe("setStatus", () => {
     });
   
     it("should successfully update the status when valid data is provided", async () => {
-      const person_id = 1; 
+      const person_id = personId; 
       const status = 'Approved'; 
   
       const result = await setStatus(client, status, person_id);
