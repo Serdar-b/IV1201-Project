@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ApplicationsList from '../view/ApplicationsList';
 import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
 
 
 /**
@@ -35,6 +36,7 @@ const ApplicationsListPresenter = () => {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
+          'Accept-Language': i18n.language,
         },
       });
       const data = await response.json();
@@ -56,6 +58,7 @@ const ApplicationsListPresenter = () => {
         headers: {
           'Content-Type': 'application/json',
           "Authorization": `Bearer ${token}`,
+          'Accept-Language': i18n.language,
         },
       });
 
@@ -109,6 +112,7 @@ const ApplicationsListPresenter = () => {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
+            'Accept-Language': i18n.language,
           },
           credentials: "include",
           body: JSON.stringify({ status, person_id }),

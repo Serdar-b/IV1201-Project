@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApplicationForm from "../view/Application";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
 
 /**
  * Presenter component for handling job application functionality.
@@ -25,6 +26,7 @@ const ApplicationPresenter = () => {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
+            'Accept-Language': i18n.language,
           },
           credentials: "include",
         });
@@ -55,6 +57,7 @@ const ApplicationPresenter = () => {
     fromDate,
     toDate
   ) => {
+    
     if (Number(experience) < 0) {
       alert(t("application_form.years_of_experience_cannot_be_negative"));
       return;
@@ -85,6 +88,7 @@ const ApplicationPresenter = () => {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
+          'Accept-Language': i18n.language,
         },
         credentials: "include",
         body: JSON.stringify({

@@ -8,19 +8,19 @@ const submitApplication = async (req, res) => {
 
 
   if (!competences || !availability || !userData) {
-    return res.status(400).json({ success: false, message: "Competences, availability, and user data are required." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.required_fields") });
   }
 
   if (userData.role !== 2) {
-    return res.status(400).json({ success: false, message: "User role has to be applicant." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.applicant_role") });
   }
   if (isNaN(userData.person_id)) {
-    return res.status(400).json({ success: false, message: "Person ID must be a number." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.person_id_numeric") });
   }
 
   const hasNegativeExperience = competences.some(competence => competence.yearsOfExperience < 0);
   if (hasNegativeExperience) {
-    return res.status(400).json({ success: false, message: "Years of experience cannot be negative." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.negative_experience") });
   }
 
   const isAvailabilityValid = availability.every(period => {
@@ -30,7 +30,7 @@ const submitApplication = async (req, res) => {
   });
 
   if (!isAvailabilityValid) {
-    return res.status(400).json({ success: false, message: "The availability period must have a start date before the end date, and start dates must not be in the past." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.valid_availability") });
   }
 
   const client = await pool.connect();
@@ -41,24 +41,25 @@ const submitApplication = async (req, res) => {
     const success = await applicationDAO.saveApplication(client, userData, competences, availability);
 
     await client.query('COMMIT');  
-    res.json({ success: true, message: "Application submitted successfully" });
+    res.json({ success: true, message: req.t("application_validation.application_submitted") });
   } catch (error) {
-    await client.query('ROLLBACK'); 
+    await client.query('ROLLBACK');
     
-    const knownErrors = [
-      "User data, competences, and availability are required.",
-      "A valid user ID is required.",
-      "Competences must be a non-empty array.",
-      "Years of experience cannot be negative.",
-      
-    ];
-  
-    await applicationDAO.logApplicationError(client, userData.person_id, userData.email, userData.username, error.message, userAgent, ipAddress);
-    if (knownErrors.includes(error.message)) {
+    // Mapping error messages directly with translations
+    if (error.message === req.t("application_validation.required_fields") || 
+        error.message === req.t("application_validation.person_id_numeric") ||
+        error.message === req.t("application_validation.negative_experience")) {
       return res.status(400).json({ success: false, message: error.message });
+    } else if (error.message === req.t("application_validation.valid_availability")) {
+      return res.status(400).json({ success: false, message: error.message });
+    } else {
+      // Log the error
+      await applicationDAO.logApplicationError(client, userData.person_id, userData.email, userData.username, error.message, userAgent, ipAddress);
+      
+      // Respond with a generic error message
+      console.error('Error submitting application:', error);
+      res.status(500).json({ success: false, message: req.t("application_validation.error_submitting_application") });
     }
-    console.error('Error submitting application:', error);
-    res.status(500).json({ success: false, message: "An error occurred while submitting the application" });
   } finally {
     client.release();  
   }
@@ -71,11 +72,11 @@ const setApplicationStatus = async (req, res) => {
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   
   if (!person_id) {
-    return res.status(400).json({ success: false, message: "Person ID must not be a null." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.person_id_numeric") });
   }
 
   if (isNaN(person_id)) {
-    return res.status(400).json({ success: false, message: "Person ID must be a number." });
+    return res.status(400).json({ success: false, message: req.t("application_validation.person_id_numeric") });
   }
   const client = await pool.connect();
 
@@ -86,7 +87,7 @@ const setApplicationStatus = async (req, res) => {
 
     if (result.success) {
       await client.query('COMMIT');
-      res.json({ success: true, message: "Application status updated successfully", applications: result });
+      res.json({ success: true, message: req.t("application_validation.status_updated"), applications: result });
     } else {
       await client.query('ROLLBACK');
       res.status(500).json({ success: false, message: result.message });
@@ -100,7 +101,7 @@ const setApplicationStatus = async (req, res) => {
       return res.status(400).json({ success: false, message: error.message });
     }
 
-    res.status(500).json({ success: false, message: "An error occurred while setting application status" });
+    res.status(500).json({ success: false, message: req.t("application_validation.error_setting_status") });
   } finally {
     client.release();
   }
@@ -127,7 +128,7 @@ const handleCompetences = async (req, res) => {
     } finally {
       client.release();
     }
-    res.status(500).json({ success: false, message: "An error occurred while fetching competences" });
+    res.status(500).json({ success: false, message: req.t("application_validation.error_fetching_competences") });
   }
 };
 const listAllApplications = async (req, res) => {
@@ -156,7 +157,7 @@ const listAllApplications = async (req, res) => {
       console.error('Error logging fetch all applications error:', logError);
     }
 
-    res.status(500).json({ success: false, message: "An error occurred while fetching applications" });
+    res.status(500).json({ success: false, message: req.t("application_validation.error_fetching_applications") });
   } finally {
     client.release();
   }

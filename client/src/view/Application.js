@@ -43,7 +43,7 @@ function ApplicationForm({ competences, onSubmitApplication }) {
                         <option value="">{t('application_form.select_expertise')}</option>
                         {competences.map((comp) => (
                             <option key={comp.competence_id} value={comp.name}>
-                                {comp.name}
+                                {t(`database.${comp.name}`)}
                             </option>
                         ))}
                     </select>
@@ -79,7 +79,7 @@ function ApplicationForm({ competences, onSubmitApplication }) {
                         required
                     />
                 </div>
-                <button type="submit" className="application-button">{t('application_form.submit')}</button>
+                <button type="submit" className="application-button">{t('application_form.submit_button')}</button>
             </form>
         </div>
     );

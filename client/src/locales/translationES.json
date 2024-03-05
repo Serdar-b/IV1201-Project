@@ -106,5 +106,32 @@
     "rejected": "Rechazado",
     "no_competences": "Sin competencias.",
     "unknown": "Desconocido"
+  },
+  "application_validation": {
+    "required_fields": "Se requieren competencias, disponibilidad y datos del usuario.",
+    "applicant_role": "El rol del usuario tiene que ser solicitante.",
+    "person_id_numeric": "El ID de la persona debe ser un número.",
+    "negative_experience": "Los años de experiencia no pueden ser negativos.",
+    "valid_availability": "El período de disponibilidad debe tener una fecha de inicio antes de la fecha de fin, y las fechas de inicio no deben estar en el pasado.",
+    "application_submitted": "Solicitud enviada con éxito",
+    "error_submitting_application": "Ocurrió un error al enviar la solicitud",
+    "status_updated": "El estado de la solicitud se actualizó con éxito",
+    "error_setting_status": "Ocurrió un error al establecer el estado de la solicitud",
+    "error_fetching_competences": "Ocurrió un error al recuperar las competencias",
+    "error_fetching_applications": "Ocurrió un error al recuperar las solicitudes"
+  },
+  "authorization_validation": {
+    "user_already_exists": "El usuario ya existe",
+    "required_fields": "Por favor, rellene todos los campos obligatorios.",
+    "username_short": "El nombre de usuario debe tener al menos 3 caracteres.",
+    "username_numeric_start": "El nombre de usuario no debe empezar con un número.",
+    "password_short": "La contraseña debe tener al menos 6 caracteres.",
+    "invalid_credentials": "Credenciales inválidas.",
+    "login_successful": "Inicio de sesión exitoso.",
+    "registration_successful": "Registro exitoso.",
+    "pnr_numeric": "El NRP debe ser numérico.",
+    "email_invalid": "Por favor, introduzca una dirección de correo electrónico válida.",
+    "login_error": "Se produjo un error durante el inicio de sesión.",
+    "registration_error": "Se produjo un error durante el registro."
   }
 }

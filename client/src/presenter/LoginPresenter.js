@@ -3,6 +3,7 @@ import Login from "../view/Login";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
 
 /**
  * Presenter component for handling user login functionality.
@@ -59,6 +60,7 @@ const LoginPresenter = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Accept-Language': i18n.language,
         },
         credentials: "include",
         body: JSON.stringify({ username, password }),

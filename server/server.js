@@ -8,8 +8,27 @@ const authenticateToken = require('./middlewareProtection');
 const app = express();
 const cors = require("cors");
 
+const i18next = require('i18next');
+const Backend = require('i18next-fs-backend');
+const middleware = require('i18next-http-middleware');
+
+i18next
+  .use(Backend)
+  .use(middleware.LanguageDetector)
+  .init({
+    fallbackLng: 'en',
+    backend: {
+      loadPath: '../client/src/locales/translation{{lng}}.json',
+    },
+    detection: {
+      order: ['querystring', 'cookie', 'header'],
+      caches: ['cookie'],
+    },
+  });
+
 app.use(express.json());
 app.use(cookieParser());
+app.use(middleware.handle(i18next));
 
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,

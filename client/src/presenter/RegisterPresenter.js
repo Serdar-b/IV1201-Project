@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Register from "../view/Register";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import i18n from "i18next";
 
 /**
  * Presenter component for handling user registration functionality.
@@ -73,6 +74,7 @@ const RegisterPresenter = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Accept-Language': i18n.language,
         },
         body: JSON.stringify({ name, surname, pnr, email, password, username }),
       });

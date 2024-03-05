@@ -105,5 +105,32 @@
     "rejected": "Rejeté",
     "no_competences": "Aucune compétence.",
     "unknown": "Inconnu"
+  },
+  "application_validation": {
+    "required_fields": "Les compétences, la disponibilité et les données utilisateur sont requis.",
+    "applicant_role": "Le rôle de l'utilisateur doit être celui de candidat.",
+    "person_id_numeric": "L'identifiant de la personne doit être un nombre.",
+    "negative_experience": "Les années d'expérience ne peuvent pas être négatives.",
+    "valid_availability": "La période de disponibilité doit avoir une date de début avant la date de fin, et les dates de début ne doivent pas être dans le passé.",
+    "application_submitted": "Candidature soumise avec succès",
+    "error_submitting_application": "Une erreur s'est produite lors de la soumission de la candidature",
+    "status_updated": "Le statut de la candidature a été mis à jour avec succès",
+    "error_setting_status": "Une erreur s'est produite lors de la mise à jour du statut de la candidature",
+    "error_fetching_competences": "Une erreur s'est produite lors de la récupération des compétences",
+    "error_fetching_applications": "Une erreur s'est produite lors de la récupération des candidatures"
+  },
+  "authorization_validation": {
+    "user_already_exists": "L'utilisateur existe déjà",
+    "required_fields": "Veuillez remplir tous les champs requis.",
+    "username_short": "Le nom d'utilisateur doit comporter au moins 3 caractères.",
+    "username_numeric_start": "Le nom d'utilisateur ne doit pas commencer par un chiffre.",
+    "password_short": "Le mot de passe doit contenir au moins 6 caractères.",
+    "invalid_credentials": "Identifiants invalides.",
+    "login_successful": "Connexion réussie.",
+    "registration_successful": "Inscription réussie.",
+    "pnr_numeric": "Le numéro personnel doit être un nombre.",
+    "email_invalid": "Veuillez entrer une adresse e-mail valide.",
+    "login_error": "Une erreur s'est produite lors de la connexion.",
+    "registration_error": "Une erreur s'est produite lors de l'inscription."
   }
 }

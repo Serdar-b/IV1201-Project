@@ -105,6 +105,33 @@
         "rejected": "Rejected",
         "no_competences": "No Competences.",
         "unknown": "Unknown"
+      },
+      "application_validation": {
+        "required_fields": "Competences, availability, and user data are required.",
+        "applicant_role": "User role has to be applicant.",
+        "person_id_numeric": "Person ID must be a number.",
+        "negative_experience": "Years of experience cannot be negative.",
+        "valid_availability": "The availability period must have a start date before the end date, and start dates must not be in the past.",
+        "application_submitted": "Application submitted successfully",
+        "error_submitting_application": "An error occurred while submitting the application",
+        "status_updated": "Application status updated successfully",
+        "error_setting_status": "An error occurred while setting application status",
+        "error_fetching_competences": "An error occurred while fetching competences",
+        "error_fetching_applications": "An error occurred while fetching applications"
+      }, 
+      "authorization_validation": {
+        "user_already_exists": "User already exists",
+        "required_fields": "Please fill in all required fields.",
+        "username_short": "Username must be at least 3 characters long.",
+        "username_numeric_start": "Username must not start with a number.",
+        "password_short": "Password must be at least 6 characters long.",
+        "invalid_credentials": "Invalid credentials.",
+        "login_successful": "Login successful.",
+        "registration_successful": "Registration successful.",
+        "pnr_numeric": "PNR must be a number.",
+        "email_invalid": "Please enter a valid email address.",
+        "login_error": "An error occurred during login.",
+        "registration_error": "An error occurred during registration."
       }
   }
   

@@ -105,6 +105,33 @@
       "rejected": "Reddedildi",
       "no_competences": "Yetkinlik Yok.",
       "unknown": "Bilinmeyen"
+    },
+    "application_validation": {
+      "required_fields": "Yetenekler, kullanılabilirlik ve kullanıcı verileri gereklidir.",
+      "applicant_role": "Kullanıcı rolü başvuru sahibi olmalıdır.",
+      "person_id_numeric": "Kişi kimliği bir sayı olmalıdır.",
+      "negative_experience": "Deneyim yılları negatif olamaz.",
+      "valid_availability": "Kullanılabilirlik döneminin başlangıç tarihi bitiş tarihinden önce olmalı ve başlangıç tarihleri geçmişte olmamalıdır.",
+      "application_submitted": "Başvuru başarıyla gönderildi",
+      "error_submitting_application": "Başvuru gönderilirken bir hata oluştu",
+      "status_updated": "Başvuru durumu başarıyla güncellendi",
+      "error_setting_status": "Başvuru durumu ayarlanırken bir hata oluştu",
+      "error_fetching_competences": "Yetenekler alınırken bir hata oluştu",
+      "error_fetching_applications": "Başvurular alınırken bir hata oluştu"
+    },
+    "authorization_validation": {
+      "user_already_exists": "Kullanıcı zaten var",
+      "required_fields": "Lütfen tüm gerekli alanları doldurun.",
+      "username_short": "Kullanıcı adı en az 3 karakter uzunluğunda olmalıdır.",
+      "username_numeric_start": "Kullanıcı adı bir rakamla başlamamalıdır.",
+      "password_short": "Şifre en az 6 karakter uzunluğunda olmalıdır.",
+      "invalid_credentials": "Geçersiz kimlik bilgileri.",
+      "login_successful": "Giriş başarılı.",
+      "registration_successful": "Kayıt başarılı.",
+      "pnr_numeric": "PNR bir sayı olmalıdır.",
+      "email_invalid": "Lütfen geçerli bir e-posta adresi girin.",
+      "login_error": "Giriş yapılırken bir hata oluştu.",
+      "registration_error": "Kayıt olunurken bir hata oluştu."
     }
   }
   
