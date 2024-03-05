@@ -61,10 +61,6 @@
 #         run: npm test
 #         working-directory: ./server
 
-
-
-
-
 # name: Node.js CI/CD
 
 # on:
@@ -149,7 +145,6 @@
 #           push: true
 #           tags: ghcr.io/serdar-b/iv1201-project/server:latest
 
-
 name: Node.js CI/CD
 
 on:
@@ -199,8 +194,6 @@ jobs:
       - name: Run Jest Tests
         run: npm test
         working-directory: ./server
-        env:
-          CI: true  # This environment variable ensures Jest runs in CI-mode
 
       - name: Run Static Code Analysis (ESLint)
         run: |
