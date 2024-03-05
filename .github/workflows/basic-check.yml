@@ -202,7 +202,6 @@
 #         working-directory: ./client
 
 
-
 name: Node.js CI/CD
 
 on:
@@ -254,11 +253,9 @@ jobs:
         working-directory: ./server
         env:
           PGUSER: postgres
-          PGHOST: postgres  # Use service name as host
+          PGHOST: postgres  
           PGPASSWORD: newpassword
           PGDATABASE: myPostgres
           PGPORT: 5432
           JWT_SECRET: ea6cdac0714a5abefa0b977dcf2e80abcb0d607f564e97d3fc6f759db6b719b9
-          NODE_ENV: test  # If your application behaves differently in a test environment
-
-     
+          NODE_ENV: test  
