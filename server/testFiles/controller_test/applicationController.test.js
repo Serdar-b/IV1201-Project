@@ -2,9 +2,14 @@ const request = require("supertest");
 const { server } = require("../../server");
 const pool = require("../../db");
 
+// const testUser = {
+//   username: "user",
+//   password: "123456"
+// };
+
 const testUser = {
-  username: "user",
-  password: "123456"
+  username: "user40",
+  password: "Test121212"
 };
 
 let token;

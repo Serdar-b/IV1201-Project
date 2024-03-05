@@ -51,7 +51,7 @@ describe("AuthController Tests", () => {
 
   describe("POST /login", () => {
     it("should respond with 200 and a JWT token on successful login", async () => {
-      const loginData = { username: "user", password: "123456" }; 
+      const loginData = { username: "user40", password: "Test121212" }; 
       const response = await request(server).post("/login").send(loginData);
 
       expect(response.statusCode).toBe(200);
