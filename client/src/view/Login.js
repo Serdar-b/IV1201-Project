@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-
 /**
- * @param {Function} props.onLogin - The function to handle login attempts.
- * @returns {React.ReactElement} The login component.
+ * Login component that provides a user interface for entering login credentials.
+ * It renders input fields for the username and password, a login button to submit the credentials,
+ * and a link to navigate to the registration page. It also displays a success message if the user
+ * navigated from the registration page upon successful registration.
+ *
+ * @param {Object} props Component properties
+ * @param {Function} props.onLogin Callback function to handle user login. It takes username and password as arguments.
+ * @returns {React.ReactElement} Renders the login form with username and password fields, and navigation to the registration page.
  */
-
 function Login({ onLogin }) {
 
   const { t } = useTranslation();
@@ -21,12 +25,19 @@ function Login({ onLogin }) {
   const location = useLocation();
   const registrationSuccess = location.state?.registrationSuccess;
 
-  // Function to handle form submission
+    /**
+   * Handles the submission of the login form. Prevents the default form submission behavior, 
+   * calls the onLogin callback with the entered username and password, and resets the form fields.
+   * @param {React.FormEvent} event The form submission event
+   */
   const handleSubmit = (event) => {
     event.preventDefault(); 
     onLogin(username, password); 
   };
-
+  
+  /**
+   * Navigates the user to the registration page when the register button is clicked.
+   */
   const handleRegisterClick = () => {
     navigate("/register");
   };

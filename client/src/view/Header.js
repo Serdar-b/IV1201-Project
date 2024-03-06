@@ -5,18 +5,22 @@ import "../App.css";
 import { useTranslation } from 'react-i18next';
 
 /**
- * Component for displaying the header navigation.
- * @returns {React.ReactElement} The header component.
+ * Header component that provides navigation links and a logout functionality within the application.
+ * It showcases a home icon linked to the dashboard, a jobs link, and a logout button. Logging out
+ * removes user data from local storage and redirects to the login page. The component also displays
+ * a loading indicator during the logout process to enhance user experience.
+ *
+ * @component
+ * @returns {React.ReactElement} Renders the navigation header with home icon, jobs link, and logout button.
  */
-
 const Header = () => {
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { t } = useTranslation();
 
   /**
-   * Handles the logout process.
-   * Removes user data from local storage and navigates to the login page.
+   * Handles the user logout process by removing user-related data from local storage
+   * and navigating to the login page after a brief delay to simulate a logout process.
    */
   const handleLogout = () => {
     setIsLoggingOut(true);

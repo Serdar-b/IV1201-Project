@@ -3,6 +3,13 @@ const jwt = require("jsonwebtoken");
 const userDAO = require("../integration/userDAO");
 const bcrypt = require("bcrypt");
 
+/**
+ * Handles user login, including authentication and token generation.
+ * Logs the login attempt, including user details and IP address, for security auditing.
+ * 
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
+ */
 const login = async (req, res) => {
   const { username, password } = req.body;
   const userAgent = req.headers['user-agent'];
@@ -76,7 +83,13 @@ res.json({ success: true, message: req.t("authorization_validation.login_success
   }
 };
 
-
+/**
+ * Handles new user registration, including input validation and user creation.
+ * Logs the registration attempt, including user details and IP address, for security auditing.
+ * 
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
+ */
 const register = async (req, res) => {
   
   const { name, surname, pnr, password, email, username } = req.body;

@@ -1,6 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Footer component that displays contact information and an address.
+ * It uses the `useTranslation` hook from `react-i18next` to support internationalization
+ * by rendering the text in the current language set in the application.
+ *
+ * @component
+ * @returns {React.ReactElement} The Footer component containing contact information.
+ */
 const Footer = () => {
   const { t } = useTranslation();
 

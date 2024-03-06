@@ -10,6 +10,13 @@ import NotAuthorized from './view/NotAuthorized';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 
+/**
+ * The main application component that defines the routing structure using React Router.
+ * It utilizes different components to represent pages and wraps them with a Layout component to provide a consistent header.
+ * ProtectedRoute is used to restrict access based on user authentication and roles.
+ * 
+ * @returns {React.ReactElement} The main application structure with routing.
+ */
 function App() {
 
   return (

@@ -1,5 +1,14 @@
 const pool = require("../db");
 
+/**
+ * Saves an application to the database, including competence profiles and availability periods.
+ * @param {Object} client - Database client for transaction management.
+ * @param {Object} userData - User data including person_id.
+ * @param {Array} competences - List of competences with their names and years of experience.
+ * @param {Array} availability - List of availability periods with from and to dates.
+ * @throws Will throw an error if user data, competences, or availability are invalid or if a database error occurs.
+ * @returns {Boolean} True if the application is saved successfully.
+ */
 const saveApplication = async (client, userData, competences, availability) => {
   if (!userData || !competences || !availability) {
     throw new Error('User data, competences, and availability are required.');
@@ -48,6 +57,14 @@ const saveApplication = async (client, userData, competences, availability) => {
   }
 };
 
+/**
+ * Sets the status of an application in the database.
+ * @param {Object} client - Database client for transaction management.
+ * @param {string} status - The new status of the application.
+ * @param {number} person_id - The ID of the person whose application status is being updated.
+ * @throws Will throw an error if person_id is invalid or if a database error occurs.
+ * @returns {Object} Object containing the success state and message of the operation.
+ */
 const setStatus = async (client, status, person_id) => {
   
   if (!person_id || isNaN(person_id)) {
@@ -71,6 +88,17 @@ const setStatus = async (client, status, person_id) => {
   }
 };
 
+/**
+ * Logs an application error to the database.
+ * @param {Object} client - Database client for transaction management.
+ * @param {number|null} personId - ID of the person associated with the log.
+ * @param {string|null} email - Email of the person associated with the log.
+ * @param {string|null} username - Username of the person associated with the log.
+ * @param {string} reason - Reason for logging.
+ * @param {string} userAgent - User agent of the client.
+ * @param {string} ipAddress - IP address of the client.
+ * @throws Will throw an error if a database error occurs during log creation.
+ */
 const logApplicationError = async (
   client,
   personId,
@@ -102,6 +130,11 @@ const logApplicationError = async (
   }
 };
 
+/**
+ * Retrieves all competences from the database.
+ * @throws Will throw an error if a database error occurs during fetch operation.
+ * @returns {Array|null} An array of all competences or null if none found.
+ */
 const getCompetences = async () => {
   try {
     const result = await pool.query("SELECT * FROM public.competence");
@@ -116,6 +149,12 @@ const getCompetences = async () => {
   }
 };
 
+/**
+ * Retrieves all applications from the database along with their associated competences and availability periods.
+ * @param {Object} client - Database client for transaction management.
+ * @throws Will throw an error if a database error occurs during fetch operation.
+ * @returns {Array} An array of all applications.
+ */
 const getAllApplications = async (client) => {
   try {
     const query = `

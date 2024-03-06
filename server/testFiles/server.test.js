@@ -18,6 +18,10 @@ const mockUser = {
 
 let token;
 let personId, username, nameOfUser;
+
+/**
+ * Sets up the testing environment before running any tests. Logs in a mock user to obtain authentication token for further requests.
+ */
 beforeAll(async () => {
   const loginResponse = await request(server).post("/login").send(mockUser);
   token = loginResponse.body.token;
@@ -27,6 +31,9 @@ beforeAll(async () => {
   console.log("person   " +personId + " username " + username + " name " + nameOfUser);
 });
 
+/**
+ * Tests the login endpoint to ensure it responds correctly to successful logins and invalid credentials.
+ */
 describe("POST /login", () => {
   it("should respond with a 200 and JWT token on successful login", async () => {
     const response = await request(server).post("/login").send(mockUser);
@@ -39,6 +46,9 @@ describe("POST /login", () => {
   });
 });
 
+/**
+ * Tests the registration endpoint to ensure it handles new user registrations correctly.
+ */
 describe("POST /register", () => {
   it("should respond with a 200 on successful registration", async () => {
     const newUser = {
@@ -53,11 +63,15 @@ describe("POST /register", () => {
     expect(response.status).toBe(200);
   });
 
+  // Clean up after registration tests
   afterAll(async () => {
     await pool.query("DELETE FROM person WHERE username = $1", [testUsername]);
   });
 });
 
+/**
+ * Tests the application submission endpoint to ensure authenticated users can submit applications.
+ */
 describe("POST /apply (submitApplication)", () => {
   it("should allow an authenticated user to submit an application", async () => {
     const applicationData = {
@@ -90,6 +104,9 @@ describe("POST /apply (submitApplication)", () => {
   });
 });
 
+/**
+ * Tests the applications listing endpoint to ensure authenticated users can retrieve a list of all applications.
+ */
 describe("GET /applications", () => {
   it("should allow an authenticated user to list all applications", async () => {
     const response = await request(server).get("/applications").set("Authorization", `Bearer ${token}`);
@@ -98,6 +115,9 @@ describe("GET /applications", () => {
   });
 });
 
+/**
+ * Tests the competences fetch endpoint to ensure authenticated users can retrieve competences.
+ */
 describe("GET /apply (handleCompetences)", () => {
   it("should allow an authenticated user to fetch competences", async () => {
     const response = await request(server).get("/apply").set("Authorization", `Bearer ${token}`);
@@ -106,6 +126,9 @@ describe("GET /apply (handleCompetences)", () => {
   });
 });
 
+/**
+ * Cleans up the testing environment after all tests have run. Closes the server connection and ends the database pool connection.
+ */
 afterAll(async () => {
   if (server && server.close) {
     await new Promise(resolve => server.close(resolve));

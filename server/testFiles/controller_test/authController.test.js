@@ -3,6 +3,9 @@ const { server } = require("../../server");
 const pool = require("../../db"); 
 const username = `testuser`;
 
+/**
+ * Integration tests for the AuthController, including registration and login processes.
+ */
 describe("AuthController Tests", () => {
   describe("POST /register", () => {
     it("should respond with 200 on successful registration", async () => {
@@ -66,12 +69,18 @@ describe("AuthController Tests", () => {
     });
   });
 
+  /**
+   * After each test, clean up by deleting the test user from the database.
+   */
   afterEach(async () => {
     await pool.query("DELETE FROM person WHERE username = $1", [username]);
   });
 
 });
 
+  /**
+   * After all tests, close the server and terminate the database connection.
+   */
 afterAll(async () => {
     if (server && server.close) {
       await new Promise(resolve => server.close(resolve));

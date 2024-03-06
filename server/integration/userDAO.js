@@ -2,10 +2,14 @@ const bcrypt = require("bcrypt");
 const pool = require("../db");
 const User = require("../model/User");
 
-
+/**
+ * Finds a user by username.
+ * @param {string} username - The username of the user.
+ * @throws Will throw an error if the username starts with a number or is too short.
+ * @returns {User|null} The found user as a User object or null if not found.
+ */
 const findUserByUsername = async (username) => {
 
- 
   if (!isNaN(username.charAt(0))) {
     throw new Error("Username must not start with a number.");
   }
@@ -28,7 +32,13 @@ const findUserByUsername = async (username) => {
   }
 };
 
-
+/**
+ * Finds a user by either username or email.
+ * @param {string} username - The username of the user.
+ * @param {string} email - The email of the user.
+ * @throws Will throw an error if the username starts with a number, the email format is incorrect, or the username is too short.
+ * @returns {User|null} The found user as a User object or null if not found.
+ */
 const findUserByUsernameOrEmail = async (username, email) => {
 
   if (!isNaN(username.charAt(0))) {
@@ -56,7 +66,13 @@ const findUserByUsernameOrEmail = async (username, email) => {
   }
 };
 
-
+/**
+ * Creates a new user in the database.
+ * @param {Object} client - The database client.
+ * @param {Object} userData - The user data including name, surname, personal identification number (pnr), email, password, and username.
+ * @throws Will throw an error if any validation fails or if a database error occurs.
+ * @returns {Object} An object containing the operation success status and the created user.
+ */
 const createUser = async (client, userData) => {
   
   if (!userData.username || userData.username.length < 3) {
@@ -90,7 +106,17 @@ const createUser = async (client, userData) => {
   return { success: true, user: userResult.rows[0] };
 };
 
-// Logs a failed attempt in the database
+/**
+ * Logs a failed attempt for user actions such as login or registration.
+ * @param {Object} client - The database client.
+ * @param {number|null} personId - The person ID associated with the log.
+ * @param {string|null} email - The email associated with the log.
+ * @param {string|null} username - The username associated with the log.
+ * @param {string} reason - The reason for logging the attempt.
+ * @param {string} userAgent - The user agent of the client making the request.
+ * @param {string} ipAddress - The IP address of the client making the request.
+ * @throws Will throw an error if a database error occurs during the logging.
+ */
 const logFailedAttempt = async (client, personId, email, username, reason, userAgent, ipAddress) => {
   
   const insertText = `

@@ -7,6 +7,9 @@ const pool = require("../../db");
 //   password: "123456"
 // };
 
+/**
+ * Test setup for application controller. Includes a test user for authentication and defines token and personId variables.
+ */
 const testUser = {
   username: "user40",
   password: "Test121212"
@@ -14,6 +17,9 @@ const testUser = {
 
 let token;
 
+/**
+ * Before all tests, log in as a test user to obtain a token and user ID for authentication in subsequent requests.
+ */
 beforeAll(async () => {
   const loginResponse = await request(server)
     .post("/login")
@@ -99,6 +105,9 @@ describe("ApplicationController Tests", () => {
   });
 });
 
+/**
+ * After all tests, close the server and terminate the database connection.
+ */
 afterAll(async () => {
     if (server && server.close) {
       await new Promise(resolve => server.close(resolve));
