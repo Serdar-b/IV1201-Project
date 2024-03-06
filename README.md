@@ -85,7 +85,7 @@ npm run dev
 **Step 5:** Open a new terminal and navigate into `client` directorie:
 
 ```bash
-cd IV1201-Project/client
+cd client
 ```
 
  **step 6:** Install all dependencies then start the React application:
