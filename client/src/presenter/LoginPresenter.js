@@ -28,29 +28,29 @@ const LoginPresenter = () => {
    */
 
   const handleLogin = async (username, password) => {
-    if (username.length < 3) {
-      setLoginStatus({
-        isRegistered: false,
-        message: t("login.three_characters_long"),
-      });
-      return;
-    }
+    // if (username.length < 3) {
+    //   setLoginStatus({
+    //     isRegistered: false,
+    //     message: t("login.three_characters_long"),
+    //   });
+    //   return;
+    // }
 
-    if (!isNaN(username.charAt(0))) {
-      setLoginStatus({
-        isRegistered: false,
-        message: t("login.username_not_start_with_number"),
-      });
-      return;
-    }
+    // if (!isNaN(username.charAt(0))) {
+    //   setLoginStatus({
+    //     isRegistered: false,
+    //     message: t("login.username_not_start_with_number"),
+    //   });
+    //   return;
+    // }
 
-    if (password.length < 6) {
-      setLoginStatus({
-        isRegistered: false,
-        message: t("login.password_atleast_six_characters"),
-      });
-      return;
-    }
+    // if (password.length < 6) {
+    //   setLoginStatus({
+    //     isRegistered: false,
+    //     message: t("login.password_atleast_six_characters"),
+    //   });
+    //   return;
+    // }
     try {
       console.log("API URL:", process.env.REACT_APP_API_URL);
       console.log('API URL:', process.env.REACT_APP_API_URL);
@@ -67,7 +67,7 @@ const LoginPresenter = () => {
       });
 
       const data = await response.json();
-
+      console.log(data.message);
       if (data.success) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));

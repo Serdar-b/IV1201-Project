@@ -26,17 +26,20 @@ i18next
     },
   });
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(middleware.handle(i18next));
 
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, 
+  allowedHeaders: ["Content-Type", "Authorization", "Accept-Language"], 
 };
 
+
 app.use(cors(corsOptions));
+
+app.use(middleware.handle(i18next));
+app.use(express.json());
+app.use(cookieParser());
+
 
 app.post("/login", authController.login);
 app.post("/register", authController.register);
