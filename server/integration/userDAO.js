@@ -11,11 +11,11 @@ const User = require("../model/User");
 const findUserByUsername = async (username) => {
 
   if (!isNaN(username.charAt(0))) {
-    throw new Error("Username must not start with a number.");
+    throw new Error("authorization_validation.username_numeric_start");
   }
   
   if (!username || username.length < 3) {
-    throw new Error("Username must be at least 3 characters long.");
+    throw new Error("authorization_validation.username_short");
   }
   const query = "SELECT * FROM public.person WHERE username = $1";
   const values = [username];
@@ -42,14 +42,15 @@ const findUserByUsername = async (username) => {
 const findUserByUsernameOrEmail = async (username, email) => {
 
   if (!isNaN(username.charAt(0))) {
-    return { success: false, message: "Username must not start with a number." };
+    throw new Error("authorization_validation.username_numeric_start");
   }
+  
   if (!email.includes("@") || !email.includes(".")) {
-    return { success: false, message: "Email must have @ or ." };
+    throw new Error("authorization_validation.email_invalid");
   }
 
   if (username && username.length < 3) {
-    throw new Error("Username must be at least 3 characters long.");
+    throw new Error("authorization_validation.username_short");
   }
   const query = "SELECT * FROM public.person WHERE username = $1 OR email = $2";
   const values = [username, email];
@@ -61,6 +62,7 @@ const findUserByUsernameOrEmail = async (username, email) => {
     }
     return null;
   } catch (err) {
+    
     console.error("Error executing query", err.stack);
     return null;
   }
@@ -76,16 +78,16 @@ const findUserByUsernameOrEmail = async (username, email) => {
 const createUser = async (client, userData) => {
   
   if (!userData.username || userData.username.length < 3) {
-    throw new Error("Username must be at least 3 characters long.");
+    throw new Error("authorization_validation.username_short");
   }
   if (!userData.password || userData.password.length < 6) {
-    throw new Error("Password must be at least 6 characters long.");
+    throw new Error("authorization_validation.password_short");
   }
   if (isNaN(userData.pnr) || userData.pnr.includes(".")) {
-    throw new Error("PNR must be a number.");
+    throw new Error("authorization_validation.pnr_numeric");
   }
   if (!userData.email.includes("@") || !userData.email.includes(".")) {
-    throw new Error("Please enter a valid email address.");
+    throw new Error("authorization_validation.email_invalid");
   }
   const insertUserText = `
     INSERT INTO public.person (name, surname, pnr, email, password, role_id, username)

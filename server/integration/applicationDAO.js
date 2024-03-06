@@ -11,20 +11,20 @@ const pool = require("../db");
  */
 const saveApplication = async (client, userData, competences, availability) => {
   if (!userData || !competences || !availability) {
-    throw new Error('User data, competences, and availability are required.');
+    throw new Error('application_validation.required_fields');
   }
 
   if (!userData.person_id) {
-    throw new Error('A valid user ID is required.');
+    throw new Error('application_validation.valid_user');
   }
 
   if (!Array.isArray(competences) || competences.length === 0) {
-    throw new Error('Competences must be a non-empty array.');
+    throw new Error('database.competences_empty_array');
   }
 
   const hasNegativeExperience = competences.some(competence => competence.yearsOfExperience < 0);
   if (hasNegativeExperience) {
-    throw new Error('Years of experience cannot be negative.');
+    throw new Error('application_form.years_of_experience_cannot_be_negative');
   }
   try {
     
@@ -68,7 +68,7 @@ const saveApplication = async (client, userData, competences, availability) => {
 const setStatus = async (client, status, person_id) => {
   
   if (!person_id || isNaN(person_id)) {
-    throw new Error('Invalid person ID provided.');
+    throw new Error("application_validation.valid_user");
   }
 
   try {
@@ -81,7 +81,7 @@ const setStatus = async (client, status, person_id) => {
 
     await client.query(updateQuery, [status, person_id]);
 
-    return { success: true, message: "Status updated successfully" };
+    return { success: true, message: "application_validation.status_updated" };
   } catch (error) {
     console.error("Error changing application status: ", error.stack);
     throw error; 
@@ -145,7 +145,7 @@ const getCompetences = async () => {
     }
   } catch (error) {
     console.error("Error getting competence: ", err.stack);
-    throw new Error("Failed to fetch competences");
+    throw new Error("application_validation.error_fetching_competences");
   }
 };
 
@@ -186,7 +186,7 @@ const getAllApplications = async (client) => {
     return result.rows;
   } catch (error) {
     console.error("Error fetching all applications: ", error.stack);
-    throw new Error("An error occurred while fetching all applications");
+    throw new Error("application_validation.error_fetching_applications");
   }
 };
 

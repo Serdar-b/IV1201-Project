@@ -16,19 +16,19 @@ const login = async (req, res) => {
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   if (!username || !password) {
-    return res.status(400).json({ success: false, message: req.t("authorization_validation.login.required_fields") });
+    return res.status(400).json({ success: false, message: "authorization_validation.login.required_fields" });
   }
 
   if (username.length < 3) {
-    return res.status(400).json({ success: false, message: req.t("authorization_validation.username_short") });
+    return res.status(400).json({ success: false, message: "authorization_validation.username_short" });
   }
 
   if (!isNaN(username.charAt(0))) {
-    return res.status(400).json({ success: false, message: req.t("authorization_validation.username_numeric_start") });
+    return res.status(400).json({ success: false, message: "authorization_validation.username_numeric_start" });
   }
 
   if (password.length < 6) {
-    return res.status(400).json({ success: false, message: req.t("authorization_validation.password_short") });
+    return res.status(400).json({ success: false, message: "authorization_validation.password_short" });
   }
 
   const client = await pool.connect();
@@ -42,14 +42,14 @@ const login = async (req, res) => {
     if (!user) {
       await userDAO.logFailedAttempt(client, null, null, null, "User not found", userAgent, ipAddress);
       await client.query('ROLLBACK');
-      return res.status(401).json({ success: false, message: req.t("authorization_validation.invalid_credentials") });
+      return res.status(401).json({ success: false, message: "authorization_validation.invalid_credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       await userDAO.logFailedAttempt(client, null, null, username, "Entered wrong password", userAgent, ipAddress);
       await client.query('ROLLBACK');
-      return res.status(401).json({ success: false, message: req.t("authorization_validation.invalid_credentials") });
+      return res.status(401).json({ success: false, message: "authorization_validation.invalid_credentials" });
     }
 
       const payload = {
@@ -63,7 +63,7 @@ const login = async (req, res) => {
       expiresIn: "30 minutes",
     });
 
-res.json({ success: true, message: req.t("authorization_validation.login_successful"), user: payload, token: token });
+res.json({ success: true, message: "authorization_validation.login_successful", user: payload, token: token });
 
 
     // Commit if all goes well
@@ -72,11 +72,14 @@ res.json({ success: true, message: req.t("authorization_validation.login_success
     // Rollback in case of any error
     await client.query('ROLLBACK');
 
-    if (error.message === req.t("authorization_validation.username_numeric_start") || error.message === req.t("authorization_validation.username_short")) {
+    console.log(error.message)
+
+    if (error.message === "authorization_validation.username_numeric_start" || error.message === "authorization_validation.username_short") {
       return res.status(400).json({ success: false, message: error.message });
     }
+    
     console.error('Login error:', error);
-    res.status(500).json({ success: false, message: req.t("authorization_validation.login_error") });
+    res.status(500).json({ success: false, message: "authorization_validation.login_error" });
   } finally {
     // Release the client in the end
     client.release();
@@ -97,19 +100,19 @@ const register = async (req, res) => {
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     if (!username || username.length < 3) {
-      return res.status(400).send({ success: false, message: req.t("authorization_validation.username_short") });
+      return res.status(400).send({ success: false, message: "authorization_validation.username_short" });
     }
 
     if (!password || password.length < 6) {
-      return res.status(400).send({ success: false, message: req.t("authorization_validation.password_short") });
+      return res.status(400).send({ success: false, message: "authorization_validation.password_short" });
     }
 
     if (isNaN(pnr) || pnr.includes(".")) {
-      return res.status(400).send({ success: false, message: req.t("authorization_validation.pnr_numeric") });
+      return res.status(400).send({ success: false, message: "authorization_validation.pnr_numeric" });
     }
 
     if (!email.includes("@") || !email.includes(".")) {
-      return res.status(400).send({ success: false, message: req.t("authorization_validation.email_invalid") });
+      return res.status(400).send({ success: false, message: "authorization_validation.email_invalid" });
     }
 
   const client = await pool.connect();
@@ -120,7 +123,8 @@ const register = async (req, res) => {
     const existingUser = await userDAO.findUserByUsernameOrEmail(username, email);
 
     if (existingUser) {
-      return res.status(409).json({ success: false, message: req.t("authorization_validation.user_already_exists") });
+      
+      return res.status(409).json({ success: false, message: "authorization_validation.user_already_exists" });
     }
 
     const saltRounds = 10;
@@ -138,7 +142,7 @@ const register = async (req, res) => {
 
     if (userCreationResult.success) {
       await client.query('COMMIT');
-      res.json({ success: true, message: req.t("authorization_validation.registration_successful") });
+      res.json({ success: true, message: "authorization_validation.registration_successful" });
     } else {
       
       const logMessage = "Could not register user";
@@ -152,20 +156,22 @@ const register = async (req, res) => {
       await client.query('ROLLBACK');
     }
 
-    if (error.message === req.t("authorization_validation.username_short") || 
-    error.message === req.t("authorization_validation.password_short")) {
+    if (error.message === "authorization_validation.username_short" || 
+    error.message === "authorization_validation.password_short") {
       return res.status(400).json({ success: false, message: error.message });
-    } else if (error.message === req.t("authorization_validation.pnr_numeric")) {
+    } else if (error.message === "authorization_validation.username_numeric_start"){
       return res.status(400).json({ success: false, message: error.message });
-    } else if (error.message === req.t("authorization_validation.email_invalid")) {
+    } else if (error.message === "authorization_validation.pnr_numeric") {
       return res.status(400).json({ success: false, message: error.message });
-    } else if (error.message === req.t("authorization_validation.user_already_exists")) {
+    } else if (error.message === "authorization_validation.email_invalid") {
+      return res.status(400).json({ success: false, message: error.message });
+    } else if (error.message === "authorization_validation.user_already_exists") {
       return res.status(409).json({ success: false, message: error.message });
     }
     else{
       console.error('Registration error:', error);
       await userDAO.logFailedAttempt(client, null, email, username, error.message, userAgent, ipAddress);
-      res.status(500).json({ success: false, message: req.t("authorization_validation.registration_error") });
+      res.status(500).json({ success: false, message: "authorization_validation.registration_error" });
     }
   } finally {
     client.release();
