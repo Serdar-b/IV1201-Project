@@ -12,6 +12,9 @@ const i18next = require('i18next');
 const Backend = require('i18next-fs-backend');
 const middleware = require('i18next-http-middleware');
 
+/**
+ * Initializes the i18next middleware with a filesystem backend and a language detector.
+ */
 i18next
   .use(Backend)
   .use(middleware.LanguageDetector)
@@ -41,6 +44,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 
+app.use(middleware.handle(i18next));
+app.use(express.json());
+app.use(cookieParser());
+
+
+/**
+ * Defines routes for login, registration, and application handling with authentication.
+ */
 app.post("/login", authController.login);
 app.post("/register", authController.register);
 app.post("/apply",authenticateToken, applicationController.submitApplication);
@@ -50,6 +61,9 @@ app.post("/applications",authenticateToken, applicationController.setApplication
 
 const port = process.env.PORT || 5001;
 
+/**
+ * Starts the server on the specified port.
+ */
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

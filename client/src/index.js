@@ -5,6 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./components/i18n.js";
 
+/**
+ * The entry point for the React application. It renders the `App` component inside the root div of `index.html`.
+ * Additionally, it imports global CSS and i18n configurations for internationalization support.
+ * The `reportWebVitals` function is available to measure and log the performance of the app, which can be utilized for optimization.
+ */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -12,7 +17,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

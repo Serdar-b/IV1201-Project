@@ -1,6 +1,14 @@
 const pool = require("../db");
 const applicationDAO = require("../integration/applicationDAO");
 
+/**
+ * Handles the submission of an application by saving it to the database.
+ * Validates input data and ensures that the user has the role of an applicant.
+ * Logs the application attempt, including success or failure, along with user agent and IP address for security auditing.
+ * 
+ * @param {Object} req - The request object from Express.js containing the application data in req.body.
+ * @param {Object} res - The response object from Express.js used to send the HTTP response.
+ */
 const submitApplication = async (req, res) => {
   const { competences, availability, userData } = req.body;
   const userAgent = req.headers['user-agent'];
@@ -33,6 +41,7 @@ const submitApplication = async (req, res) => {
     return res.status(400).json({ success: false, message: req.t("application_validation.valid_availability") });
   }
 
+  // Additional validation and error handling omitted for brevity.
   const client = await pool.connect();
 
   try {
@@ -65,7 +74,14 @@ const submitApplication = async (req, res) => {
   }
 };
 
-
+/**
+ * Sets the status of an application in the database.
+ * Validates input data, including ensuring a valid person_id is provided.
+ * Logs the status change attempt, including success or failure, along with user agent and IP address for security auditing.
+ * 
+ * @param {Object} req - The request object from Express.js containing the status update in req.body.
+ * @param {Object} res - The response object from Express.js used to send the HTTP response.
+ */
 const setApplicationStatus = async (req, res) => {
   const { status, person_id } = req.body;
   const userAgent = req.headers['user-agent'];
@@ -107,6 +123,13 @@ const setApplicationStatus = async (req, res) => {
   }
 };
 
+/**
+ * Fetches all competences from the database.
+ * Logs the competence fetch attempt, including success or failure, along with user agent and IP address for security auditing.
+ * 
+ * @param {Object} req - The request object from Express.js.
+ * @param {Object} res - The response object from Express.js used to send the HTTP response.
+ */
 const handleCompetences = async (req, res) => {
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -131,6 +154,14 @@ const handleCompetences = async (req, res) => {
     res.status(500).json({ success: false, message: req.t("application_validation.error_fetching_competences") });
   }
 };
+
+/**
+ * Lists all applications from the database.
+ * Logs the application list fetch attempt, including success or failure, along with user agent and IP address for security auditing.
+ * 
+ * @param {Object} req - The request object from Express.js.
+ * @param {Object} res - The response object from Express.js used to send the HTTP response.
+ */
 const listAllApplications = async (req, res) => {
   const userAgent = req.headers['user-agent'];
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

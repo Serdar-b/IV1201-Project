@@ -1,9 +1,22 @@
-// ApplicationsList.js
 import React, { useState } from 'react';
 import './ApplicationsList.css';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * `ApplicationsList` component displays a paginated list of applications, allowing for filtering by competences and searching by name.
+ * It also enables updating the status of each application.
+ * 
+ * @component
+ * @param {Object} props - Props object for ApplicationsList component.
+ * @param {Array} props.applications - Array of application objects to be displayed.
+ * @param {string} props.error - Error message to be displayed if an error occurs.
+ * @param {Array} props.competences - Array of competence objects for filtering applications.
+ * @param {Function} props.onSearchTermChange - Function to handle changes to the search term.
+ * @param {Function} props.onCompetenceChange - Function to handle changes to selected competences for filtering.
+ * @param {Function} props.onUpdateStatus - Function to handle updates to the status of an application.
+ * @returns {React.ReactElement} A list of applications with search and filter capabilities.
+ */
 const ApplicationsList = ({
   applications,
   error,
@@ -25,7 +38,11 @@ const ApplicationsList = ({
   // Calculate total pages
   const totalPages = Math.ceil(applications.length / applicationsPerPage);
 
-  // Change page handler
+    /**
+   * Handles pagination logic for navigating between pages of applications.
+   * 
+   * @param {number} direction - The direction to navigate, where 1 is next page and -1 is previous page.
+   */
   const paginate = (direction) => {
     setCurrentPage(prevPage => Math.max(0, Math.min(prevPage + direction, totalPages - 1)));
   };

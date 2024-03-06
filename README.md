@@ -8,6 +8,49 @@ This project is a full-stack application with client-side rendering and a monoli
 - **Backend (Server):** Express (Node.js)
 - **Database:** PostgreSQL
 
+## Live Demo
+
+Experience the Recruitment Application directly by visiting our live deployment [here](https://iv1201-project-1.onrender.com/). Explore the features and functionalities as both a candidate and a recruiter.
+
+
+## Built With
+
+* [![React][React.js]][React-url]
+* [![Express][Express.js]][Express-url]
+* [![PostgreSQL][PostgreSQL.js]][PostgreSQL-url]
+* [![JavaScript][JavaScript.js]][JavaScript-url]
+* [![HTML5][HTML5.js]][HTML5-url]
+* [![CSS3][CSS3.js]][CSS3-url]
+* [![Git][Git.js]][Git-url]
+* [![GitHub Actions][GitHubActions.js]][GitHubActions-url]
+* [![Jest][Jest.js]][Jest-url]
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Express.js]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[Express-url]: https://expressjs.com/
+[PostgreSQL.js]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[PostgreSQL-url]: https://www.postgresql.org/
+[JavaScript.js]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[HTML5.js]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
+[HTML5-url]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
+[CSS3.js]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
+[CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[Git.js]: https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white
+[Git-url]: https://git-scm.com/
+[GitHubActions.js]: https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white
+[GitHubActions-url]: https://github.com/features/actions
+[Jest.js]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[Jest-url]: https://jestjs.io/
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+
 ## Getting Started
 
 These instructions will guide you through getting a copy of the project up and running on your local machine for development and testing purposes.
@@ -27,7 +70,6 @@ Before you begin, ensure you have the following tools installed:
 
 ```bash
 git clone https://github.com/Serdar-b/IV1201-Project.git
-cd  IV1201-Project
 ```
 
 **Step 2:**  Change to the right directory
@@ -46,7 +88,7 @@ cd  server
 **Step 4:** install all dependencies then run the server: (The Server will be running on port 5001)
 
 ```bash
-cd  npm install
+npm install
 npm run dev
 ```
 #### Running the Frontend 
@@ -54,7 +96,7 @@ npm run dev
 **Step 5:** Open a new terminal and navigate into `client` directorie:
 
 ```bash
-cd IV1201-Project/client
+cd client
 ```
 
  **step 6:** Install all dependencies then start the React application:
@@ -64,6 +106,25 @@ npm install
 npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+### Testing
+
+To run the tests for the backend server, follow these steps:
+
+1. Navigate to the `server` directory:
+   ```bash
+   cd server
+   ```
+2. Install the required npm packages (if you haven't already):
+   ```bash
+   npm install
+   ```
+   
+3. Run the tests using Jest:
+   ```bash
+   npm test
+   ```
+
 
 ### Usage
 With both the frontend and backend running, you can interact with the application through the web interface at http://localhost:3000
