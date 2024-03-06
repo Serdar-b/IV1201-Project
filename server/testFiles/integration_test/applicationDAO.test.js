@@ -6,23 +6,31 @@ const {
   } = require("../../integration/applicationDAO");
   const userDAO = require("../../integration/userDAO");
 
- 
-  
 const pool = require("../../db");
 
 let client;
 let personId;
+
+/**
+ * Before all tests, connect to the database and get the person ID for a test user.
+ */
 beforeAll(async () => {
   client = await pool.connect();
   const testUser = await userDAO.findUserByUsername('user40');
   personId = testUser.person_id;
 });
 
+/**
+ * After all tests, release the database client and end the pool.
+ */
 afterAll(async () => {
   await client.release();
   await pool.end();
 });
 
+/**
+ * Tests for the saveApplication function.
+ */
 describe("saveApplication", () => {
  
 
@@ -73,6 +81,9 @@ describe("saveApplication", () => {
 
 });
 
+/**
+ * Tests for the setStatus function.
+ */
 describe("setStatus", () => {
     
     it("should throw an error if an invalid person ID is provided", async () => {
@@ -92,6 +103,9 @@ describe("setStatus", () => {
   
   });
 
+/**
+ * Test suite for `getCompetences` function.
+ */
   describe("getCompetences", () => {
     it("should return a list of competences", async () => {
       const competences = await getCompetences();
@@ -102,6 +116,11 @@ describe("setStatus", () => {
     });
   });
 
+/**
+ * Test suite for getAllApplications function.
+ * 
+ * This suite checks if the getAllApplications function properly retrieves a list of all applications.
+ */
   describe("getAllApplications", () => {
     
   

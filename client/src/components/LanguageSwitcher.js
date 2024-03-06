@@ -1,6 +1,18 @@
+/**
+ * LanguageSwitcher component allows users to switch the application's current language.
+ * It utilizes the `useTranslation` hook from `react-i18next` to dynamically change the application's language.
+ * 
+ * @component
+ * @returns {React.ReactElement} The LanguageSwitcher component.
+ */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+  /**
+   * Handles changing the application's language.
+   * 
+   * @param {React.ChangeEvent<HTMLSelectElement>} e - The change event from the select element.
+   */
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const { t } = useTranslation();
