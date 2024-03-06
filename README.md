@@ -8,6 +8,15 @@ This project is a full-stack application with client-side rendering and a monoli
 - **Backend (Server):** Express (Node.js)
 - **Database:** PostgreSQL
 
+## Built With
+
+This project leverages the following frameworks and libraries:
+
+- 🔵 React - A JavaScript library for building user interfaces.
+- 🔼 Express - A minimal and flexible Node.js web application framework.
+- 🐘 PostgreSQL - An open source relational database.
+- 📦 npm - A package manager for JavaScript and the world’s largest software registry.
+
 ## Getting Started
 
 These instructions will guide you through getting a copy of the project up and running on your local machine for development and testing purposes.
