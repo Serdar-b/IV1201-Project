@@ -8,6 +8,11 @@ This project is a full-stack application with client-side rendering and a monoli
 - **Backend (Server):** Express (Node.js)
 - **Database:** PostgreSQL
 
+## Live Demo
+
+Experience the Recruitment Application firsthand by visiting our live deployment [here](https://iv1201-project-1.onrender.com/login). Explore the features and functionalities as both a candidate and a recruiter.
+
+
 ## Built With
 
 * [![React][React.js]][React-url]
