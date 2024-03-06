@@ -10,7 +10,7 @@ This project is a full-stack application with client-side rendering and a monoli
 
 ## Live Demo
 
-Experience the Recruitment Application firsthand by visiting our live deployment [here](https://iv1201-project-1.onrender.com/). Explore the features and functionalities as both a candidate and a recruiter.
+Experience the Recruitment Application directly by visiting our live deployment [here](https://iv1201-project-1.onrender.com/). Explore the features and functionalities as both a candidate and a recruiter.
 
 
 ## Built With
@@ -22,6 +22,8 @@ Experience the Recruitment Application firsthand by visiting our live deployment
 * [![HTML5][HTML5.js]][HTML5-url]
 * [![CSS3][CSS3.js]][CSS3-url]
 * [![Git][Git.js]][Git-url]
+* [![GitHub Actions][GitHubActions.js]][GitHubActions-url]
+* [![Jest][Jest.js]][Jest-url]
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
@@ -38,6 +40,10 @@ Experience the Recruitment Application firsthand by visiting our live deployment
 [CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
 [Git.js]: https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white
 [Git-url]: https://git-scm.com/
+[GitHubActions.js]: https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white
+[GitHubActions-url]: https://github.com/features/actions
+[Jest.js]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[Jest-url]: https://jestjs.io/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -100,6 +106,25 @@ npm install
 npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+### Testing
+
+To run the tests for the backend server, follow these steps:
+
+1. Navigate to the `server` directory:
+   ```bash
+   cd server
+   ```
+2. Install the required npm packages (if you haven't already):
+   ```bash
+   npm install
+   ```
+   
+3. Run the tests using Jest:
+   ```bash
+   npm test
+   ```
+
 
 ### Usage
 With both the frontend and backend running, you can interact with the application through the web interface at http://localhost:3000
