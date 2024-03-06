@@ -10,12 +10,35 @@ This project is a full-stack application with client-side rendering and a monoli
 
 ## Built With
 
-This project leverages the following frameworks and libraries:
+* [![React][React.js]][React-url]
+* [![Express][Express.js]][Express-url]
+* [![PostgreSQL][PostgreSQL.js]][PostgreSQL-url]
+* [![JavaScript][JavaScript.js]][JavaScript-url]
+* [![HTML5][HTML5.js]][HTML5-url]
+* [![CSS3][CSS3.js]][CSS3-url]
+* [![Git][Git.js]][Git-url]
 
-- 🔵 React - A JavaScript library for building user interfaces.
-- 🔼 Express - A minimal and flexible Node.js web application framework.
-- 🐘 PostgreSQL - An open source relational database.
-- 📦 npm - A package manager for JavaScript and the world’s largest software registry.
+<!-- MARKDOWN LINKS & IMAGES -->
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Express.js]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[Express-url]: https://expressjs.com/
+[PostgreSQL.js]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[PostgreSQL-url]: https://www.postgresql.org/
+[JavaScript.js]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[HTML5.js]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
+[HTML5-url]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
+[CSS3.js]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
+[CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[Git.js]: https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white
+[Git-url]: https://git-scm.com/
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
 
 ## Getting Started
 
