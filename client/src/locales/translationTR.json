@@ -66,7 +66,8 @@
       "registration_success": "Kayıt başarılı! Artık giriş yapabilirsiniz.",
       "registration_successful": "Kayıt başarılı",
       "registration_failed": "Kayıt başarısız",
-      "registration_error": "Kayıt sırasında bir hata oluştu."
+      "registration_error": "Kayıt sırasında bir hata oluştu.",
+      "email_must_have_at":  "E-posta @ veya . içermelidir."
     },
     "applications_list": {
       "all_applications": "Tüm Başvurular",
@@ -104,10 +105,12 @@
       "accepted": "Kabul Edildi",
       "rejected": "Reddedildi",
       "no_competences": "Yetkinlik Yok.",
-      "unknown": "Bilinmeyen"
+      "unknown": "Bilinmeyen",
+      "competences_empty_array": "Yetkinlikler boş olmayan bir dizi olmalıdır."
     },
     "application_validation": {
       "required_fields": "Yetenekler, kullanılabilirlik ve kullanıcı verileri gereklidir.",
+      "valid_user": "Geçerli bir kullanıcı kimliği gereklidir.",
       "applicant_role": "Kullanıcı rolü başvuru sahibi olmalıdır.",
       "person_id_numeric": "Kişi kimliği bir sayı olmalıdır.",
       "negative_experience": "Deneyim yılları negatif olamaz.",

@@ -66,7 +66,8 @@
     "registration_success": "Inscription réussie ! Vous pouvez maintenant vous connecter.",
     "registration_successful": "Inscription réussie",
     "registration_failed": "Échec de l'inscription",
-    "registration_error": "Une erreur s'est produite lors de l'inscription."
+    "registration_error": "Une erreur s'est produite lors de l'inscription.",
+    "email_must_have_at": "L'email doit contenir @ ou ."
   },
   "applications_list": {
     "all_applications": "Toutes les candidatures",
@@ -104,10 +105,12 @@
     "accepted": "Accepté",
     "rejected": "Rejeté",
     "no_competences": "Aucune compétence.",
-    "unknown": "Inconnu"
+    "unknown": "Inconnu",
+    "competences_empty_array": "Les compétences doivent constituer un tableau non vide."
   },
   "application_validation": {
     "required_fields": "Les compétences, la disponibilité et les données utilisateur sont requis.",
+    "valid_user": "Un identifiant d'utilisateur valide est requis.",
     "applicant_role": "Le rôle de l'utilisateur doit être celui de candidat.",
     "person_id_numeric": "L'identifiant de la personne doit être un nombre.",
     "negative_experience": "Les années d'expérience ne peuvent pas être négatives.",

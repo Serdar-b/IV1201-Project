@@ -66,7 +66,8 @@
         "registration_success": "Registration successful! You can now log in.",
         "registration_successful": "Registration successful",
         "registration_failed": "Registration failed",
-        "registration_error": "An error occurred during registration."
+        "registration_error": "An error occurred during registration.",
+        "email_must_have_at": "Email must have @ or ."
       },
       "applications_list": {
         "all_applications": "All Applications",
@@ -104,10 +105,12 @@
         "accepted": "Accepted",
         "rejected": "Rejected",
         "no_competences": "No Competences.",
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "competences_empty_array": "Competences must be a non-empty array."
       },
       "application_validation": {
         "required_fields": "Competences, availability, and user data are required.",
+        "valid_user": "A valid user ID is required.",
         "applicant_role": "User role has to be applicant.",
         "person_id_numeric": "Person ID must be a number.",
         "negative_experience": "Years of experience cannot be negative.",
@@ -125,7 +128,7 @@
         "username_short": "Username must be at least 3 characters long.",
         "username_numeric_start": "Username must not start with a number.",
         "password_short": "Password must be at least 6 characters long.",
-        "invalid_credentials": "Invalid credentials.zzz",
+        "invalid_credentials": "Invalid credentials",
         "login_successful": "Login successful.",
         "registration_successful": "Registration successful.",
         "pnr_numeric": "PNR must be a number.",
@@ -134,4 +137,3 @@
         "registration_error": "An error occurred during registration."
       }
   }
-  

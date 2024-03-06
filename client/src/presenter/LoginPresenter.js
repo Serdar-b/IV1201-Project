@@ -28,29 +28,29 @@ const LoginPresenter = () => {
    */
 
   const handleLogin = async (username, password) => {
-    // if (username.length < 3) {
-    //   setLoginStatus({
-    //     isRegistered: false,
-    //     message: t("login.three_characters_long"),
-    //   });
-    //   return;
-    // }
+    if (username.length < 3) {
+      setLoginStatus({
+        isRegistered: false,
+        message: t("login.three_characters_long"),
+      });
+      return;
+    }
 
-    // if (!isNaN(username.charAt(0))) {
-    //   setLoginStatus({
-    //     isRegistered: false,
-    //     message: t("login.username_not_start_with_number"),
-    //   });
-    //   return;
-    // }
+    if (!isNaN(username.charAt(0))) {
+      setLoginStatus({
+        isRegistered: false,
+        message: t("login.username_not_start_with_number"),
+      });
+      return;
+    }
 
-    // if (password.length < 6) {
-    //   setLoginStatus({
-    //     isRegistered: false,
-    //     message: t("login.password_atleast_six_characters"),
-    //   });
-    //   return;
-    // }
+    if (password.length < 6) {
+      setLoginStatus({
+        isRegistered: false,
+        message: t("login.password_atleast_six_characters"),
+      });
+      return;
+    }
     try {
       console.log("API URL:", process.env.REACT_APP_API_URL);
       console.log('API URL:', process.env.REACT_APP_API_URL);
@@ -85,7 +85,7 @@ const LoginPresenter = () => {
       } else {
         setLoginStatus({
           isLoggedIn: false,
-          message: data.message || t("login.invalid_credentials"),
+          message: t(data.message) || t("login.invalid_credentials"),
           user: null,
         });
       }

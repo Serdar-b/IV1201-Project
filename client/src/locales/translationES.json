@@ -66,7 +66,8 @@
     "registration_success": "¡Registro exitoso! Ahora puedes iniciar sesión.",
     "registration_successful": "Registro exitoso",
     "registration_failed": "Registro fallido",
-    "registration_error": "Ocurrió un error durante el registro."
+    "registration_error": "Ocurrió un error durante el registro.",
+    "email_must_have_at":  "El correo debe contener @ o ."
   },
   "applications_list": {
     "all_applications": "Todas las aplicaciones",
@@ -105,10 +106,12 @@
     "accepted": "Aceptado",
     "rejected": "Rechazado",
     "no_competences": "Sin competencias.",
-    "unknown": "Desconocido"
+    "unknown": "Desconocido",
+    "competences_empty_array": "Las competencias deben ser un arreglo no vacío."
   },
   "application_validation": {
     "required_fields": "Se requieren competencias, disponibilidad y datos del usuario.",
+    "valid_user": "Se requiere un ID de usuario válido.",
     "applicant_role": "El rol del usuario tiene que ser solicitante.",
     "person_id_numeric": "El ID de la persona debe ser un número.",
     "negative_experience": "Los años de experiencia no pueden ser negativos.",

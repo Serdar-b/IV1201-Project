@@ -90,7 +90,7 @@ const RegisterPresenter = () => {
       } else {
         setRegisterStatus({
           isRegistered: false,
-          message: data.message || t("register.registration_failed"),
+          message: t(data.message) || t("register.registration_failed"),
         });
       }
     } catch (error) {
