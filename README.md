@@ -27,7 +27,6 @@ Before you begin, ensure you have the following tools installed:
 
 ```bash
 git clone https://github.com/Serdar-b/IV1201-Project.git
-cd  IV1201-Project
 ```
 
 **Step 2:**  Change to the right directory
@@ -46,7 +45,7 @@ cd  server
 **Step 4:** install all dependencies then run the server: (The Server will be running on port 5001)
 
 ```bash
-cd  npm install
+npm install
 npm run dev
 ```
 #### Running the Frontend 
