@@ -71,7 +71,7 @@ describe("saveApplication", () => {
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
       // .toThrow('Years of experience cannot be negative.');
-      .toThrow('application_form.years_of_experience_cannot_be_negative');
+      .toThrow('application_validation.negative_experience');
   });
 
   it("should successfully save the application when valid data is provided", async () => {
