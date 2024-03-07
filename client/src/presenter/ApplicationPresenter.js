@@ -102,7 +102,7 @@ const ApplicationPresenter = () => {
         alert(t("application_form.application_submitted_sucessfully"));
         navigate("/dashboard");
       } else {
-        alert(data.message);
+        alert(t(data.message));
       }
     } catch (error) {
       console.error(

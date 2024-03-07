@@ -22,9 +22,19 @@ const saveApplication = async (client, userData, competences, availability) => {
     throw new Error('database.competences_empty_array');
   }
 
+  const isAvailabilityValid = availability.every(period => {
+    const fromDate = new Date(period.fromDate);
+    const toDate = new Date(period.toDate);
+    return fromDate < toDate && fromDate >= new Date(); 
+  });
+
+  if (!isAvailabilityValid) {
+    throw new Error('application_validation.valid_availability');
+  }
+
   const hasNegativeExperience = competences.some(competence => competence.yearsOfExperience < 0);
   if (hasNegativeExperience) {
-    throw new Error('application_form.years_of_experience_cannot_be_negative');
+    throw new Error('application_validation.negative_experience');
   }
   try {
     

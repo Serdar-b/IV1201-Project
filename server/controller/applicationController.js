@@ -57,7 +57,8 @@ const submitApplication = async (req, res) => {
     // Mapping error messages directly with translations
     if (error.message === "application_validation.required_fields" || 
         error.message === "application_validation.person_id_numeric" ||
-        error.message === "application_validation.negative_experience") {
+        error.message === "application_validation.negative_experience"||
+        error.message === "application_validation.valid_availability") {
       return res.status(400).json({ success: false, message: error.message });
     } else if (error.message === "application_validation.valid_availability") {
       return res.status(400).json({ success: false, message: error.message });
