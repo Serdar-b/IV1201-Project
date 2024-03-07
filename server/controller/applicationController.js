@@ -41,7 +41,7 @@ const submitApplication = async (req, res) => {
     return res.status(400).json({ success: false, message: "application_validation.valid_availability" });
   }
 
-  // Additional validation and error handling omitted for brevity.
+  
   const client = await pool.connect();
 
   try {
@@ -66,7 +66,7 @@ const submitApplication = async (req, res) => {
       // Log the error
       await applicationDAO.logApplicationError(client, userData.person_id, userData.email, userData.username, error.message, userAgent, ipAddress);
       
-      // Respond with a generic error message
+      // a generic error message
       console.error('Error submitting application:', error);
       res.status(500).json({ success: false, message: "application_validation.error_submitting_application" });
     }

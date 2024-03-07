@@ -1,6 +1,6 @@
 const request = require("supertest");
-const { server } = require("../../server"); 
-const pool = require("../../db"); 
+const { server } = require("../../server");
+const pool = require("../../db");
 const username = `testuser`;
 
 /**
@@ -9,7 +9,6 @@ const username = `testuser`;
 describe("AuthController Tests", () => {
   describe("POST /register", () => {
     it("should respond with 200 on successful registration", async () => {
-     
       const registerData = {
         name: "News",
         surname: "Users",
@@ -18,16 +17,22 @@ describe("AuthController Tests", () => {
         password: "newpass",
         username: username,
       };
-      const response = await request(server).post("/register").send(registerData);
+      const response = await request(server)
+        .post("/register")
+        .send(registerData);
 
       expect(response.statusCode).toBe(200);
       // expect(response.body).toHaveProperty("message", "Registration successful");
-      expect(response.body).toHaveProperty("message", "authorization_validation.registration_successful");
+      expect(response.body).toHaveProperty(
+        "message",
+        "authorization_validation.registration_successful"
+      );
     });
 
     it("should respond with 409 if the user already exists", async () => {
-        
-        await request(server).post("/register").send({
+      await request(server)
+        .post("/register")
+        .send({
           name: "Duplicate",
           surname: "User",
           pnr: "1234567890",
@@ -35,28 +40,36 @@ describe("AuthController Tests", () => {
           password: "newpass",
           username: username,
         });
-  
-        
-        const response = await request(server).post("/register").send({
-          name: "Duplicate",
-          surname: "User",
-          pnr: "1234567890",
-          email: `${username}@example.com`,
-          password: "newpass",
-          username: username,
-        });
-  
-        expect(response.statusCode).toBe(409);
-        // expect(response.body).toHaveProperty("message", "User already exists");
-        expect(response.body).toHaveProperty("message", "authorization_validation.user_already_exists");
-      });
-    
 
+      const response = await request(server)
+        .post("/register")
+        .send({
+          name: "Duplicate",
+          surname: "User",
+          pnr: "1234567890",
+          email: `${username}@example.com`,
+          password: "newpass",
+          username: username,
+        });
+
+      expect(response.statusCode).toBe(409);
+      // expect(response.body).toHaveProperty("message", "User already exists");
+      expect(response.body).toHaveProperty(
+        "message",
+        "authorization_validation.user_already_exists"
+      );
+    });
   });
+
+  /**
+   * Test suite for user login.
+   *  Test case for successful user login.
+   * Should respond with HTTP status 200 and a JWT token.
+   */
 
   describe("POST /login", () => {
     it("should respond with 200 and a JWT token on successful login", async () => {
-      const loginData = { username: "user40", password: "Test121212" }; 
+      const loginData = { username: "user40", password: "Test121212" };
       const response = await request(server).post("/login").send(loginData);
 
       expect(response.statusCode).toBe(200);
@@ -77,18 +90,14 @@ describe("AuthController Tests", () => {
   afterEach(async () => {
     await pool.query("DELETE FROM person WHERE username = $1", [username]);
   });
-
 });
 
-  /**
-   * After all tests, close the server and terminate the database connection.
-   */
+/**
+ * After all tests, close the server and terminate the database connection.
+ */
 afterAll(async () => {
-    if (server && server.close) {
-      await new Promise(resolve => server.close(resolve));
-    }
-    await pool.end();
-  });
-
-
-
+  if (server && server.close) {
+    await new Promise((resolve) => server.close(resolve));
+  }
+  await pool.end();
+});

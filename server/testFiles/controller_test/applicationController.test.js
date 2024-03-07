@@ -7,7 +7,7 @@ const pool = require("../../db");
  */
 const testUser = {
   username: "user40",
-  password: "Test121212"
+  password: "Test121212",
 };
 
 let token;
@@ -19,48 +19,55 @@ beforeAll(async () => {
   const loginResponse = await request(server)
     .post("/login")
     .send({ username: testUser.username, password: testUser.password });
-  token = loginResponse.body.token; 
+  token = loginResponse.body.token;
   personId = loginResponse.body.user.person_id;
-  
 });
 
+/**
+ * Test suite for the application controller.
+ * Tests the /apply POST endpoint to allow an authenticated user to submit an application.
+ */
 describe("ApplicationController Tests", () => {
-    describe("POST /apply (submitApplication)", () => {
-        it("should allow an authenticated user to submit an application", async () => {
-          const applicationData = {
-            competences: [
-              {
-                competenceName: "lotteries",
-                yearsOfExperience: "4"
-              }
-            ],
-            availability: [
-              {
-                fromDate: "2024-04-05",
-                toDate: "2024-04-06"
-              }
-            ],
-            userData: {
-              person_id: personId, 
-              name: "user1",
-              username: "user", 
-              role: 2 
-            }
-          };
-      
-          const response = await request(server)
-            .post("/apply")
-            .set("Authorization", `Bearer ${token}`)
-            .send(applicationData);
-      
-          expect(response.statusCode).toBe(200);
-          //expect(response.body).toHaveProperty("message", "Application submitted successfully");
-          expect(response.body).toHaveProperty("message", "application_validation.application_submitted");
+  describe("POST /apply (submitApplication)", () => {
+    it("should allow an authenticated user to submit an application", async () => {
+      const applicationData = {
+        competences: [
+          {
+            competenceName: "lotteries",
+            yearsOfExperience: "4",
+          },
+        ],
+        availability: [
+          {
+            fromDate: "2024-04-05",
+            toDate: "2024-04-06",
+          },
+        ],
+        userData: {
+          person_id: personId,
+          name: "user1",
+          username: "user",
+          role: 2,
+        },
+      };
 
-        });
-      });
-      
+      const response = await request(server)
+        .post("/apply")
+        .set("Authorization", `Bearer ${token}`)
+        .send(applicationData);
 
+      expect(response.statusCode).toBe(200);
+      //expect(response.body).toHaveProperty("message", "Application submitted successfully");
+      expect(response.body).toHaveProperty(
+        "message",
+        "application_validation.application_submitted"
+      );
+    });
+  });
+
+  /**
+   * Tests the /apply GET endpoint to allow an authenticated user to fetch competences.
+   */
   describe("GET /apply (handleCompetences)", () => {
     it("should allow an authenticated user to fetch competences", async () => {
       const response = await request(server)
@@ -68,7 +75,7 @@ describe("ApplicationController Tests", () => {
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body).toBeInstanceOf(Array); 
+      expect(response.body).toBeInstanceOf(Array);
     });
   });
 
@@ -84,11 +91,14 @@ describe("ApplicationController Tests", () => {
     });
   });
 
+  /**
+   * Tests the /applications POST endpoint to allow an authenticated user to set the status of an application.
+   */
   describe("POST /applications (setApplicationStatus)", () => {
     it("should allow an authenticated user to set the status of an application", async () => {
       const statusData = {
         status: "Approved",
-        person_id: personId 
+        person_id: personId,
       };
 
       const response = await request(server)
@@ -98,7 +108,10 @@ describe("ApplicationController Tests", () => {
 
       expect(response.statusCode).toBe(200);
       // expect(response.body).toHaveProperty("message", "Application status updated successfully");
-      expect(response.body).toHaveProperty("message", "application_validation.status_updated");
+      expect(response.body).toHaveProperty(
+        "message",
+        "application_validation.status_updated"
+      );
     });
   });
 });
@@ -107,11 +120,8 @@ describe("ApplicationController Tests", () => {
  * After all tests, close the server and terminate the database connection.
  */
 afterAll(async () => {
-    if (server && server.close) {
-      await new Promise(resolve => server.close(resolve));
-    }
-    await pool.end();
-  });
-
-
-
+  if (server && server.close) {
+    await new Promise((resolve) => server.close(resolve));
+  }
+  await pool.end();
+});

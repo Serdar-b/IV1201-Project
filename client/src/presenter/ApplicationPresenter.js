@@ -13,7 +13,7 @@ import i18n from "i18next";
 const ApplicationPresenter = () => {
   const navigate = useNavigate();
   const [competences, setCompetences] = useState([]);
-  const token = localStorage.getItem('token'); // Get the token from local storage
+  const token = localStorage.getItem('token'); 
   const { t } = useTranslation();
 
   useEffect(() => {

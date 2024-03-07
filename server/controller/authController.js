@@ -156,10 +156,7 @@ const register = async (req, res) => {
     }
   } catch (error) {
    
-    // if (client) 
-    // {
-      await client.query('ROLLBACK');
-    // }
+    await client.query('ROLLBACK');
 
     if (error.message === "authorization_validation.username_short" || 
     error.message === "authorization_validation.password_short") {
