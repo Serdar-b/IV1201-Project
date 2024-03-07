@@ -60,7 +60,7 @@ const login = async (req, res) => {
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "30 minutes",
+      expiresIn: "1h",
     });
 
 res.json({ success: true, message: "authorization_validation.login_successful", user: payload, token: token });
