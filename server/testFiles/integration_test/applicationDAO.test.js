@@ -37,7 +37,8 @@ describe("saveApplication", () => {
   it("should throw an error if required data is missing", async () => {
     await expect(saveApplication(client, null, null, null))
       .rejects
-      .toThrow('User data, competences, and availability are required.');
+      // .toThrow('User data, competences, and availability are required.');
+      .toThrow('application_validation.required_fields');
   });
 
   it("should throw an error if the user ID is not provided", async () => {
@@ -47,7 +48,8 @@ describe("saveApplication", () => {
 
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
-      .toThrow('A valid user ID is required.');
+      // .toThrow('A valid user ID is required.');
+      .toThrow('application_validation.valid_user');
   });
 
   it("should throw an error if competences are not provided as a non-empty array", async () => {
@@ -57,7 +59,8 @@ describe("saveApplication", () => {
 
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
-      .toThrow('Competences must be a non-empty array.');
+      // .toThrow('Competences must be a non-empty array.');
+      .toThrow('database.competences_empty_array');
   });
 
   it("should throw an error if any competence has negative years of experience", async () => {
@@ -67,7 +70,8 @@ describe("saveApplication", () => {
 
     await expect(saveApplication(client, userData, competences, availability))
       .rejects
-      .toThrow('Years of experience cannot be negative.');
+      // .toThrow('Years of experience cannot be negative.');
+      .toThrow('application_form.years_of_experience_cannot_be_negative');
   });
 
   it("should successfully save the application when valid data is provided", async () => {
@@ -89,7 +93,8 @@ describe("setStatus", () => {
     it("should throw an error if an invalid person ID is provided", async () => {
       await expect(setStatus(client, 'Approved', null))
         .rejects
-        .toThrow('Invalid person ID provided.');
+        // .toThrow('Invalid person ID provided.');
+        .toThrow('application_validation.valid_user');
     });
   
     it("should successfully update the status when valid data is provided", async () => {
@@ -98,7 +103,8 @@ describe("setStatus", () => {
   
       const result = await setStatus(client, status, person_id);
       expect(result.success).toBe(true);
-      expect(result.message).toBe("Status updated successfully");
+      // expect(result.message).toBe("Status updated successfully");
+      expect(result.message).toBe("application_validation.status_updated");
     });
   
   });

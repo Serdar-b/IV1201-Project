@@ -1,0 +1,137 @@
+{
+    "header": {
+        "jobs": "Grönalund Jobs",
+        "logout": "Logout"
+      },
+    "language_switcher": {
+        "choose_language": "Choose Language"
+      },
+    "login": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "enter_username": "Enter your username",
+      "enter_password": "Enter your password",
+      "login_button": "Login",
+      "register_prompt": "Don't have an account?",
+      "register_button": "Register",
+      "three_characters_long": "Username must be at least 3 characters long.",
+      "username_not_start_with_number": "Username must not start with a number.",
+      "password_atleast_six_characters": "Password must be at least 6 characters long.",
+      "login_successful": "Login successful",
+      "invalid_credentials": "Invalid credentials",
+      "login_error": "An error occurred while logging in."
+    },
+    "dashboard": {
+        "recruiter_title": "Recruiter Dashboard",
+        "applicant_title": "Dashboard",
+        "welcome": "Welcome, {{name}}!",
+        "view_all_applications": "View All Applications",
+        "apply_now": "Apply Now"
+      },
+    "application_form": {
+      "title": "Apply for a Position",
+      "area_of_expertise": "Area of Expertise",
+      "select_expertise": "Select an expertise",
+      "years_of_experience": "Years of Experience",
+      "enter_experience": "Enter your years of experience",
+      "from": "From",
+      "to": "To",
+      "submit_button": "Submit Application",
+      "years_of_experience_cannot_be_negative": "Years of experience cannot be negative.",
+      "start_date_not_in_past": "The start date cannot be in the past.",
+      "end_after_start_date": "The end date must be after the start date.",
+      "application_submitted_sucessfully": "Application submitted successfully",
+      "application_submit_error": "An error occurred while submitting the application."
+    },
+    "register": {
+        "title": "Register",
+        "name": "Name",
+        "surname": "Surname",
+        "pnr": "PNR",
+        "email": "Email",
+        "username": "Username",
+        "password": "Password",
+        "enter_name": "Enter name",
+        "enter_surname": "Enter surname",
+        "enter_pnr": "Enter pnr",
+        "enter_email": "Enter email",
+        "enter_username": "Enter username",
+        "enter_password": "Enter password",
+        "register_button": "Register",
+        "already_have_account": "Already have an account?",
+        "login": "Log in",
+        "pnr_must_be_a_number": "PNR must be a number.",
+        "valid_email": "Please enter a valid email address.",
+        "registration_success": "Registration successful! You can now log in.",
+        "registration_successful": "Registration successful",
+        "registration_failed": "Registration failed",
+        "registration_error": "An error occurred during registration."
+      },
+      "applications_list": {
+        "all_applications": "All Applications",
+        "search_by_name": "Search by name...",
+        "applicant": "Applicant",
+        "competences": "Competences",
+        "availability": "Availability",
+        "status": "Status",
+        "no_applications_found": "No applications found.",
+        "page_of": "Page {{current}} of {{total}}",
+        "left": "Left",
+        "right": "Right",
+        "page": "Page",
+        "of": "of",
+        "error_fetching_applications": "Failed to fetch applications"
+      },
+      "footer": {
+          "contact_us": "Contact us for more information:",
+          "email": "Email: group@three.com",
+          "phone": "Phone: 070 000 00 00",
+          "address": "P. Sherman, 42 Wallaby Way, Sydney"
+      },
+      "not_authorized": {
+        "title": "Access Denied",
+        "message": "You do not have permission to view this page."
+      },
+      "database": {
+        "lotteries": "Lotteries",
+        "ticket sales": "Ticket Sales",
+        "roller coaster operation": "Roller Coaster",
+        "none": "None", 
+        "years": "Years",
+        "to": "to",
+        "unhandled": "Unhandled",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "no_competences": "No Competences.",
+        "unknown": "Unknown"
+      },
+      "application_validation": {
+        "required_fields": "Competences, availability, and user data are required.",
+        "applicant_role": "User role has to be applicant.",
+        "person_id_numeric": "Person ID must be a number.",
+        "negative_experience": "Years of experience cannot be negative.",
+        "valid_availability": "The availability period must have a start date before the end date, and start dates must not be in the past.",
+        "application_submitted": "Application submitted successfully",
+        "error_submitting_application": "An error occurred while submitting the application",
+        "status_updated": "Application status updated successfully",
+        "error_setting_status": "An error occurred while setting application status",
+        "error_fetching_competences": "An error occurred while fetching competences",
+        "error_fetching_applications": "An error occurred while fetching applications"
+      }, 
+      "authorization_validation": {
+        "user_already_exists": "User already exists",
+        "required_fields": "Please fill in all required fields.",
+        "username_short": "Username must be at least 3 characters long.",
+        "username_numeric_start": "Username must not start with a number.",
+        "password_short": "Password must be at least 6 characters long.",
+        "invalid_credentials": "Invalid credentials.zzz",
+        "login_successful": "Login successful.",
+        "registration_successful": "Registration successful.",
+        "pnr_numeric": "PNR must be a number.",
+        "email_invalid": "Please enter a valid email address.",
+        "login_error": "An error occurred during login.",
+        "registration_error": "An error occurred during registration."
+      }
+  }
+  

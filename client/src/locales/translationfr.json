@@ -1,0 +1,136 @@
+{
+  "header": {
+    "jobs": "Emplois à Grönalund",
+    "logout": "Déconnexion"
+  },
+  "language_switcher": {
+    "choose_language": "Choisir la langue"
+  },
+  "login": {
+    "title": "Connexion",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "enter_username": "Entrez votre nom d'utilisateur",
+    "enter_password": "Entrez votre mot de passe",
+    "login_button": "Connexion",
+    "register_prompt": "Vous n'avez pas de compte ?",
+    "register_button": "S'inscrire",
+    "three_characters_long": "Le nom d'utilisateur doit comporter au moins 3 caractères.",
+    "username_not_start_with_number": "Le nom d'utilisateur ne doit pas commencer par un chiffre.",
+    "password_atleast_six_characters": "Le mot de passe doit comporter au moins 6 caractères.",
+    "login_successful": "Connexion réussie",
+    "invalid_credentials": "Identifiants invalides",
+    "login_error": "Une erreur s'est produite lors de la connexion."
+  },
+  "dashboard": {
+    "recruiter_title": "Tableau de Bord du Recruteur",
+    "applicant_title": "Tableau de Bord",
+    "welcome": "Bienvenue, {{name}} !",
+    "view_all_applications": "Voir toutes les candidatures",
+    "apply_now": "Postuler maintenant"
+  },
+  "application_form": {
+    "title": "Postuler à un poste",
+    "area_of_expertise": "Domaine d'expertise",
+    "select_expertise": "Sélectionnez une expertise",
+    "years_of_experience": "Années d'expérience",
+    "enter_experience": "Entrez vos années d'expérience",
+    "from": "De",
+    "to": "À",
+    "submit_button": "Soumettre la candidature",
+    "years_of_experience_cannot_be_negative": "Les années d'expérience ne peuvent pas être négatives.",
+    "start_date_not_in_past": "La date de début ne peut pas être dans le passé.",
+    "end_after_start_date": "La date de fin doit être après la date de début.",
+    "application_submitted_sucessfully": "Candidature soumise avec succès",
+    "application_submit_error": "Une erreur s'est produite lors de la soumission de la candidature."
+  },
+  "register": {
+    "title": "Inscription",
+    "name": "Prénom",
+    "surname": "Nom",
+    "pnr": "NIR",
+    "email": "Email",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "enter_name": "Entrez le prénom",
+    "enter_surname": "Entrez le nom",
+    "enter_pnr": "Entrez le NIR",
+    "enter_email": "Entrez l'email",
+    "enter_username": "Entrez le nom d'utilisateur",
+    "enter_password": "Entrez le mot de passe",
+    "register_button": "S'inscrire",
+    "already_have_account": "Vous avez déjà un compte ?",
+    "login": "Se connecter",
+    "pnr_must_be_a_number": "Le NIR doit être un nombre.",
+    "valid_email": "Veuillez entrer une adresse email valide.",
+    "registration_success": "Inscription réussie ! Vous pouvez maintenant vous connecter.",
+    "registration_successful": "Inscription réussie",
+    "registration_failed": "Échec de l'inscription",
+    "registration_error": "Une erreur s'est produite lors de l'inscription."
+  },
+  "applications_list": {
+    "all_applications": "Toutes les candidatures",
+    "search_by_name": "Rechercher par nom...",
+    "applicant": "Candidat",
+    "competences": "Compétences",
+    "availability": "Disponibilité",
+    "status": "Statut",
+    "no_applications_found": "Aucune candidature trouvée.",
+    "page_of": "Page {{current}} sur {{total}}",
+    "left": "Gauche",
+    "right": "Droite",
+    "page": "Page",
+    "of": "de",
+    "error_fetching_applications": "Échec de la récupération des candidatures"
+  },
+  "footer": {
+    "contact_us": "Contactez-nous pour plus d'informations :",
+    "email": "Email : group@three.com",
+    "phone": "Téléphone : 070 000 00 00",
+    "address": "P. Sherman, 42 Wallaby Way, Sydney"
+  },
+  "not_authorized": {
+    "title": "Accès Refusé",
+    "message": "Vous n'avez pas la permission de voir cette page."
+  },
+  "database": {
+    "lotteries": "Loterie",
+    "ticket sales": "Vente de billets",
+    "roller coaster operation": "Opération de montagnes russes",
+    "none": "Aucun",
+    "years": "Ans",
+    "to": "à",
+    "unhandled": "Non traité",
+    "accepted": "Accepté",
+    "rejected": "Rejeté",
+    "no_competences": "Aucune compétence.",
+    "unknown": "Inconnu"
+  },
+  "application_validation": {
+    "required_fields": "Les compétences, la disponibilité et les données utilisateur sont requis.",
+    "applicant_role": "Le rôle de l'utilisateur doit être celui de candidat.",
+    "person_id_numeric": "L'identifiant de la personne doit être un nombre.",
+    "negative_experience": "Les années d'expérience ne peuvent pas être négatives.",
+    "valid_availability": "La période de disponibilité doit avoir une date de début avant la date de fin, et les dates de début ne doivent pas être dans le passé.",
+    "application_submitted": "Candidature soumise avec succès",
+    "error_submitting_application": "Une erreur s'est produite lors de la soumission de la candidature",
+    "status_updated": "Le statut de la candidature a été mis à jour avec succès",
+    "error_setting_status": "Une erreur s'est produite lors de la mise à jour du statut de la candidature",
+    "error_fetching_competences": "Une erreur s'est produite lors de la récupération des compétences",
+    "error_fetching_applications": "Une erreur s'est produite lors de la récupération des candidatures"
+  },
+  "authorization_validation": {
+    "user_already_exists": "L'utilisateur existe déjà",
+    "required_fields": "Veuillez remplir tous les champs requis.",
+    "username_short": "Le nom d'utilisateur doit comporter au moins 3 caractères.",
+    "username_numeric_start": "Le nom d'utilisateur ne doit pas commencer par un chiffre.",
+    "password_short": "Le mot de passe doit contenir au moins 6 caractères.",
+    "invalid_credentials": "Identifiants invalides.",
+    "login_successful": "Connexion réussie.",
+    "registration_successful": "Inscription réussie.",
+    "pnr_numeric": "Le numéro personnel doit être un nombre.",
+    "email_invalid": "Veuillez entrer une adresse e-mail valide.",
+    "login_error": "Une erreur s'est produite lors de la connexion.",
+    "registration_error": "Une erreur s'est produite lors de l'inscription."
+  }
+}

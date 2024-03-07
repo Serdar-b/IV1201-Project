@@ -59,7 +59,9 @@ describe("ApplicationController Tests", () => {
             .send(applicationData);
       
           expect(response.statusCode).toBe(200);
-          expect(response.body).toHaveProperty("message", "Application submitted successfully");
+          //expect(response.body).toHaveProperty("message", "Application submitted successfully");
+          expect(response.body).toHaveProperty("message", "application_validation.application_submitted");
+
         });
       });
       
@@ -100,7 +102,8 @@ describe("ApplicationController Tests", () => {
         .send(statusData);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body).toHaveProperty("message", "Application status updated successfully");
+      // expect(response.body).toHaveProperty("message", "Application status updated successfully");
+      expect(response.body).toHaveProperty("message", "application_validation.status_updated");
     });
   });
 });

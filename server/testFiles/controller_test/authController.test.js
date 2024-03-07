@@ -21,7 +21,8 @@ describe("AuthController Tests", () => {
       const response = await request(server).post("/register").send(registerData);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body).toHaveProperty("message", "Registration successful");
+      // expect(response.body).toHaveProperty("message", "Registration successful");
+      expect(response.body).toHaveProperty("message", "authorization_validation.registration_successful");
     });
 
     it("should respond with 409 if the user already exists", async () => {
@@ -46,7 +47,8 @@ describe("AuthController Tests", () => {
         });
   
         expect(response.statusCode).toBe(409);
-        expect(response.body).toHaveProperty("message", "User already exists");
+        // expect(response.body).toHaveProperty("message", "User already exists");
+        expect(response.body).toHaveProperty("message", "authorization_validation.user_already_exists");
       });
     
 
