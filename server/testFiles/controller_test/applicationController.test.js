@@ -2,11 +2,6 @@ const request = require("supertest");
 const { server } = require("../../server");
 const pool = require("../../db");
 
-// const testUser = {
-//   username: "user",
-//   password: "123456"
-// };
-
 /**
  * Test setup for application controller. Includes a test user for authentication and defines token and personId variables.
  */

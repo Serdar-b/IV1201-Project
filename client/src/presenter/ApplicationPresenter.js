@@ -20,7 +20,6 @@ const ApplicationPresenter = () => {
     // Fetch competences when the component mounts
     const fetchCompetences = async () => {
       try {
-        // const response = await fetch("http://localhost:5001/apply", {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
           method: "GET",
           headers: {
@@ -82,7 +81,7 @@ const ApplicationPresenter = () => {
     const availability = [{ fromDate, toDate }];
     const token = localStorage.getItem('token');
     try {
-      // const response = await fetch("http://localhost:5001/apply", {
+      
       const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
         method: "POST",
         headers: {

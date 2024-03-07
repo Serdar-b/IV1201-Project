@@ -12,8 +12,8 @@ import i18n from "i18next";
 
 const RegisterPresenter = () => {
   const [registerStatus, setRegisterStatus] = useState({
-    isRegistered: false, // Tracks whether the user has been registered
-    message: "", // Message to display based on registration success/failure
+    isRegistered: false, 
+    message: "", 
   });
 
   const { t } = useTranslation();
@@ -69,7 +69,6 @@ const RegisterPresenter = () => {
     }
 
     try {
-      // const response = await fetch("http://localhost:5001/register", {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
         method: "POST",
         headers: {

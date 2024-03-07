@@ -1,5 +1,13 @@
+/**
+ * Load environment variables from .env file
+ */
 require("dotenv").config();
 
+/**
+ * Set up the backend server with necessary modules:
+ * Import the express module to create an Express application for the backend server.
+ * This server handles the API requests for user authentication, application processing, and other backend functionalities.
+ */
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authController = require("./controller/authController");
@@ -11,6 +19,12 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cookieParser());
+
+
+/** 
+ * Import the CORS middleware to enable Cross-Origin Resource Sharing for the application,
+ * allowing the frontend to communicate with the backend server from different origins.
+ */
 
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,

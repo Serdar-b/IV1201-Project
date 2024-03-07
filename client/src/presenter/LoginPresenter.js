@@ -56,7 +56,6 @@ const LoginPresenter = () => {
       console.log('API URL:', process.env.REACT_APP_API_URL);
 
       const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
-        // const response = await fetch("http://localhost:5001/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

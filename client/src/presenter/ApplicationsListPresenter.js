@@ -31,7 +31,7 @@ const ApplicationsListPresenter = () => {
   const fetchCompetences = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/apply`, {
-      // const response = await fetch("http://localhost:5001/apply", {
+      
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const ApplicationsListPresenter = () => {
     try {
 
       const token = localStorage.getItem('token');
-      // const response = await fetch('http://localhost:5001/applications', {
+      
         const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
         method: 'GET',
         credentials: 'include', 
@@ -94,7 +94,7 @@ const ApplicationsListPresenter = () => {
     setFilteredApplications(filtered);
   }, [applications, searchTerm, selectedCompetences]);
 
-    // Handlers to be passed to the view
+    
     const handleSearchTermChange = (newSearchTerm) => {
       setSearchTerm(newSearchTerm);
     };
@@ -106,7 +106,6 @@ const ApplicationsListPresenter = () => {
     const handleStatusChange = async (status, person_id) => {
       try {
         const token = localStorage.getItem('token');
-        // const response = await fetch("http://localhost:5001/applications", {
           const response = await fetch(`${process.env.REACT_APP_API_URL}/applications`, {
           method: "POST",
           headers: {

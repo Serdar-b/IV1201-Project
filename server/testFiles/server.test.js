@@ -6,11 +6,6 @@ const pool = require("../db");
 const testUsername = `testuser_${Date.now()}`;
 const testEmail = `testuser_${Date.now()}@example.com`;
 
-// const mockUser = {
-//   username: "user",
-//   password: "123456"
-// };
-
 const mockUser = {
   username: "user40",
   password: "Test121212"
