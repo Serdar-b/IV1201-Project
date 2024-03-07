@@ -125,7 +125,7 @@
         "username_short": "Username must be at least 3 characters long.",
         "username_numeric_start": "Username must not start with a number.",
         "password_short": "Password must be at least 6 characters long.",
-        "invalid_credentials": "Invalid credentials.zzz",
+        "invalid_credentials": "Invalid credentials.",
         "login_successful": "Login successful.",
         "registration_successful": "Registration successful.",
         "pnr_numeric": "PNR must be a number.",

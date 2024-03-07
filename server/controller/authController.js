@@ -103,6 +103,9 @@ const register = async (req, res) => {
       return res.status(400).send({ success: false, message: "authorization_validation.username_short" });
     }
 
+    if (!isNaN(username.charAt(0))) {
+      return res.status(400).json({ success: false, message: "authorization_validation.username_numeric_start" });
+    }
     if (!password || password.length < 6) {
       return res.status(400).send({ success: false, message: "authorization_validation.password_short" });
     }
@@ -137,6 +140,7 @@ const register = async (req, res) => {
       pnr,
       email,
       password: hashedPassword,
+      pswLength: password.length,
       username,
     });
 
@@ -152,9 +156,10 @@ const register = async (req, res) => {
     }
   } catch (error) {
    
-    if (client) {
+    // if (client) 
+    // {
       await client.query('ROLLBACK');
-    }
+    // }
 
     if (error.message === "authorization_validation.username_short" || 
     error.message === "authorization_validation.password_short") {

@@ -80,7 +80,8 @@ const createUser = async (client, userData) => {
   if (!userData.username || userData.username.length < 3) {
     throw new Error("authorization_validation.username_short");
   }
-  if (!userData.password || userData.password.length < 6) {
+  
+  if (userData.pswLength < 6) {
     throw new Error("authorization_validation.password_short");
   }
   if (isNaN(userData.pnr) || userData.pnr.includes(".")) {
