@@ -37,17 +37,17 @@ const login = async (req, res) => {
     
     await client.query('BEGIN');
     
-    const user = await userDAO.findUserByUsername(username);
+    const user = await userDAO.findUserByUsername(client, username);
 
     if (!user) {
-      await userDAO.logFailedAttempt(client, null, null, null, "User not found", userAgent, ipAddress);
+      await userDAO.logFailedAttempt( null, null, null, "User not found", userAgent, ipAddress);
       await client.query('ROLLBACK');
       return res.status(401).json({ success: false, message: "authorization_validation.invalid_credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      await userDAO.logFailedAttempt(client, null, null, username, "Entered wrong password", userAgent, ipAddress);
+      await userDAO.logFailedAttempt( null, null, username, "Entered wrong password", userAgent, ipAddress);
       await client.query('ROLLBACK');
       return res.status(401).json({ success: false, message: "authorization_validation.invalid_credentials" });
     }
@@ -123,10 +123,10 @@ const register = async (req, res) => {
   try {
     await client.query('BEGIN');
 
-    const existingUser = await userDAO.findUserByUsernameOrEmail(username, email);
+    const existingUser = await userDAO.findUserByUsernameOrEmail(client, username, email);
 
     if (existingUser) {
-      
+      await client.query('ROLLBACK');
       return res.status(409).json({ success: false, message: "authorization_validation.user_already_exists" });
     }
 
@@ -150,7 +150,7 @@ const register = async (req, res) => {
     } else {
       
       const logMessage = "Could not register user";
-      await userDAO.logFailedAttempt(client, null, email, username, logMessage, userAgent, ipAddress);
+      await userDAO.logFailedAttempt( null, email, username, logMessage, userAgent, ipAddress);
       await client.query('ROLLBACK');
       res.status(500).json({ success: false, message: logMessage });
     }
@@ -172,7 +172,7 @@ const register = async (req, res) => {
     }
     else{
       console.error('Registration error:', error);
-      await userDAO.logFailedAttempt(client, null, email, username, error.message, userAgent, ipAddress);
+      await userDAO.logFailedAttempt( null, email, username, error.message, userAgent, ipAddress);
       res.status(500).json({ success: false, message: "authorization_validation.registration_error" });
     }
   } finally {

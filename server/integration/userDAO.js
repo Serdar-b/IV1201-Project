@@ -8,7 +8,7 @@ const User = require("../model/User");
  * @throws Will throw an error if the username starts with a number or is too short.
  * @returns {User|null} The found user as a User object or null if not found.
  */
-const findUserByUsername = async (username) => {
+const findUserByUsername = async (client, username) => {
 
   if (!isNaN(username.charAt(0))) {
     throw new Error("authorization_validation.username_numeric_start");
@@ -21,14 +21,14 @@ const findUserByUsername = async (username) => {
   const values = [username];
 
   try {
-    const res = await pool.query(query, values);
+    const res = await client.query(query, values);
     if (res.rows.length > 0) {
       return new User(res.rows[0]);
     }
     return null;
   } catch (err) {
     console.error("Error executing query", err.stack);
-    return null;
+    throw err;
   }
 };
 
@@ -39,7 +39,7 @@ const findUserByUsername = async (username) => {
  * @throws Will throw an error if the username starts with a number, the email format is incorrect, or the username is too short.
  * @returns {User|null} The found user as a User object or null if not found.
  */
-const findUserByUsernameOrEmail = async (username, email) => {
+const findUserByUsernameOrEmail = async (client, username, email) => {
 
   if (!isNaN(username.charAt(0))) {
     throw new Error("authorization_validation.username_numeric_start");
@@ -56,7 +56,7 @@ const findUserByUsernameOrEmail = async (username, email) => {
   const values = [username, email];
 
   try {
-    const res = await pool.query(query, values);
+    const res = await client.query(query, values);
     if (res.rows.length > 0) {
       return new User(res.rows[0]);
     }
@@ -64,7 +64,7 @@ const findUserByUsernameOrEmail = async (username, email) => {
   } catch (err) {
     
     console.error("Error executing query", err.stack);
-    return null;
+    throw err;
   }
 };
 
@@ -90,23 +90,29 @@ const createUser = async (client, userData) => {
   if (!userData.email.includes("@") || !userData.email.includes(".")) {
     throw new Error("authorization_validation.email_invalid");
   }
-  const insertUserText = `
-    INSERT INTO public.person (name, surname, pnr, email, password, role_id, username)
-    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
-  `;
-  const roleId = 2; 
-  const insertUserValues = [
-    userData.name,
-    userData.surname,
-    userData.pnr,
-    userData.email,
-    userData.password,
-    roleId,
-    userData.username,
-  ];
-
-  const userResult = await client.query(insertUserText, insertUserValues);
-  return { success: true, user: userResult.rows[0] };
+  try {
+    
+    const insertUserText = `
+      INSERT INTO public.person (name, surname, pnr, email, password, role_id, username)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
+    `;
+    const roleId = 2; 
+    const insertUserValues = [
+      userData.name,
+      userData.surname,
+      userData.pnr,
+      userData.email,
+      userData.password,
+      roleId,
+      userData.username,
+    ];
+  
+    const userResult = await client.query(insertUserText, insertUserValues);
+    return { success: true, user: userResult.rows[0] };
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+    throw err;
+  }
 };
 
 /**
@@ -120,15 +126,23 @@ const createUser = async (client, userData) => {
  * @param {string} ipAddress - The IP address of the client making the request.
  * @throws Will throw an error if a database error occurs during the logging.
  */
-const logFailedAttempt = async (client, personId, email, username, reason, userAgent, ipAddress) => {
-  
-  const insertText = `
-    INSERT INTO logs (person_id, email, username, reason, user_agent, ip_address)
-    VALUES ($1, $2, $3, $4, $5, $6)
-  `;
-  const insertValues = [personId, email, username, reason, userAgent, ipAddress];
-  
-  await client.query(insertText, insertValues);
+
+const logFailedAttempt = async (personId, email, username, reason, userAgent, ipAddress) => {
+  const client = await pool.connect(); 
+  try {
+    const insertText = `
+      INSERT INTO logs (person_id, email, username, reason, user_agent, ip_address)
+      VALUES ($1, $2, $3, $4, $5, $6)
+    `;
+    const insertValues = [personId, email, username, reason, userAgent, ipAddress];
+    
+    await client.query(insertText, insertValues);
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+    throw new Error('Failed to log the attempt due to a database error.');
+  } finally {
+    client.release(); 
+  }
 };
 
 module.exports = {

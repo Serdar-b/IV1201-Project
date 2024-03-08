@@ -16,7 +16,7 @@ let personId;
  */
 beforeAll(async () => {
   client = await pool.connect();
-  const testUser = await userDAO.findUserByUsername('user40');
+  const testUser = await userDAO.findUserByUsername(client, 'user40');
   personId = testUser.person_id;
 });
 
