@@ -69,6 +69,7 @@ const submitApplication = async (req, res) => {
       // a generic error message
       console.error('Error submitting application:', error);
       res.status(500).json({ success: false, message: "application_validation.error_submitting_application" });
+      await client.query('ROLLBACK');
     }
   } finally {
     client.release();  
